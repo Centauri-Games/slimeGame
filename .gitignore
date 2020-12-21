@@ -69,3 +69,4 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /SlimeGame/[Aa]ssets/[Ss]treamingAssets/aa.meta
 /SlimeGame/[Aa]ssets/[Ss]treamingAssets/aa/*
+SlimeGame/Packages/packages-lock.json
