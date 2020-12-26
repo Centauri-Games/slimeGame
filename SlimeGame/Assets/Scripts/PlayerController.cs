@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Cinemachine;
 public class PlayerController : MonoBehaviour
 {
 
@@ -54,10 +55,24 @@ public class PlayerController : MonoBehaviour
 
         id = GetComponent<PhotonView>();
 
-        staminaBar = new Rect(Screen.width/10, Screen.height * 9 / 10, Screen.width/3, Screen.height/50);
-        staminaTex = new Texture2D(1, 1);
-        staminaTex.SetPixel(0, 0, Color.blue);
-        staminaTex.Apply();
+        if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
+        {
+            staminaBar = new Rect(Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
+            staminaTex = new Texture2D(1, 1);
+            staminaTex.SetPixel(0, 0, Color.blue);
+            staminaTex.Apply();
+        }
+
+    }
+
+    void Start()
+    {
+
+        if (!id.IsMine)
+        {
+            Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
+            Destroy(GetComponentInChildren<Rigidbody>());
+        }
     }
 
     // Update is called once per frame
@@ -146,6 +161,7 @@ public class PlayerController : MonoBehaviour
         moveInput.y += gravity * Time.deltaTime;
         characterController.Move(moveInput * Time.deltaTime);
     }
+
     public void handleCamera()
     {
 
@@ -197,10 +213,13 @@ public class PlayerController : MonoBehaviour
 
     void OnGUI()
     {
-        float ratio = climbStamina / maxClimbSt;
-        float barWidth = ratio * Screen.width / 3;
-        staminaBar.width = barWidth;
-        GUI.DrawTexture(staminaBar, staminaTex);
+        if (id.IsMine)
+        {
+            float ratio = climbStamina / maxClimbSt;
+            float barWidth = ratio * Screen.width / 3;
+            staminaBar.width = barWidth;
+            GUI.DrawTexture(staminaBar, staminaTex);
+        }
     }
 
 }
