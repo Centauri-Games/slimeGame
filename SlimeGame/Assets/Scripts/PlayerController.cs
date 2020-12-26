@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class PlayerController : MonoBehaviour
 {
+
+    //Photon
+    PhotonView id;
 
     public Transform cam;
 
@@ -49,6 +52,8 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         climbStamina = maxClimbSt;
 
+        id = GetComponent<PhotonView>();
+
         staminaBar = new Rect(Screen.width/10, Screen.height * 9 / 10, Screen.width/3, Screen.height/50);
         staminaTex = new Texture2D(1, 1);
         staminaTex.SetPixel(0, 0, Color.blue);
@@ -58,6 +63,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!id.IsMine) return;
+
         handleMove();
         handleJump();
         handleCamera();
@@ -171,7 +178,7 @@ public class PlayerController : MonoBehaviour
         {
             enableClimb();
         }
-        if(go.CompareTag("Bounce"))
+        if(go.CompareTag("Bounce")) //Rebote
         {
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput*Time.deltaTime);
