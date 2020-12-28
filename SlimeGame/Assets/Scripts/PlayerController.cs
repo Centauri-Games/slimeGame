@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Cinemachine;
-public class PlayerController : MonoBehaviour
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using ExitGames.Client.Photon;
+using Photon.Realtime;
+
+public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
 
     //Photon
     PhotonView id;
+    PlayerManager pm;
 
     public Transform cam;
 
@@ -34,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public float minimumY = -60f;
     public float maximumY = 60f;
 
+    Transform cameraHolder;
+
     float rotationY = 0f;
 
 
@@ -47,13 +54,24 @@ public class PlayerController : MonoBehaviour
     Rect staminaBar;
     Texture2D staminaTex;
 
+    //Weapons
+    [SerializeField] Item[] items;
+    int itemIndex;
+    int previousItemIndex = -1;
+
+    //HP
+    const float maxHealth = 100f;
+    float currentHealth = maxHealth;
+
     public void Awake()
     {
 
         characterController = GetComponent<CharacterController>();
         climbStamina = maxClimbSt;
+        cameraHolder = transform.GetChild(0);
 
         id = GetComponent<PhotonView>();
+        pm = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<PlayerManager>();   //Busca el playerManager de la escena, dado su PhotonID
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
         {
@@ -68,7 +86,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        if (!id.IsMine)
+        if (id.IsMine)
+        {
+            ChangeItem(0);  //Inicia con la pistola de agua
+        }
+        else    //Si no es el jugador local: destruye el rb y el manejador de cinemachine
         {
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
             Destroy(GetComponentInChildren<Rigidbody>());
@@ -83,6 +105,9 @@ public class PlayerController : MonoBehaviour
         handleMove();
         handleJump();
         handleCamera();
+        handleWeaponChange();
+        handleShoot();
+        handleLimits();
     }
 
     public void handleMove()
@@ -171,8 +196,92 @@ public class PlayerController : MonoBehaviour
         rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
-        transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
 
+        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY*0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+
+        cameraHolder.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);   //Se rota el cameraTarget para la vision superior e inferior
+        transform.localEulerAngles = new Vector3(0, rotationX, 0);   //El jugador rota para la vision lateral
+
+    }
+
+    void handleShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            items[itemIndex].Use();
+        }
+    }
+
+    void handleLimits()
+    {
+        if(transform.position.y < -20f)
+        {
+            Die();
+        }
+    }
+
+    void handleWeaponChange()
+    {
+        for(int i=0; i< items.Length; i++)
+        {
+            if (Input.GetKeyDown((i + 1).ToString()))
+            {
+                ChangeItem(i);
+            }
+        }
+
+        if(Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        {
+            if(itemIndex >= items.Length - 1)
+            {
+                ChangeItem(0);
+            }
+            else
+            {
+                ChangeItem(itemIndex + 1);
+            }
+            
+        }
+        else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            if (itemIndex <= 0)
+            {
+                ChangeItem(items.Length -1);
+            }
+            else
+            {
+                ChangeItem(itemIndex -1);
+            }
+        }
+    }
+    void ChangeItem(int itemId)
+    {
+        if (itemId == previousItemIndex) return;
+
+        itemIndex = itemId;
+        items[itemIndex].itemGameObject.SetActive(true);
+
+        if(previousItemIndex != -1)
+        {
+            items[previousItemIndex].itemGameObject.SetActive(false);
+        }
+
+        previousItemIndex = itemIndex;
+
+        if (id.IsMine)      //Sincronizacion del arma actual
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("itemIndex", itemIndex);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (!id.IsMine && targetPlayer == id.Owner)   //Si es el jugador que ha cambiado el arma y no es el local
+        {
+            ChangeItem((int)changedProps["itemIndex"]);
+        }
     }
 
     public void enableClimb()
@@ -185,7 +294,7 @@ public class PlayerController : MonoBehaviour
         canClimb = false;
     }
 
-    
+
     public void OnCollisionEnter(Collision collision)
     {
         GameObject go = collision.gameObject;
@@ -222,6 +331,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float dmg)
+    {
+        id.RPC("RPC_TakeDamage", RpcTarget.All, dmg);   //Lo lanza a todas las instancias de este jugador
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float dmg)
+    {
+        if (!id.IsMine) return; //Solo se ejecuta en el ordenador del jugador alcanzado
+
+        currentHealth -= dmg;
+        Debug.Log("Took Damage: " + dmg);
+
+        if (currentHealth <= 0) Die();
+    }
+
+    void Die()
+    {
+        pm.Die();
+    }
 }
 
 
