@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/DemoHub-Scene.unity
     guid: 7dfd47dc8b9484dd79d8636d8603a9e5
   - enabled: 0
-    path: Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity
-    guid: ec07267f6a28fb044ac89845274e79af
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/DemoLoadBalancing-Scene.unity
-    guid: a73b0cac1a73cc346aaeb5f8dd0b53f1
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
     guid: 98efc37d6307844488eb3e4247dde7e9
@@ -51,7 +51,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
     guid: 711b38c07f2cf904f81b3422c67f1825
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/GameMenu.unity
+    guid: 37972416aab306a418ed44e72c32e722
+  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 0e61659a6a6e7624b9fd99044263e7d6
   - enabled: 1
