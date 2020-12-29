@@ -1463,6 +1463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderVolume: {fileID: 1330432726}
   sliderSensitivity: {fileID: 1600629728}
+  "espa\xF1ol": {fileID: 234250316}
+  english: {fileID: 1946755544}
 --- !u!1 &815659479
 GameObject:
   m_ObjectHideFlags: 0
