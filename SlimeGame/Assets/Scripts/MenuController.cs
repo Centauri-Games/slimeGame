@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        
+        AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
     }
 
     // Update is called once per frame
