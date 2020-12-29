@@ -8,4 +8,6 @@ public class Plunger : Gun
     {
         Debug.Log("Using gun " + itemInfo.itemName);
     }
+
+    public override void End(){}
 }

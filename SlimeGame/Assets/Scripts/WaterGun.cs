@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class WaterGun : Gun
 {
+    [SerializeField] ParticleSystem waterJet;
+
+    public void Awake()
+    {
+        waterJet.Stop();
+    }
     public override void Use()
     {
-        Debug.Log("Using gun " + itemInfo.itemName);
         Shoot();
     }
 
     void Shoot()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        ray.origin = transform.position;    //Origen en el arma
+        waterJet.Play();
+    }
 
-        if(Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Debug.Log("We hit " + hit.collider.gameObject.name);
 
-            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-        }
+    public override void End()
+    {
+        waterJet.Stop();
     }
 }

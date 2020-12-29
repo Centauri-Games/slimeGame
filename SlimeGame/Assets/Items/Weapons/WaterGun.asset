@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WaterGun
   m_EditorClassIdentifier: 
   itemName: WaterGun
-  damage: 10
+  damage: 0.2

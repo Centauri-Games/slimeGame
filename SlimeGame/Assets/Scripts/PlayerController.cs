@@ -208,9 +208,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (Input.GetMouseButtonDown(0))
         {
-            items[itemIndex].Use();
+            id.RPC("RPC_Shoot", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            id.RPC("RPC_End", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
         }
     }
+
+    [PunRPC]
+    void RPC_Shoot()
+    {
+        items[itemIndex].Use();
+    }
+
+    [PunRPC]
+    void RPC_End()
+    {
+        items[itemIndex].End();
+    }
+
+
 
     void handleLimits()
     {
@@ -333,6 +351,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void TakeDamage(float dmg)
     {
+        Debug.Log("Me hizo pupita");
         id.RPC("RPC_TakeDamage", RpcTarget.All, dmg);   //Lo lanza a todas las instancias de este jugador
     }
 
