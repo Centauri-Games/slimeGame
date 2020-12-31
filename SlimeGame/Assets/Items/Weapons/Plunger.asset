@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Plunger
   m_EditorClassIdentifier: 
   itemName: Plunger
-  damage: 30
+  damage: 35
