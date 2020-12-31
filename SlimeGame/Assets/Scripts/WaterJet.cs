@@ -25,7 +25,6 @@ public class WaterJet : MonoBehaviour
         {
             if (other.tag == "Player" && other != currentPlayer)  //Si el jugador alcanzado no es el mio 
             {
-                Debug.Log("me reventaste el orto putooo");
                 int collCount = waterJet.GetSafeCollisionEventSize();
                 int eventCount = waterJet.GetCollisionEvents(other, collisionEvents);
 
