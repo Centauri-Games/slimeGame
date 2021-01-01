@@ -9,30 +9,47 @@ public class Plunger : Gun
     [SerializeField] GameObject currentPlayer;
     [SerializeField] float attackRange = 1.5f;
     Ray ray;
+
+    float currentWait;
+    float delay = 0.5f;
+    bool used = false;
     void Start()
     {
         //attackAnim = plunger.GetComponent<Animator>();
-        ray = new Ray();
+
+        currentWait = 0.0f;
     }
 
     void Update()
     {
-        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        if (used)
+        {
+            currentWait += Time.deltaTime;
+            if (currentWait >= delay)
+            {
+                currentWait = 0.0f;
+                used = false;
+            }
+        }
     }
     public override void Use()
     {
-        //Play animation hitting
-        Debug.Log("Using gun " + itemInfo.itemName);
-
-        //Raycast para detectar si está delante y cerca
-        ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward);
-
-        if(Physics.Raycast(ray, out RaycastHit hit, attackRange))
+        if (!used)
         {
-            Debug.Log("Alguien");
-            if (hit.collider.gameObject.CompareTag("Player") && hit.collider.gameObject!=currentPlayer)
+            used = true;
+            //Play animation hitting
+            Debug.Log("Using gun " + itemInfo.itemName);
+
+            //Raycast para detectar si está delante y cerca
+            ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
             {
-                hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+                Debug.Log("Alguien");
+                if (hit.collider.gameObject.CompareTag("Player") && hit.collider.gameObject != currentPlayer)
+                {
+                    hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+                }
             }
         }
     }

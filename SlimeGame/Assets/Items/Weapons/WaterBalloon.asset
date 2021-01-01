@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WaterBalloon
   m_EditorClassIdentifier: 
   itemName: WaterBalloon
-  damage: 5
+  damage: 60

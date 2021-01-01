@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         id = GetComponent<PhotonView>();
         pm = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<PlayerManager>();   //Busca el playerManager de la escena, dado su PhotonID
 
+        characterController.detectCollisions = false;   //Ya lo detecta el collider propio
+
         if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
         {
             staminaBar = new Rect(Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
@@ -93,7 +95,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         else    //Si no es el jugador local: destruye el rb y el manejador de cinemachine
         {
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
-            Destroy(GetComponentInChildren<Rigidbody>());
         }
     }
 

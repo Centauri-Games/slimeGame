@@ -6,7 +6,7 @@ public class WaterGun : Gun
 {
     [SerializeField] ParticleSystem waterJet;
 
-    public void Awake()
+    public void Start()
     {
         waterJet.Stop();
     }
@@ -22,6 +22,11 @@ public class WaterGun : Gun
 
 
     public override void End()
+    {
+        waterJet.Stop();
+    }
+
+    private void OnEnable()
     {
         waterJet.Stop();
     }

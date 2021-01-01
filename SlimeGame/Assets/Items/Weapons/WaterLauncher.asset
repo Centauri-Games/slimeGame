@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ebde6c163656894eaf272c2c869fc48, type: 3}
-  m_Name: DuckLauncher
+  m_Name: WaterLauncher
   m_EditorClassIdentifier: 
-  itemName: DuckLauncher
-  damage: 50
+  itemName: WaterLauncher
+  damage: -1
