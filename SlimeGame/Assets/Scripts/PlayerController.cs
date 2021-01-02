@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         pm = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<PlayerManager>();   //Busca el playerManager de la escena, dado su PhotonID
 
         characterController.detectCollisions = false;   //Ya lo detecta el collider propio
+        ChangeItem(0);  //Activa la pistola de agua
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
         {
@@ -294,6 +295,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         itemIndex = itemId;
         items[itemIndex].itemGameObject.SetActive(true);
 
+        if(itemIndex == 0)
+        {
+            ((WaterGun)items[itemIndex]).Stop();
+        }
+
         if(previousItemIndex != -1)
         {
             items[previousItemIndex].itemGameObject.SetActive(false);
@@ -336,10 +342,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             enableClimb();
         }
-        if(go.CompareTag("Bounce")) //Rebote
+        else if(go.CompareTag("Bounce")) //Rebote
         {
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput*Time.deltaTime);
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        GameObject go = other.gameObject;
+        if (go.GetComponent<AmmoRecharge>() != null)
+        {
+            ((WaterGun)items[0]).Recharge();    //Si es un objeto de munición
         }
     }
 

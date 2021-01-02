@@ -5476,6 +5476,8 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 5d648ab98a9df4a49a0a020dc7e3bb0e, type: 2}
   itemGameObject: {fileID: 8822367462296171241}
   waterJet: {fileID: 6415282188704408573}
+  ammo: 0
+  totalAmmo: 100
 --- !u!114 &8582985399046806823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5529,7 +5531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &891937703858612086
 Transform:
   m_ObjectHideFlags: 0
