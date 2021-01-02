@@ -14,6 +14,17 @@ public class WaterBalloon : Gun
     float countdown;
     bool hasExploded = false;
 
+    PhotonView id;
+
+    void Awake()
+    {
+        id = GetComponent<PhotonView>();
+        if (!id.IsMine)
+        {
+            Debug.Log("No es mio");
+            Destroy(GetComponent<Rigidbody>());
+        }
+    }
     private void Start()
     {
         countdown = delay;
@@ -21,11 +32,14 @@ public class WaterBalloon : Gun
 
     private void Update()
     {
-        countdown -= Time.deltaTime;
-        if(countdown <= 0 && !hasExploded)
+        if (id.IsMine)
         {
-            hasExploded = true;
-            Explode();
+            countdown -= Time.deltaTime;
+            if (countdown <= 0 && !hasExploded)
+            {
+                hasExploded = true;
+                Explode();
+            }
         }
     }
     public override void Use()
@@ -35,6 +49,7 @@ public class WaterBalloon : Gun
 
     void Explode()
     {
+
         //Show particles water
         PhotonNetwork.Instantiate(Path.Combine("SimpleFX", "Prefabs", "FX_BlueExplosion"), transform.position, transform.rotation);
         //Check nearby objects 
@@ -49,6 +64,11 @@ public class WaterBalloon : Gun
             }
         }
         //Destroy gameobject
+        id.RPC("RPC_Destroy", RpcTarget.All);
+    }
+    [PunRPC]
+    void RPC_Destroy()
+    {
         Destroy(gameObject);
     }
 

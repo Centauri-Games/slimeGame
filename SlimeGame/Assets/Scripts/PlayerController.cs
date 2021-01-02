@@ -209,11 +209,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (Input.GetMouseButtonDown(0))
         {
-            id.RPC("RPC_Shoot", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            if (itemIndex == 0)
+            {
+                id.RPC("RPC_Shoot", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            }
+            else
+            {
+                RPC_Shoot();
+            }
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            id.RPC("RPC_End", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            if (itemIndex == 0) //Si es la pistola de agua
+            {
+                id.RPC("RPC_End", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            }
+            else
+            {
+                RPC_End();
+            }
         }
     }
 

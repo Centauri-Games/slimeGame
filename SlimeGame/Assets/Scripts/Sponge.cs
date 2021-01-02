@@ -11,6 +11,17 @@ public class Sponge : Gun
 
     bool isFixed = false;
 
+    PhotonView id;
+
+    void Awake()
+    {
+        id = GetComponent<PhotonView>();
+        if (!id.IsMine)
+        {
+            Debug.Log("No es mio");
+            Destroy(GetComponent<Rigidbody>());
+        }
+    }
     public override void Use()
     {
 
@@ -18,6 +29,7 @@ public class Sponge : Gun
 
     void Explode()
     {
+
         //Show particles water
         PhotonNetwork.Instantiate(Path.Combine("SimpleFX", "Prefabs", "FX_BlueExplosion"), transform.position, transform.rotation);
         //Check nearby objects 
@@ -32,26 +44,35 @@ public class Sponge : Gun
             }
         }
         //Destroy gameobject
-        Destroy(gameObject);
+        //Destroy gameobject
+        id.RPC("RPC_Destroy", RpcTarget.All);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.CompareTag("Player"))
+        if (id.IsMine)
         {
-            if (isFixed)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                Explode();
+                if (isFixed)
+                {
+                    Explode();
+                }
+            }
+            else
+            {
+                if (!isFixed)
+                {
+                    isFixed = true;
+                    GetComponent<Rigidbody>().isKinematic = true;
+                }
             }
         }
-        else
-        {
-            if (!isFixed) {
-                isFixed = true;
-                GetComponent<Rigidbody>().isKinematic = true;
-            }
-        }
+    }
+    [PunRPC]
+    void RPC_Destroy()
+    {
+        Destroy(gameObject);
     }
     public override void End(){}
 }
