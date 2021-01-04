@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.IO;
 
-public class AmmoManager : MonoBehaviour
+public class AmmoManager : MonoBehaviourPunCallbacks
 {
 
     PhotonView id;
@@ -22,6 +22,11 @@ public class AmmoManager : MonoBehaviour
     {
         spawns = GetComponentsInChildren<Spawnpoint>();
         ammoSpawned = new bool[spawns.Length];
+        if (PhotonNetwork.IsMasterClient)
+        {
+            for (int i = 0; i < spawns.Length; i++)
+                spawnAmmo(i);
+        }
     }
 
 
@@ -35,6 +40,8 @@ public class AmmoManager : MonoBehaviour
             ammoSpawned[pos] = true;
         }
     }
+
+    
 
     void restoreAmmo()
     {

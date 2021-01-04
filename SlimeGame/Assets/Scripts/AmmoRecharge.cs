@@ -12,6 +12,7 @@ public class AmmoRecharge : MonoBehaviour
 
     void Awake()
     {
+        id = GetComponent<PhotonView>();
         am = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<AmmoManager>(); //Get Ammomanager
         position = (int)id.InstantiationData[1];
     }

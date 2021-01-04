@@ -7,6 +7,7 @@ public class ShowOptions : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject options;
+    [SerializeField] GameObject ingame;
     void Start()
     {
         
@@ -17,9 +18,11 @@ public class ShowOptions : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Escape)){
             if(!options.active){
-                options.SetActive(true);   
+                options.SetActive(true);
+                ingame.SetActive(false);
             }else {
-                options.SetActive(false);   
+                options.SetActive(false);
+                ingame.SetActive(true);
             }
             
         }

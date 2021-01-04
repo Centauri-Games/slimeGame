@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
 
+    GameManager gm;
+
     public void Awake()
     {
 
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             staminaTex.Apply();
         }
 
+        
     }
 
     void Start()
@@ -95,6 +98,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         }
         else    //Si no es el jugador local: destruye el rb y el manejador de cinemachine
         {
+            gm = FindObjectOfType<GameManager>();
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
         }
     }
@@ -401,6 +405,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if(killer != null)
             Debug.Log("Muerto por: " + killer.NickName);    //Nickname del jugador que le ha matado
 
+        gm.UpdateScore(killer);
         pm.Die();
     }
 }
