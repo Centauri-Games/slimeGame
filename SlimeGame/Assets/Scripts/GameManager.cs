@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static bool gameStarted = false;
 
     //Timer
-    double gameTimer = 10.0f;  //3 minutos
+    double gameTimer = 50.0f;  //3 minutos
     double elapsedTime = 0.0f;
     double startTime;
     double remainTime;
