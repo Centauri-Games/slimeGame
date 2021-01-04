@@ -6,7 +6,15 @@ using Photon.Pun;
 public class AmmoRecharge : MonoBehaviour
 {
     Vector3 rot = new Vector3(0f, 1f, 0.0f);
+    PhotonView id;
+    AmmoManager am;
+    int position;
 
+    void Awake()
+    {
+        am = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<AmmoManager>(); //Get Ammomanager
+        position = (int)id.InstantiationData[1];
+    }
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +26,7 @@ public class AmmoRecharge : MonoBehaviour
         GameObject go = other.gameObject;   //La caja de municion se encarga de destruirse al contacto
         if (go.CompareTag("Player"))
         {
+            am.ammoDestroyed(position);
             Destroy(gameObject);
         }
     }

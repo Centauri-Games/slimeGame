@@ -72,3 +72,5 @@ crashlytics-build.properties
 SlimeGame/Packages/packages-lock.json
 SlimeGame/Packages/packages-lock.json
 SlimeGame/Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
+SlimeGame/Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
+SlimeGame/Packages/packages-lock.json

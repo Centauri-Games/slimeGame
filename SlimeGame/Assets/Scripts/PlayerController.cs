@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if(transform.position.y < -20f)
         {
-            Die();
+            Die(null);
         }
     }
 
@@ -386,18 +386,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float dmg)
+    void RPC_TakeDamage(float dmg, PhotonMessageInfo info)
     {
         if (!id.IsMine) return; //Solo se ejecuta en el ordenador del jugador alcanzado
 
         currentHealth -= dmg;
         Debug.Log("Took Damage: " + dmg);
 
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0) Die(info.Sender);
     }
 
-    void Die()
+    void Die(Player killer)
     {
+        if(killer != null)
+            Debug.Log("Muerto por: " + killer.NickName);    //Nickname del jugador que le ha matado
+
         pm.Die();
     }
 }

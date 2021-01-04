@@ -50,6 +50,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Cliente master");
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AmmoSpawner"), new Vector3(-26.5f, 5.3f, -22.5f), Quaternion.identity);
+        }
     }
 
    
