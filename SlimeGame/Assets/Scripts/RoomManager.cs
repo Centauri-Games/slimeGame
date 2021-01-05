@@ -35,10 +35,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        /*
-        if (scene.buildIndex == 1)       //Sample Scene (Game)  Instanciar en las distintas escenas de partida en la que el jugador se une al juego
-        {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-        }*/
+        
     }
 }

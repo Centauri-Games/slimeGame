@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        
         base.OnPlayerEnteredRoom(newPlayer);
         playerNicks.Add(newPlayer.NickName);
         playersScore.Add(0);

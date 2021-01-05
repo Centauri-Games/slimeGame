@@ -48,6 +48,16 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    public void JoinRandom4Players()
+    {
+        //Connect();
+        maxPlayersInRoom = 4;
+        if (!PhotonNetwork.JoinRandomRoom())
+        {
+            Log.text += "\nHa ocurrido un error al unirse a la sala";
+        }
+    }
+
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
@@ -68,6 +78,10 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Log.text += "\nSe ha unido a la sala";
         JoinRandomBtn.interactable = false;
+        if(PhotonNetwork.IsMasterClient){
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
+      
     }
 
     public void FixedUpdate()
@@ -75,6 +89,9 @@ public class Lobby : MonoBehaviourPunCallbacks
         if(PhotonNetwork.CurrentRoom != null)
         {
             playerCounter = PhotonNetwork.CurrentRoom.PlayerCount;
+              if(PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient ){
+            PhotonNetwork.LoadLevel("SampleScene");
+        }
         }
 
         PlayerCounter.text = playerCounter + "/" + maxPlayersInRoom;

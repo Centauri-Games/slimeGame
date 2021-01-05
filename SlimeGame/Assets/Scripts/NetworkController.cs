@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class NetworkController : MonoBehaviourPunCallbacks
+public class NetworkController : MonoBehaviour//PunCallbacks
 {
     
     void Start()
     {
-        if (!PhotonNetwork.IsConnected)
+          
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GameManager"), Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Cliente master");
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AmmoSpawner"), new Vector3(-26.5f, 5.3f, -22.5f), Quaternion.identity);
+        }
+
+        /*if (!PhotonNetwork.IsConnected)
         {
             if (PhotonNetwork.ConnectUsingSettings())
             {
@@ -19,10 +28,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
             {
                 Debug.Log("\nSe ha producido un error de conexión");
             }
-        }
+        }*/
     }
 
-    public override void OnConnectedToMaster()      //ToDO: Toda la logica de este script meterla en las salas (menu) y el instantiate usarlo en RoomManager
+   /* public override void OnConnectedToMaster()      //ToDO: Toda la logica de este script meterla en las salas (menu) y el instantiate usarlo en RoomManager
     {
         Debug.Log("Connected to server: " + PhotonNetwork.CloudRegion);
         if (!PhotonNetwork.JoinRandomRoom())
@@ -47,7 +56,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedRoom()
-    {
+    {   
         base.OnJoinedRoom();
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GameManager"), Vector3.zero, Quaternion.identity);
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
@@ -58,6 +67,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-   
+   */
 }
 
