@@ -18,7 +18,6 @@ public class Sponge : Gun
         id = GetComponent<PhotonView>();
         if (!id.IsMine)
         {
-            Debug.Log("No es mio");
             Destroy(GetComponent<Rigidbody>());
         }
     }
@@ -31,14 +30,14 @@ public class Sponge : Gun
     {
 
         //Show particles water
-        PhotonNetwork.Instantiate(Path.Combine("SimpleFX", "Prefabs", "FX_BlueExplosion"), transform.position, transform.rotation);
+        PhotonNetwork.Instantiate(Path.Combine("Bubbles", "Prefabs", "Bubbles"), transform.position, Quaternion.Euler(-90f, 0f, 0f));
         //Check nearby objects 
         //If player-> take damage
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
-        foreach(Collider c in colliders)
+        foreach (Collider c in colliders)
         {
-            if (c.gameObject.CompareTag("Player") && c.GetType()!=typeof(CharacterController))
+            if (c.gameObject.CompareTag("Player") && c.GetType() != typeof(CharacterController))
             {
                 c.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
             }
@@ -74,5 +73,5 @@ public class Sponge : Gun
     {
         Destroy(gameObject);
     }
-    public override void End(){}
+    public override void End() { }
 }

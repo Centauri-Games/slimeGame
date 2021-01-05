@@ -9,7 +9,7 @@ public class WaterLauncher : Gun
     [SerializeField] float throwForce = 40f;
     string[] grenades = new string[3];
 
-    int currentType = 0;
+    int currentType = 1;
 
     PhotonView id;
 

@@ -403,10 +403,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void Die(Player killer)
     {
-        if(killer != null)
+        if (killer != null)
+        {
             Debug.Log("Muerto por: " + killer.NickName);    //Nickname del jugador que le ha matado
-
-        gm.UpdateScore(killer);
+            gm.UpdateScore(killer);
+        }
         pm.Die();
     }
 }

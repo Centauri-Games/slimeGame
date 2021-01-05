@@ -52,7 +52,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 2;
+        maxPlayersInRoom = 1;
         if (!PhotonNetwork.JoinRandomRoom())
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";

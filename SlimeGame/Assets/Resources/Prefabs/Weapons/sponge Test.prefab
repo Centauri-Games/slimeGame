@@ -127,7 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: aaf9962c443196f4eb4e5be073755961, type: 2}
   itemGameObject: {fileID: 4490966998510978823}
-  waterExplosion: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
+  waterExplosion: {fileID: 1000012696881832, guid: 0d1adb20421ed664b800c8cf3d103e70,
+    type: 3}
 --- !u!114 &7766848178129713123
 MonoBehaviour:
   m_ObjectHideFlags: 0
