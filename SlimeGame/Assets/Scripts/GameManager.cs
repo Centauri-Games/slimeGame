@@ -35,13 +35,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         id = GetComponent<PhotonView>();
 
-        timer = GameObject.Find("Timer").GetComponent<Text>();
-        Debug.Log(timer);
-
+        if (id.IsMine)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
     }
 
     void Start()
     {
+        timer = GameObject.Find("Timer").GetComponent<Text>();
+
         if (PhotonNetwork.IsMasterClient)
         {
             startTime = PhotonNetwork.Time;
@@ -52,20 +55,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerNicks = new List<string>();
         playersScore = new List<int>();
-        foreach(Player p in PhotonNetwork.PlayerList)
-        {
-            playerNicks.Add(p.NickName);
-            playersScore.Add(0);
+        foreach (Player p in PhotonNetwork.PlayerList)   //Esto funcionaria realmente porque el objeto ya estaría instanciado y la escena empezaria tras crearse la sala con todos los jugadores
+        {                                               //Ahora falla porque en el JoinRoom aun no está creado el objeto, asi que los primeros clientes no tendr
+            if (!playerNicks.Contains(p.NickName))
+            {
+                playerNicks.Add(p.NickName);
+                playersScore.Add(0);
+            }
         }
+        id.RPC("RPC_AddPlayer", RpcTarget.All);
 
-    }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        
-        base.OnPlayerEnteredRoom(newPlayer);
-        playerNicks.Add(newPlayer.NickName);
-        playersScore.Add(0);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -83,18 +83,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (id.IsMine)
         {
-            gameStarted = !gameStarted;
-            if (gameStarted)
+            object o;
+            if (propertiesThatChanged.TryGetValue("startTime", out o))
             {
-                startTime = (double)propertiesThatChanged["startTime"];
-            }
-            else
-            {
-                Debug.Log("Partida acabada");   //Cambiar a otra escena
-                for(int i= 0; i<playersScore.Count; i++)
-                {
-                    Debug.Log(playerNicks[i] + ": " + playersScore[i]);
-                }
+                gameStarted = true;
+                startTime = (double)o;
+
             }
         }
 
@@ -111,9 +105,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             if (remainTime <= 0 && PhotonNetwork.IsMasterClient)
             {
-                Hashtable hash = new Hashtable();
-                hash.Add("startTime", startTime);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+                EndGame();
             }
         }
     }
@@ -122,7 +114,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (id.IsMine && gameStarted)
         {
-            timer.text = (int)remainTime / 60 + ":" + (((int)remainTime) % 60).ToString("00");
+            int min = (int)remainTime / 60;
+            int secs = (((int)remainTime) % 60);
+            if (min < 0)
+            {
+                min = 0;
+            }
+            if (secs < 0)
+            {
+                secs = 0;
+            }
+            timer.text = min + ":" + secs.ToString("00");
         }
     }
 
@@ -136,5 +138,41 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         int index = playerNicks.IndexOf(killer);    //Mas una muerte en el marcador
         playersScore[index]++;
+    }
+
+    void EndGame()
+    {
+        id.RPC("RPC_EndGame", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RPC_EndGame()
+    {
+        gameStarted = false;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Partida acabada");   //Cambiar a otra escena
+            for (int i = 0; i < playersScore.Count; i++)
+            {
+                Debug.Log(playerNicks[i] + ": " + playersScore[i]);
+            }
+
+            PhotonNetwork.LoadLevel("GameMenu");
+        }
+    }
+
+
+    [PunRPC]
+    private void RPC_AddPlayer(PhotonMessageInfo info)
+    {
+        if (!PhotonNetwork.NickName.Equals(info.Sender.NickName))   //Solo se añade si no es el mismo jugador
+        {
+            if (!playerNicks.Contains(info.Sender.NickName))
+            {
+                playerNicks.Add(info.Sender.NickName);
+                playersScore.Add(0);
+            }
+        }
+
     }
 }

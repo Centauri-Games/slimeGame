@@ -98,9 +98,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         }
         else    //Si no es el jugador local: destruye el rb y el manejador de cinemachine
         {
-            gm = FindObjectOfType<GameManager>();
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
         }
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        Debug.Log("");
     }
 
     // Update is called once per frame

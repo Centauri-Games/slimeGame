@@ -17,6 +17,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public int playerCounter;
     public Text PlayerCounter;
+    bool loadReady = true;
 
     public void Connect()
     {
@@ -51,7 +52,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 4;
+        maxPlayersInRoom = 2;
         if (!PhotonNetwork.JoinRandomRoom())
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
@@ -63,7 +64,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinRandomFailed(returnCode, message);
         Log.text += "\nNo existen salas a las que unirse, creando una nueva...";
 
-        if(PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom }))
+        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom }))
         {
             Log.text += "\nSala creada con éxito";
         }
@@ -78,20 +79,26 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Log.text += "\nSe ha unido a la sala";
         JoinRandomBtn.interactable = false;
-        if(PhotonNetwork.IsMasterClient){
-            PhotonNetwork.AutomaticallySyncScene = true;
-        }
-      
+
+        PhotonNetwork.AutomaticallySyncScene = true;
+
+
     }
+
 
     public void FixedUpdate()
     {
-        if(PhotonNetwork.CurrentRoom != null)
+        if (PhotonNetwork.CurrentRoom != null)
         {
             playerCounter = PhotonNetwork.CurrentRoom.PlayerCount;
-              if(PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient ){
-            PhotonNetwork.LoadLevel("SampleScene");
-        }
+            if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient)
+            {
+                if (loadReady)
+                {
+                    PhotonNetwork.LoadLevel("SampleScene");
+                    loadReady = false;
+                }
+            }
         }
 
         PlayerCounter.text = playerCounter + "/" + maxPlayersInRoom;

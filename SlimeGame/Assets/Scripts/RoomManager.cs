@@ -17,7 +17,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
         Instance = this;
     }
 
@@ -35,6 +34,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Cliente master");
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AmmoSpawner"), new Vector3(-26.5f, 5.3f, -22.5f), Quaternion.identity);                  
+        }
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GameManager"), Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity); 
     }
 }
