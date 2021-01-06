@@ -2498,6 +2498,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Mapa ba\xF1o"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5fb39a369cd86914babfb6e56c967cf4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1678681872943053012, guid: 5fb39a369cd86914babfb6e56c967cf4,
         type: 3}
       propertyPath: m_TagString
