@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     Vector3 moveInput = Vector3.zero;   //Vector de movimiento
 
-    
+    //Animaciones
+    [SerializeField] Animator slimeAnimatorController;
 
     //Camara
     public float sensitivityX = 15f;
