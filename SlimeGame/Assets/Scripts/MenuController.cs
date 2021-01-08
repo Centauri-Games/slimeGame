@@ -26,4 +26,8 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("GameMenu");
     }
     
+    public void goToCustomizationMenu()
+    {
+        SceneManager.LoadScene("Customization");
+    }
 }
