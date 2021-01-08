@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     //Animaciones
     [SerializeField] Animator slimeAnimatorController;
+    [SerializeField] Animator plungerController;
 
     //Camara
     public float sensitivityX = 15f;
@@ -251,12 +252,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     void RPC_Shoot()
     {
         items[itemIndex].Use();
+        if (itemIndex == 1)
+        {
+            plungerController.SetBool("Attacking", true);
+        }
     }
 
     [PunRPC]
     void RPC_End()
     {
         items[itemIndex].End();
+        if (itemIndex == 1)
+        {
+            plungerController.SetBool("Attacking", false);
+        }
     }
 
 

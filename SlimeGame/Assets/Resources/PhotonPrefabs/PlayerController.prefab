@@ -4833,6 +4833,7 @@ GameObject:
   - component: {fileID: 9179142419509795163}
   - component: {fileID: 118364943819821727}
   - component: {fileID: 8612226415723740475}
+  - component: {fileID: 7614539269367265703}
   m_Layer: 0
   m_Name: plungerObject
   m_TagString: Untagged
@@ -4847,14 +4848,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6243120009201480390}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.367, z: -0.212}
+  m_LocalRotation: {x: 0.7161017, y: -0, z: -0, w: 0.6979959}
+  m_LocalPosition: {x: 0, y: 0.99, z: 0.188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 275523940442011181}
   m_Father: {fileID: 3795942664412762768}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 91.46698, y: -0.000015258789, z: -0.000015258789}
 --- !u!114 &118364943819821727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4894,6 +4895,25 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &7614539269367265703
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6243120009201480390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f64ef7ac5d321d34591755ba30b6f900, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6425318064031931804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5053,6 +5073,7 @@ MonoBehaviour:
   doubleJump: 0
   bounceMultiplier: 3
   slimeAnimatorController: {fileID: 4634683091907990763}
+  plungerController: {fileID: 7614539269367265703}
   sensitivityX: 15
   sensitivityY: 15
   minimumX: -360
@@ -5611,37 +5632,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.072
+      value: 0.3862364
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.437
+      value: 1.161081
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.25881907
+      value: 0.9999996
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.9659259
+      value: -0.00091105327
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -3.1696185e-17
+      value: -1.2246466e-16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1.1829182e-16
+      value: -1.115965e-19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 150
+      value: -0.104
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
         type: 3}
