@@ -119,6 +119,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void handleMove()
     {
+        if (characterController.isGrounded)
+        {
+            slimeAnimatorController.SetBool("Grounded", true);
+        }
+
         if (canClimb && !characterController.isGrounded)    //Si está trepando
         {
             if (climbStamina > 0)
@@ -172,12 +177,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             if (Input.GetButtonDown("Jump"))    //Salto si suelo o pared
             {
                 if (!canClimb)
+                {
                     moveInput.y = jumpHeight;
+                }
+
                 else
                 {
                     moveInput.y = jumpHeight;
                     canClimb = false;   //Realiza el salto y desactiva la escalada
                 }
+
+                slimeAnimatorController.SetBool("Grounded", false);
             }
         }
         else
@@ -346,6 +356,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.CompareTag("Wall"))
         {
             enableClimb();
+            slimeAnimatorController.SetBool("WallPasted", true);
         }
         else if(go.CompareTag("Bounce")) //Rebote
         {
@@ -370,6 +381,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.CompareTag("Wall"))
         {
             disableClimb();
+            slimeAnimatorController.SetBool("WallPasted", false);
         }
     }
 
