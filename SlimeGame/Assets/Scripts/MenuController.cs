@@ -19,11 +19,11 @@ public class MenuController : MonoBehaviour
     }
 
     public void goToMatchmakingScene(){
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("GameMenu");
     }
 
     public void goBackToMenu(){
-        SceneManager.LoadScene("GameMenu");
+        SceneManager.LoadScene("MainMenu");
     }
     
     public void goToCustomizationMenu()

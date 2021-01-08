@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             staminaTex.Apply();
         }
 
-        
     }
 
     void Start()

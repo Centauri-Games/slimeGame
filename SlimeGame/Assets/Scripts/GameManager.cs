@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.Log(playerNicks[i] + ": " + playersScore[i]);
             }
 
-            PhotonNetwork.LoadLevel("GameMenu");
+            PhotonNetwork.LoadLevel("MainMenu");
         }
     }
 

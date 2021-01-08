@@ -32,12 +32,12 @@ public class Connect : MonoBehaviourPunCallbacks
             }
             else
             {
-                SceneManager.LoadScene("GameMenu");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }
     public override void OnConnectedToMaster(){
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("GameMenu");
         
     }
 }
