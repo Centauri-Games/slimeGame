@@ -177,6 +177,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
             if (Input.GetButtonDown("Jump"))    //Salto si suelo o pared
             {
+                slimeAnimatorController.SetBool("Grounded", false);
+
                 if (!canClimb)
                 {
                     moveInput.y = jumpHeight;
@@ -188,7 +190,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                     canClimb = false;   //Realiza el salto y desactiva la escalada
                 }
 
-                slimeAnimatorController.SetBool("Grounded", false);
             }
         }
         else
