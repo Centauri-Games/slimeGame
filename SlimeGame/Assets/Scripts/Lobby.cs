@@ -11,6 +11,9 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Button ConnectBtn;
     public Button JoinRandomBtn;
     public Text Log;
+    
+
+
 
     public byte maxPlayersInRoom = 4;
     public byte minPlayersInRoom = 2;
@@ -18,6 +21,12 @@ public class Lobby : MonoBehaviourPunCallbacks
     public int playerCounter;
     public Text PlayerCounter;
     bool loadReady = true;
+
+    public void Start(){
+        Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        
+        JoinRandomBtn.interactable = true;
+    }
 
     public void Connect()
     {
@@ -37,7 +46,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
-        ConnectBtn.interactable = false;
+        
         JoinRandomBtn.interactable = true;
     }
 
