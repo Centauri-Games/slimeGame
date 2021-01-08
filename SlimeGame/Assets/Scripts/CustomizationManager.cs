@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CustomizationManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class CustomizationManager : MonoBehaviour
          } else if(slimeCursor > slimeList.Length){
              slimeCursor = slimeList.Length;
          }
+         PlayerPrefs.GetInt("slimeSkin",slimeCursor);
      }
 
      void waterGunCursorAdd(int valueToAdd){
@@ -35,6 +37,7 @@ public class CustomizationManager : MonoBehaviour
          } else if(waterGunCursor > waterGunList.Length){
              waterGunCursor = waterGunList.Length;
          }
+         PlayerPrefs.GetInt("waterGunSkin",waterGunCursor);
      }
 
       void waterGrenadeCursorAdd(int valueToAdd){
@@ -44,6 +47,7 @@ public class CustomizationManager : MonoBehaviour
          } else if(waterGrenadeCursor > waterGrenadeList.Length){
              waterGrenadeCursor = waterGrenadeList.Length;
          }
+          PlayerPrefs.GetInt("waterGrenadeSkin",waterGrenadeCursor);
      }
 
       void plungerCursorAdd(int valueToAdd){
@@ -53,12 +57,22 @@ public class CustomizationManager : MonoBehaviour
          } else if(plungerCursor > plungerList.Length){
              plungerCursor = plungerList.Length;
          }
+         PlayerPrefs.SetInt("plungerSkin",plungerCursor);
      }
+
+
+    void Awake(){
+        slimeCursor = PlayerPrefs.GetInt("slimeSkin",0);
+        waterGunCursor = PlayerPrefs.GetInt("waterGunSkin",0);
+        waterGrenadeCursor = PlayerPrefs.GetInt("waterGrenadeSkin",0);
+        plungerCursor = PlayerPrefs.GetInt("plungerSkin",0);
+    }
 
 
     void Start()
     {
         
+
     }
 
     // Update is called once per frame
