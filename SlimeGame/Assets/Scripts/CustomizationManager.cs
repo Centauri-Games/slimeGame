@@ -20,7 +20,7 @@ public class CustomizationManager : MonoBehaviour
     int plungerCursor;
 
 
-     void slimeCursorAdd(int valueToAdd){
+    public  void slimeCursorAdd(int valueToAdd){
          slimeCursor +=  valueToAdd;
          if (slimeCursor < 0){
              slimeCursor = 0;
@@ -30,7 +30,7 @@ public class CustomizationManager : MonoBehaviour
          PlayerPrefs.GetInt("slimeSkin",slimeCursor);
      }
 
-     void waterGunCursorAdd(int valueToAdd){
+     public void waterGunCursorAdd(int valueToAdd){
          waterGunCursor +=  valueToAdd;
          if (waterGunCursor < 0){
              waterGunCursor = 0;
@@ -40,7 +40,7 @@ public class CustomizationManager : MonoBehaviour
          PlayerPrefs.GetInt("waterGunSkin",waterGunCursor);
      }
 
-      void waterGrenadeCursorAdd(int valueToAdd){
+    public void waterGrenadeCursorAdd(int valueToAdd){
          waterGrenadeCursor +=  valueToAdd;
          if (waterGrenadeCursor < 0){
              waterGrenadeCursor = 0;
@@ -50,7 +50,7 @@ public class CustomizationManager : MonoBehaviour
           PlayerPrefs.GetInt("waterGrenadeSkin",waterGrenadeCursor);
      }
 
-      void plungerCursorAdd(int valueToAdd){
+     public void plungerCursorAdd(int valueToAdd){
          plungerCursor +=  valueToAdd;
          if (plungerCursor < 0){
              plungerCursor = 0;
