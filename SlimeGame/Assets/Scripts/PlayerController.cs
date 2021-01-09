@@ -120,10 +120,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void handleMove()
     {
-        if (characterController.isGrounded)
-        {
-            slimeAnimatorController.SetBool("Grounded", true);
-        }
+        slimeAnimatorController.SetBool("Moving", false);
 
         if (canClimb && !characterController.isGrounded)    //Si está trepando
         {
@@ -143,6 +140,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             if (Input.GetButton("Run"))
             {
                 moveInput *= runSpeed;
+                slimeAnimatorController.SetBool("Moving", true);
             }
             else
             {
@@ -191,6 +189,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 }
 
             }
+
         }
         else
         {
@@ -199,6 +198,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 moveInput.y = jumpHeight * doubleJumpMult;
                 doubleJump = false;
             }
+
         }
 
 
