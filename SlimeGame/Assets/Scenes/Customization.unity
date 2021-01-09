@@ -1147,7 +1147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &826253103
 GameObject:
@@ -1576,6 +1576,7 @@ GameObject:
   - component: {fileID: 1132005497}
   - component: {fileID: 1132005496}
   - component: {fileID: 1132005495}
+  - component: {fileID: 1132005498}
   m_Layer: 0
   m_Name: PlungerSkin1
   m_TagString: Untagged
@@ -1591,8 +1592,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132005493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 32.787582, z: -73.7091}
-  m_LocalScale: {x: 75, y: 75, z: 75}
+  m_LocalPosition: {x: -32.929092, y: 45.5, z: -62.236614}
+  m_LocalScale: {x: 63.326607, y: 63.326607, z: 63.326607}
   m_Children: []
   m_Father: {fileID: 826253104}
   m_RootOrder: 2
@@ -1657,6 +1658,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132005493}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1132005498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132005493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4884676b3eca4224ca454115fafa94e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1164788178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1686,7 +1699,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1164788180
 MonoBehaviour:
@@ -1701,12 +1714,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeList:
-  - {fileID: 0}
+  - {fileID: 1293133521}
   waterGunList:
-  - {fileID: 0}
+  - {fileID: 1473428928}
   waterGrenadeList:
-  - {fileID: 0}
-  plungerList: []
+  - {fileID: 1810403881}
+  plungerList:
+  - {fileID: 1132005493}
 --- !u!1 &1238964449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1810,7 @@ GameObject:
   - component: {fileID: 1293133525}
   - component: {fileID: 1293133524}
   - component: {fileID: 1293133523}
+  - component: {fileID: 1293133526}
   m_Layer: 0
   m_Name: SlimeSkin1
   m_TagString: Untagged
@@ -1877,6 +1892,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293133521}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1293133526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293133521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4884676b3eca4224ca454115fafa94e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469478897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1994,7 @@ GameObject:
   - component: {fileID: 1473428932}
   - component: {fileID: 1473428931}
   - component: {fileID: 1473428930}
+  - component: {fileID: 1473428933}
   m_Layer: 0
   m_Name: WaterGunSkin1
   m_TagString: Untagged
@@ -2048,6 +2076,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473428928}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1473428933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473428928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4884676b3eca4224ca454115fafa94e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1487786405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,7 +2468,7 @@ RectTransform:
   - {fileID: 1487786406}
   - {fileID: 826253104}
   - {fileID: 1238964450}
-  m_Father: {fileID: 2059066715}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2525,6 +2565,7 @@ GameObject:
   - component: {fileID: 1810403885}
   - component: {fileID: 1810403884}
   - component: {fileID: 1810403883}
+  - component: {fileID: 1810403886}
   m_Layer: 0
   m_Name: WaterGrenadeSkin1
   m_TagString: Untagged
@@ -2606,6 +2647,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810403881}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1810403886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810403881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4884676b3eca4224ca454115fafa94e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1865299064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,10 +2894,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1682444129}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2104830933
 GameObject:
@@ -2936,7 +2988,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &2137767444
 GameObject:
