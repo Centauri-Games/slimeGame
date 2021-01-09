@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class CustomizationManager : MonoBehaviour
@@ -19,7 +20,9 @@ public class CustomizationManager : MonoBehaviour
     int waterGrenadeCursor;
     int plungerCursor;
 
-
+    public void goToMainMenuScene(){
+        SceneManager.LoadScene("MainMenu");
+    }
     public  void slimeCursorAdd(int valueToAdd){
          slimeCursor +=  valueToAdd;
          if (slimeCursor < 0){
