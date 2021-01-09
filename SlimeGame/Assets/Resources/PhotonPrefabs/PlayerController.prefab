@@ -72,6 +72,25 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!95 &1880816216728146161
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619538780354325655}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f64ef7ac5d321d34591755ba30b6f900, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2919611933111795009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4833,7 +4852,6 @@ GameObject:
   - component: {fileID: 9179142419509795163}
   - component: {fileID: 118364943819821727}
   - component: {fileID: 8612226415723740475}
-  - component: {fileID: 7614539269367265703}
   m_Layer: 0
   m_Name: plungerObject
   m_TagString: Untagged
@@ -4895,25 +4913,6 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!95 &7614539269367265703
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6243120009201480390}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f64ef7ac5d321d34591755ba30b6f900, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6425318064031931804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5073,7 +5072,7 @@ MonoBehaviour:
   doubleJump: 0
   bounceMultiplier: 3
   slimeAnimatorController: {fileID: 4634683091907990763}
-  plungerController: {fileID: 7614539269367265703}
+  plungerController: {fileID: 1880816216728146161}
   sensitivityX: 15
   sensitivityY: 15
   minimumX: -360

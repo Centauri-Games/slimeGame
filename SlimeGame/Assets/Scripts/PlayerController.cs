@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             doubleJump = true;  //Se reactiva el doble salto
 
+            slimeAnimatorController.SetBool("Grounded", true);
 
             if (moveInput.y <= 0 && characterController.isGrounded)   //Solo cuando está en el suelo
             {
