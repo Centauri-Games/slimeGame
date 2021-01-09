@@ -30,4 +30,8 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("Customization");
     }
+
+    public void goToShopScene(){
+        SceneManager.LoadScene("ShopScene");
+    }
 }
