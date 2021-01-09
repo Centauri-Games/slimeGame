@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Photon.Pun;
 
 public class MenuController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class MenuController : MonoBehaviour
     }
 
     public void goBackToMenu(){
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
     
