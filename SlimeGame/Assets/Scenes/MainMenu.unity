@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 602426681}
   - component: {fileID: 602426680}
   m_Layer: 5
-  m_Name: Text
+  m_Name: backText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,6 +1476,10 @@ MonoBehaviour:
   sliderSensitivity: {fileID: 1600629728}
   "espa\xF1ol": {fileID: 234250316}
   english: {fileID: 1946755544}
+  volumeText: {fileID: 215638126}
+  sensitivityText: {fileID: 1614836623}
+  languageText: {fileID: 2061176698}
+  backButtonText: {fileID: 602426680}
 --- !u!1 &665001439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.18219, y: 0}
+  m_AnchoredPosition: {x: -1.182251, y: 0}
   m_SizeDelta: {x: -331.1891, y: -352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045569491
@@ -3128,7 +3132,7 @@ GameObject:
   - component: {fileID: 2061176699}
   - component: {fileID: 2061176698}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Language
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
