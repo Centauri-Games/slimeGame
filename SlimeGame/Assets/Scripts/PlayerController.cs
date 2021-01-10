@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             doubleJump = true;  //Se reactiva el doble salto
 
             slimeAnimatorController.SetBool("Grounded", true);
+            slimeAnimatorController.SetBool("Dead", false);
 
             if (moveInput.y <= 0 && characterController.isGrounded)   //Solo cuando está en el suelo
             {
@@ -426,6 +427,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void Die(Player killer)
     {
+        slimeAnimatorController.SetBool("Dead", true);
         if (killer != null)
         {
             Debug.Log("Muerto por: " + killer.NickName);    //Nickname del jugador que le ha matado
