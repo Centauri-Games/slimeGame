@@ -11,6 +11,11 @@ public class OptionsAwake : MonoBehaviour
 
     [SerializeField] Button español;
     [SerializeField] Button english;
+
+    [SerializeField] Text volumeText;
+    [SerializeField] Text sensitivityText;
+    [SerializeField] Text languageText;
+    [SerializeField] Text backButtonText;
     void Awake(){
         sliderVolume.value = PlayerPrefs.GetFloat("volume",1);
         sliderVolume.onValueChanged.AddListener(delegate {AudioListener.volume = sliderVolume.value;
@@ -22,8 +27,20 @@ public class OptionsAwake : MonoBehaviour
                                                     PlayerPrefs.SetFloat("sensitivity", sliderSensitivity.value);
                                                     Debug.Log(sliderSensitivity.value); });
 
-        español.onClick.AddListener(delegate {PlayerPrefs.SetInt("language",1);});
-        english.onClick.AddListener(delegate {PlayerPrefs.SetInt("language",0);});
+        español.onClick.AddListener(delegate {
+            PlayerPrefs.SetInt("language",1);
+            volumeText.text = "Volumen";
+            sensitivityText.text = "Sensibilidad del ratón";
+            languageText.text = "Idioma";
+            backButtonText.text = "Atrás";
+        });
+        english.onClick.AddListener(delegate {
+            PlayerPrefs.SetInt("language",0);
+            volumeText.text = "Volume";
+            sensitivityText.text = "Mouse sensitivity";
+            languageText.text = "Language";
+            backButtonText.text = "Back";
+        });
         
     }
     // Start is called before the first frame update
