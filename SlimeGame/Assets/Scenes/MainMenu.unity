@@ -1987,10 +1987,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connecting: {fileID: 1045569489}
   nickname: {fileID: 1998877571}
-  button1: {fileID: 2042198183}
-  button2: {fileID: 183593208}
-  button3: {fileID: 1635998347}
-  button4: {fileID: 306213053}
 --- !u!4 &929440210
 Transform:
   m_ObjectHideFlags: 0
