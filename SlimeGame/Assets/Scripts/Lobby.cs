@@ -50,9 +50,10 @@ public class Lobby : MonoBehaviourPunCallbacks
         JoinRandomBtn.interactable = true;
     }
 
-    public void JoinRandom()
+    public void JoinRandom2Players()
     {
-        if (!PhotonNetwork.JoinRandomRoom())
+          maxPlayersInRoom = 2;
+        if (!PhotonNetwork.JoinRandomRoom(null,2))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -61,8 +62,8 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 1;
-        if (!PhotonNetwork.JoinRandomRoom())
+        maxPlayersInRoom = 4;
+        if (!PhotonNetwork.JoinRandomRoom(null,4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
