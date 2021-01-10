@@ -9,7 +9,9 @@ public class SensitivityController : MonoBehaviour
         PlayerController playercontroller = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
         GetComponent<Slider>().onValueChanged.AddListener(delegate{
            playercontroller.sensitivityX = 15*PlayerPrefs.GetFloat("sensitivity",1);
+           
            playercontroller.sensitivityY = 15*PlayerPrefs.GetFloat("sensitivity",1);
+           Debug.Log(playercontroller.sensitivityX + playercontroller.sensitivityY);
         });
     }
     // Start is called before the first frame update

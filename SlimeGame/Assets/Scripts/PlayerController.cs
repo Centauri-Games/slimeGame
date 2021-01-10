@@ -211,10 +211,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public void handleCamera()
     {
 
-        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 15*PlayerPrefs.GetFloat("sensitivity");
 
 
-        rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+        rotationY += Input.GetAxis("Mouse Y") * 15*PlayerPrefs.GetFloat("sensitivity");
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
 
