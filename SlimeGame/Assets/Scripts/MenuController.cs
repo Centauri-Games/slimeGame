@@ -44,7 +44,21 @@ public class MenuController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            button1.GetComponentInChildren<Text>().text = "Jugar";
+            button2.GetComponentInChildren<Text>().text = "Personalización";
+            button3.GetComponentInChildren<Text>().text = "Tienda";
+            button4.GetComponentInChildren<Text>().text = "Opciones";
+        }
+        else
+        {
+            button1.GetComponentInChildren<Text>().text = "Play";
+            button2.GetComponentInChildren<Text>().text = "Customization";
+            button3.GetComponentInChildren<Text>().text = "Shop";
+            button4.GetComponentInChildren<Text>().text = "Options";
+        }
     }
 
 

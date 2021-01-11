@@ -3152,7 +3152,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sensibilidad del raton
+  m_Text: "Sensibilidad del rat\xF3n"
 --- !u!222 &1614836624
 CanvasRenderer:
   m_ObjectHideFlags: 0
