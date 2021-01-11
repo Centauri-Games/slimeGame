@@ -104,7 +104,8 @@ public class Lobby : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient)
             {
                 if (loadReady)
-                {
+                {   
+                    PhotonNetwork.CurrentRoom.IsOpen = false;
                     PhotonNetwork.LoadLevel("SampleScene");
                     loadReady = false;
                 }
