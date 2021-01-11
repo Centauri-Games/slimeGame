@@ -37,6 +37,13 @@ public class PlayerAnimator : MonoBehaviour
         {
             slimeAnimatorController.SetBool("Grounded", true);
         }
+
+        slimeAnimatorController.SetBool("ChangeWeapon", false);
+
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f || Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            slimeAnimatorController.SetBool("ChangeWeapon", true);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -50,6 +57,16 @@ public class PlayerAnimator : MonoBehaviour
         else if (go.CompareTag("Bounce")) //Rebote
         {
             slimeAnimatorController.SetBool("Grounded", false);
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        GameObject go = collision.gameObject;
+
+        if (go.CompareTag("Wall"))
+        {
+            slimeAnimatorController.SetBool("WallPasted", false);
         }
     }
 }
