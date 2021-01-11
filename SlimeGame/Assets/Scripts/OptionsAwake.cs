@@ -16,6 +16,7 @@ public class OptionsAwake : MonoBehaviour
     [SerializeField] Text sensitivityText;
     [SerializeField] Text languageText;
     [SerializeField] Text backButtonText;
+    [SerializeField] Text gameOverButtonText;
     void Awake(){
         sliderVolume.value = PlayerPrefs.GetFloat("volume",1);
         sliderVolume.onValueChanged.AddListener(delegate {AudioListener.volume = sliderVolume.value;
@@ -33,6 +34,7 @@ public class OptionsAwake : MonoBehaviour
             sensitivityText.text = "Sensibilidad del ratón";
             languageText.text = "Idioma";
             backButtonText.text = "Atrás";
+            gameOverButtonText.text = "Salir de la partida";
         });
         english.onClick.AddListener(delegate {
             PlayerPrefs.SetInt("language",0);
@@ -40,6 +42,7 @@ public class OptionsAwake : MonoBehaviour
             sensitivityText.text = "Mouse sensitivity";
             languageText.text = "Language";
             backButtonText.text = "Back";
+            gameOverButtonText.text = "Finish the game";
         });
         
     }
