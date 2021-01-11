@@ -39,11 +39,13 @@ public class MenuController : MonoBehaviourPunCallbacks
     void Start()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
+        PlayerPrefs.SetInt("language", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Actualizar idioma de los textos
         PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
         if (PlayerPrefs.GetInt("language") == 1)
         {
@@ -51,6 +53,10 @@ public class MenuController : MonoBehaviourPunCallbacks
             button2.GetComponentInChildren<Text>().text = "Personalización";
             button3.GetComponentInChildren<Text>().text = "Tienda";
             button4.GetComponentInChildren<Text>().text = "Opciones";
+            connecting.GetComponentInChildren<Text>().text = "Conectando a los servidores...";
+            nickname.GetComponentInChildren<Text>().text = "Introduce tu nombre de jugador";
+            nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nombre de usuario";
+            nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nombre de usuario";
         }
         else
         {
@@ -58,6 +64,10 @@ public class MenuController : MonoBehaviourPunCallbacks
             button2.GetComponentInChildren<Text>().text = "Customization";
             button3.GetComponentInChildren<Text>().text = "Shop";
             button4.GetComponentInChildren<Text>().text = "Options";
+            connecting.GetComponentInChildren<Text>().text = "Connecting to servers...";
+            nickname.GetComponentInChildren<Text>().text = "Write your nickname";
+            nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
+            nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
         }
     }
 
@@ -67,7 +77,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button2.SetActive(false);
         button3.SetActive(false);
         button4.SetActive(false);
-         nickname.SetActive(true);
+        nickname.SetActive(true);
     }
     public void goToMatchmakingScene(){
         SceneManager.LoadScene("GameMenu");

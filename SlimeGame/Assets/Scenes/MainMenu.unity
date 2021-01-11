@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 342944322}
   - component: {fileID: 342944321}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,7 +1471,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Introduce tu nombre
 
-    de Jugador'
+    de jugador'
 --- !u!222 &520998953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2754,7 +2754,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Confirmar
 --- !u!222 &1342362325
 CanvasRenderer:
   m_ObjectHideFlags: 0
