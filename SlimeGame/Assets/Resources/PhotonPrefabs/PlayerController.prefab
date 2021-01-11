@@ -4979,6 +4979,7 @@ GameObject:
   - component: {fileID: 7084120142613755192}
   - component: {fileID: 3165609149324326222}
   - component: {fileID: 5211173994115364957}
+  - component: {fileID: 7924827385948489652}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -5169,6 +5170,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &7924827385948489652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084120142613755137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb418ddd4c87f5d4d858c46fefde576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeAnimatorController: {fileID: 4634683091907990763}
 --- !u!1 &7084120142644975310
 GameObject:
   m_ObjectHideFlags: 0
