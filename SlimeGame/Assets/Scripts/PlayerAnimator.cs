@@ -15,7 +15,7 @@ public class PlayerAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        slimeAnimatorController.SetBool("Grounded", true);
     }
 
     // Update is called once per frame
@@ -28,16 +28,45 @@ public class PlayerAnimator : MonoBehaviour
             slimeAnimatorController.SetBool("Moving", true);
         }
 
+        if (Input.GetButtonDown("Jump"))    //Salto si suelo o pared
+        {
+            slimeAnimatorController.SetBool("Grounded", false);
+        }
+        
         if (characterController.isGrounded)
         {
             slimeAnimatorController.SetBool("Grounded", true);
-
-            if (Input.GetButtonDown("Jump"))    //Salto si suelo o pared
-            {
-                slimeAnimatorController.SetBool("Grounded", false);
-            }
         }
 
+        slimeAnimatorController.SetBool("ChangeWeapon", false);
 
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f || Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            slimeAnimatorController.SetBool("ChangeWeapon", true);
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        GameObject go = collision.gameObject;
+
+        if (go.CompareTag("Wall"))
+        {
+            slimeAnimatorController.SetBool("WallPasted", true);
+        }
+        else if (go.CompareTag("Bounce")) //Rebote
+        {
+            slimeAnimatorController.SetBool("Grounded", false);
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        GameObject go = collision.gameObject;
+
+        if (go.CompareTag("Wall"))
+        {
+            slimeAnimatorController.SetBool("WallPasted", false);
+        }
     }
 }
