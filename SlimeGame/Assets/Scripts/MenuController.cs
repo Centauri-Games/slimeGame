@@ -17,6 +17,8 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button4;
     public GameObject button5;
 
+    public GameObject ContactMenu;
+
     public void Connecttoserver()
     {
         PhotonNetwork.NickName = nickname.GetComponentInChildren<InputField>().text;
@@ -106,6 +108,39 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void goToShopScene(){
         SceneManager.LoadScene("ShopScene");
+    }
+    public void showContact(){
+        button1.SetActive(false);
+        button2.SetActive(false);
+        button3.SetActive(false);
+        button4.SetActive(false);
+        ContactMenu.SetActive(true);
+    }
+
+    public void hideContact(){
+
+        button1.SetActive(true);
+        button2.SetActive(true);
+        button3.SetActive(true);
+        button4.SetActive(true);
+        ContactMenu.SetActive(false);
+    }
+
+    public void goToWebsite(int website){
+        switch(website){
+            case 0:
+            Application.OpenURL("https://centauri-games.github.io/");
+                break;
+            case 1:
+            Application.OpenURL("https://www.youtube.com/channel/UCMPGHT6gt11RJQFEf30gTKg?view_as=subscriber");
+                break;
+            case 2:
+                Application.OpenURL("https://twitter.com/GamesCentauri");
+                break;
+            case 3:
+                Application.OpenURL("https://github.com/Centauri-Games");
+                break;
+        }
     }
 
     
