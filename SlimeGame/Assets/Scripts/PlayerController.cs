@@ -120,7 +120,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void handleMove()
     {
-        slimeAnimatorController.SetBool("Moving", false);
 
         if (canClimb && !characterController.isGrounded)    //Si está trepando
         {
@@ -140,7 +139,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             if (Input.GetButton("Run"))
             {
                 moveInput *= runSpeed;
-                slimeAnimatorController.SetBool("Moving", true);
             }
             else
             {
@@ -166,9 +164,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             doubleJump = true;  //Se reactiva el doble salto
 
-            slimeAnimatorController.SetBool("Grounded", true);
-            slimeAnimatorController.SetBool("Dead", false);
-
             if (moveInput.y <= 0 && characterController.isGrounded)   //Solo cuando está en el suelo
             {
                 moveInput.y = 0;
@@ -177,7 +172,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
             if (Input.GetButtonDown("Jump"))    //Salto si suelo o pared
             {
-                slimeAnimatorController.SetBool("Grounded", false);
 
                 if (!canClimb)
                 {
