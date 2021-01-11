@@ -18,6 +18,8 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void Connecttoserver()
     {
+        PhotonNetwork.NickName = nickname.GetComponentInChildren<InputField>().text;
+        Debug.Log(PhotonNetwork.NickName);
         nickname.SetActive(false);
 
         if (!PhotonNetwork.IsConnected)
@@ -40,13 +42,14 @@ public class MenuController : MonoBehaviourPunCallbacks
     {
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
         PlayerPrefs.SetInt("language", 1);
+        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Actualizar idioma de los textos
-        PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
+    public void updateGameMenuLenguage(){
+
+    }
+    public void updateMainMenuLanguage(){
+         PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
         if (PlayerPrefs.GetInt("language") == 1)
         {
             button1.GetComponentInChildren<Text>().text = "Jugar";
@@ -69,6 +72,12 @@ public class MenuController : MonoBehaviourPunCallbacks
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        //Actualizar idioma de los textos
+       
     }
 
 
