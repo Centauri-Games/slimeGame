@@ -31,7 +31,7 @@ public class ShowOptions : MonoBehaviour
     }
 
     public void goBackToMenu(){
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("MainMenu");
     }
 }
