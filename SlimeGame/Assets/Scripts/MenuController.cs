@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button2;
     public GameObject button3;
     public GameObject button4;
+    public GameObject button5;
 
     public void Connecttoserver()
     {
@@ -41,13 +42,13 @@ public class MenuController : MonoBehaviourPunCallbacks
     void Start()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
-        PlayerPrefs.SetInt("language", 1);
     }
 
     public void updateGameMenuLenguage(){
 
     }
-    public void updateMainMenuLanguage(){
+    public void updateMainMenuLanguage()
+    {
         PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
         if (PlayerPrefs.GetInt("language") == 1)
         {
@@ -57,6 +58,7 @@ public class MenuController : MonoBehaviourPunCallbacks
             button4.GetComponentInChildren<Text>().text = "Opciones";
             connecting.GetComponentInChildren<Text>().text = "Conectando a los servidores...";
             nickname.GetComponentInChildren<Text>().text = "Introduce tu nombre de jugador";
+            button5.GetComponentInChildren<Text>().text = "Confirmar";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nombre de usuario";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nombre de usuario";
         }
@@ -68,6 +70,7 @@ public class MenuController : MonoBehaviourPunCallbacks
             button4.GetComponentInChildren<Text>().text = "Options";
             connecting.GetComponentInChildren<Text>().text = "Connecting to servers...";
             nickname.GetComponentInChildren<Text>().text = "Write your nickname";
+            button5.GetComponentInChildren<Text>().text = "Confirm";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
         }
