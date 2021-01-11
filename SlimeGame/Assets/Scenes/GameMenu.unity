@@ -623,7 +623,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TODOS CONTRA TODOS
+  m_Text: Todos contra todos
 --- !u!222 &622449486
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2 VS 2
+  m_Text: 2 contra 2
 --- !u!222 &1023147694
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1840,9 +1840,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1743395400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be45f1c477978141a2b4eb750053e26, type: 3}
+  m_Script: {fileID: 11500000, guid: c227b6ffb93cdc841bece01e50ffbda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button1: {fileID: 1522595103}
+  button2: {fileID: 1136245414}
+  button3: {fileID: 1232071464}
+  button4: {fileID: 752701204}
 --- !u!1 &1747915655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,7 +2326,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1 VS 1
+  m_Text: 1 contra 1
 --- !u!222 &2016508658
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -42,14 +42,13 @@ public class MenuController : MonoBehaviourPunCallbacks
     {
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
         PlayerPrefs.SetInt("language", 1);
-        
     }
 
     public void updateGameMenuLenguage(){
 
     }
     public void updateMainMenuLanguage(){
-         PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
+        PlayerPrefs.SetInt("language", PlayerPrefs.GetInt("language"));
         if (PlayerPrefs.GetInt("language") == 1)
         {
             button1.GetComponentInChildren<Text>().text = "Jugar";
@@ -77,7 +76,7 @@ public class MenuController : MonoBehaviourPunCallbacks
     void Update()
     {
         //Actualizar idioma de los textos
-       
+        updateMainMenuLanguage();
     }
 
 
