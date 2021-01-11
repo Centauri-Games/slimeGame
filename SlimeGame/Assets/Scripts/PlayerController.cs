@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void handleMove()
     {
-
+        Debug.Log("Movimiento" + new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f));
         if (canClimb && !characterController.isGrounded)    //Si está trepando
         {
             if (climbStamina > 0)
