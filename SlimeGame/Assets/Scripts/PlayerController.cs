@@ -362,7 +362,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.CompareTag("Wall"))
         {
             enableClimb();
-            slimeAnimatorController.SetBool("WallPasted", true);
         }
         else if(go.CompareTag("Bounce")) //Rebote
         {
