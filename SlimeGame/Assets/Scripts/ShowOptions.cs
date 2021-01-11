@@ -12,26 +12,35 @@ public class ShowOptions : MonoBehaviour
     [SerializeField] GameObject ingame;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape)){
-            if(!options.active){
-                options.SetActive(true);
-                ingame.SetActive(false);
-            }else {
-                options.SetActive(false);
-                ingame.SetActive(true);
-            }
-            
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            showOptions();
         }
     }
 
-    public void goBackToMenu(){
-        PhotonNetwork.LeaveRoom();
+    public void showOptions()
+    {
+        if (!options.active)
+        {
+            options.SetActive(true);
+            ingame.SetActive(false);
+        }
+        else
+        {
+            options.SetActive(false);
+            ingame.SetActive(true);
+        }
+    }
+
+    public void goBackToMenu()
+    {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
 }
