@@ -55,8 +55,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerNicks = new List<string>();
         playersScore = new List<int>();
-        foreach (Player p in PhotonNetwork.PlayerList)   //Esto funcionaria realmente porque el objeto ya estaría instanciado y la escena empezaria tras crearse la sala con todos los jugadores
-        {                                               //Ahora falla porque en el JoinRoom aun no está creado el objeto, asi que los primeros clientes no tendr
+
+        foreach (Player p in PhotonNetwork.PlayerList)   
+        {                                               
             if (!playerNicks.Contains(p.NickName))
             {
                 playerNicks.Add(p.NickName);
@@ -138,6 +139,26 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         int index = playerNicks.IndexOf(killer);    //Mas una muerte en el marcador
         playersScore[index]++;
+
+        orderScore();
+    }
+
+    private void orderScore()
+    {
+        for (int i = 0; i < playersScore.Count-1; i++)
+        {
+            if(playersScore[i] < playersScore[i + 1])
+            {
+                int score = playersScore[i];    //Guardar original
+                string name = playerNicks[i];
+
+                playersScore[i] = playersScore[i + 1];  //reemplazar siguiente por actual
+                playerNicks[i] = playerNicks[i + 1];
+
+                playersScore[i + 1] = score;    //recolocar
+                playerNicks[i + 1] = name;
+            }
+        }
     }
 
     void EndGame()

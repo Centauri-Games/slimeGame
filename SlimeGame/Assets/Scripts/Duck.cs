@@ -72,7 +72,7 @@ public class Duck : MonoBehaviourPunCallbacks
         if (id.IsMine)
         {
             //Show particles water
-            PhotonNetwork.Instantiate(Path.Combine("SimpleFX", "Prefabs", "FX_BlueExplosion"), transform.position, transform.rotation);    //Al explotar activa la deteccion de daño y las particulas
+            PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Weapons", "FX", "AreaEffect"), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.rotation);    //Al explotar activa la deteccion de daño y las particulas
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
             foreach (Collider c in colliders)
@@ -107,6 +107,7 @@ public class Duck : MonoBehaviourPunCallbacks
             {
                 if (!hasExploded)       //Cuando detecta un objeto que no sea el jugador o una pared, explota
                 {
+                    transform.up = new Vector3(0f, 0f, 1f);
                     GetComponent<Rigidbody>().isKinematic = true;
                     Explode();
                 }
