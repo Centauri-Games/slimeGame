@@ -55,8 +55,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerNicks = new List<string>();
         playersScore = new List<int>();
-        foreach (Player p in PhotonNetwork.PlayerList)   //Esto funcionaria realmente porque el objeto ya estaría instanciado y la escena empezaria tras crearse la sala con todos los jugadores
-        {                                               //Ahora falla porque en el JoinRoom aun no está creado el objeto, asi que los primeros clientes no tendr
+
+        foreach (Player p in PhotonNetwork.PlayerList)   
+        {                                               
             if (!playerNicks.Contains(p.NickName))
             {
                 playerNicks.Add(p.NickName);
