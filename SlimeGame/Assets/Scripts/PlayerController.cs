@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public float minimumY = -60f;
     public float maximumY = 60f;
 
-    Transform cameraHolder;
+    [SerializeField] Transform cameraHolder;
 
     float rotationY = 0f;
 
@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         characterController = GetComponent<CharacterController>();
         climbStamina = maxClimbSt;
-        cameraHolder = transform.GetChild(0);
 
         id = GetComponent<PhotonView>();
         pm = PhotonView.Find((int)id.InstantiationData[0]).GetComponent<PlayerManager>();   //Busca el playerManager de la escena, dado su PhotonID

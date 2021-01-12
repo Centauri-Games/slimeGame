@@ -12,6 +12,10 @@ public class WaterJet : MonoBehaviour
 
     PhotonView playerId;
 
+
+    //Cambiar direccion del waterjet a la de la camara
+    //Camera.main.transform.forward
+
     void Start()
     {
         waterJet = GetComponent<ParticleSystem>();
