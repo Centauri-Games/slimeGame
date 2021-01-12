@@ -5,7 +5,9 @@ using UnityEngine;
 public class MobileController : MonoBehaviour
 {
     [SerializeField] FloatingJoystick joystick;
+    [SerializeField] FixedJoystick cameraJoystick;
     [SerializeField] LongClickButton shootButton;
+    [SerializeField] GameObject mobileHUD;
 
     bool isJumping = false;
     
@@ -19,6 +21,15 @@ public class MobileController : MonoBehaviour
     {
         Debug.Log("Es móvil?" + MobileChecker.isMobile());
 
+        if (MobileChecker.isMobile())
+        {
+            mobileHUD.SetActive(true);
+        }
+        else
+        {
+            mobileHUD.SetActive(false);
+        }
+
         shootButton.mc = this;
     }
     public void LateUpdate()
@@ -31,6 +42,11 @@ public class MobileController : MonoBehaviour
     public Vector2 getDirection()
     {
         return joystick.Direction;
+    }
+
+    public Vector2 getCameraDirection()
+    {
+        return cameraJoystick.Direction;
     }
 
     public bool IsJumping()

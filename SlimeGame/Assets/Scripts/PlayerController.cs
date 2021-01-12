@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             isMobile = MobileChecker.isMobile();    //Detecta si está en móvil
 
+
             mc = GameObject.FindObjectOfType<MobileController>();
             staminaBar = new Rect(Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
             staminaTex = new Texture2D(1, 1);
@@ -132,9 +133,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             handleCamera();
             handleWeaponChange();
             handleShoot();
-        }
-        
+        }    
         handleLimits();
+
     }
 
     public void handleMove()
@@ -323,11 +324,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void handleCameraMobile()
     {
+        Vector2 cam = mc.getCameraDirection();
 
-        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 15 * PlayerPrefs.GetFloat("sensitivity");
+        float rotationX = transform.localEulerAngles.y + cam.x * 5 * PlayerPrefs.GetFloat("sensitivity");
 
 
-        rotationY += Input.GetAxis("Mouse Y") * 15 * PlayerPrefs.GetFloat("sensitivity");
+        rotationY += cam.y * 5 * PlayerPrefs.GetFloat("sensitivity");
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
 

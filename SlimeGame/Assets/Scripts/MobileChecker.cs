@@ -16,4 +16,3 @@ public class MobileChecker : MonoBehaviour
             return false;
     }
 }
-
