@@ -409,7 +409,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         items[itemIndex].Use();
         if (itemIndex == 1)
         {
-            //plungerController.SetBool("Attacking", true);
+            plungerController.SetBool("Attacking", true);
         }
     }
 
@@ -419,7 +419,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         items[itemIndex].End();
         if (itemIndex == 1)
         {
-            //plungerController.SetBool("Attacking", false);
+            plungerController.SetBool("Attacking", false);
         }
     }
 
