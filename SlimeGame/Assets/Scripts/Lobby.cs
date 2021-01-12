@@ -12,6 +12,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Button JoinRandomBtn;
     public Text Log;
     
+    [SerializeField]public Button start;
     bool deathmatch;
 
     [SerializeField] public GameObject[] textList; 
@@ -110,7 +111,32 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Text auxText;
+        base.OnPlayerLeftRoom(otherPlayer);
+        for(int i = 0; i < textList.Length; i++){
+            auxText = textList[i].GetComponent<Text>();
+            if(auxText.text.Equals(otherPlayer.NickName)){
+                if(PlayerPrefs.GetInt("language",1) == 1){
+                    auxText.text = "Waiting for other player";
+                }else{
+                    auxText.text = "Esperando a otro jugador";
+                }
+                start.gameObject.SetActive(false);
+            }
+        }
+        if(PhotonNetwork.IsMasterClient){
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+        }
+    }
 
+    public void startGame(){
+        if(PhotonNetwork.IsMasterClient){
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.LoadLevel("SampleScene");
+        }
+    }
     public void FixedUpdate()
     {
         if (PhotonNetwork.CurrentRoom != null)
@@ -122,14 +148,15 @@ public class Lobby : MonoBehaviourPunCallbacks
                 
                 textList[i].GetComponent<Text>().text= PhotonNetwork.PlayerList[i].NickName;
             }
-            if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient && !start.IsActive())
             {
-                if (loadReady)
-                {   
-                    PhotonNetwork.CurrentRoom.IsOpen = false;
-                    PhotonNetwork.LoadLevel("SampleScene");
-                    loadReady = false;
-                }
+                start.gameObject.SetActive(true);
+                // if (loadReady)
+                // {   
+                //     PhotonNetwork.CurrentRoom.IsOpen = false;
+                //     PhotonNetwork.LoadLevel("SampleScene");
+                //     loadReady = false;
+                // }
             }
         }
 
