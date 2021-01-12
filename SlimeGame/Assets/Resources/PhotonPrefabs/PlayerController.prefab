@@ -5238,7 +5238,7 @@ MonoBehaviour:
   doubleJump: 0
   bounceMultiplier: 3
   slimeAnimatorController: {fileID: 4634683091907990763}
-  plungerController: {fileID: 0}
+  plungerController: {fileID: 159334399749452961}
   sensitivityX: 15
   sensitivityY: 15
   minimumX: -360
@@ -5599,6 +5599,25 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &159334399749452961
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890483723197434287}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f64ef7ac5d321d34591755ba30b6f900, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8911371633092316318
 GameObject:
   m_ObjectHideFlags: 0
