@@ -30,7 +30,12 @@ ModelImporter:
   - first:
       74: -7524804484311026736
     second: Throw bomb
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2
+    second: {fileID: 2100000, guid: 7a695f89bdd20974a88516a59bc8d1b6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
