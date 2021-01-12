@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
 
+    [SerializeField] GameObject arm;
+
     GameManager gm;
 
     MobileController mc;
@@ -314,7 +316,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
 
-        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.1f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+        items[previousItemIndex].itemGameObject.transform.position = new Vector3(items[previousItemIndex].itemGameObject.transform.position.x, arm.transform.position.y, items[previousItemIndex].itemGameObject.transform.position.z);
 
         cameraHolder.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);   //Se rota el cameraTarget para la vision superior e inferior
         transform.localEulerAngles = new Vector3(0, rotationX, 0);   //El jugador rota para la vision lateral
@@ -332,7 +335,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
 
-        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.1f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+        items[previousItemIndex].itemGameObject.transform.position = new Vector3(items[previousItemIndex].itemGameObject.transform.position.x, arm.transform.position.y, items[previousItemIndex].itemGameObject.transform.position.z);
 
         cameraHolder.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);   //Se rota el cameraTarget para la vision superior e inferior
         transform.localEulerAngles = new Vector3(0, rotationX, 0);   //El jugador rota para la vision lateral
