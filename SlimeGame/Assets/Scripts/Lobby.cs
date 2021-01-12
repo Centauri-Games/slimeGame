@@ -40,7 +40,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsConnected)
         {
-            if (PhotonNetwork.ConnectUsingSettings())
+            if (PhotonNetwork.ConnectToRegion("eu"))
             {
                 Log.text += "\nConectado al servidor";
             }
@@ -208,15 +208,16 @@ public class Lobby : MonoBehaviourPunCallbacks
 
                 textList[i].GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
             }
+            Debug.Log("Player Count" + PhotonNetwork.CurrentRoom.PlayerCount);
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient && !start.IsActive())
             {
                 start.gameObject.SetActive(true);
-                if (loadReady)
+                /*if (loadReady)
                 {   
                      PhotonNetwork.CurrentRoom.IsOpen = false;
                      PhotonNetwork.LoadLevel("SampleScene");
                     loadReady = false;
-                }
+                }*/
             }
         }
 

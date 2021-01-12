@@ -542,6 +542,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput * Time.deltaTime);
         }
+        else if (go.CompareTag("Water")) //Agua
+        {
+            Die(null);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
