@@ -67,6 +67,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     GameManager gm;
 
+    MobileController mc;
+
+    bool isMobile = false;
+
     public void Awake()
     {
 
@@ -82,6 +86,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
         {
+            isMobile = MobileChecker.isMobile();    //Detecta si está en móvil
+
+            mc = GameObject.FindObjectOfType<MobileController>();
             staminaBar = new Rect(Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
             staminaTex = new Texture2D(1, 1);
             staminaTex.SetPixel(0, 0, Color.blue);
@@ -110,17 +117,28 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (!id.IsMine) return;
 
-        handleMove();
-        handleJump();
-        handleCamera();
-        handleWeaponChange();
-        handleShoot();
+        if (isMobile)
+        {
+            handleMoveMobile();
+            handleJumpMobile();
+            handleCameraMobile();
+            handleWeaponChangeMobile();
+            handleShootMobile();
+        }
+        else
+        {
+            handleMove();
+            handleJump();
+            handleCamera();
+            handleWeaponChange();
+            handleShoot();
+        }
+        
         handleLimits();
     }
 
     public void handleMove()
     {
-        Debug.Log("Movimiento" + new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f));
         if (canClimb && !characterController.isGrounded)    //Si está trepando
         {
             if (climbStamina > 0)
@@ -137,6 +155,45 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             moveInput = transform.TransformDirection(moveInput);
 
             if (Input.GetButton("Run"))
+            {
+                moveInput *= runSpeed;
+            }
+            else
+            {
+                moveInput *= regularSpeed;
+            }
+
+            moveInput.y = y;
+
+            if (climbStamina < maxClimbSt)
+            {
+                climbStamina += Time.deltaTime;
+                if (climbStamina > maxClimbSt) climbStamina = maxClimbSt;
+            }
+        }
+        characterController.Move(moveInput * Time.deltaTime);
+
+    }
+
+    public void handleMoveMobile()
+    {
+        Vector2 dir = mc.getDirection();
+        if (canClimb && !characterController.isGrounded)    //Si está trepando
+        {
+            if (climbStamina > 0)
+            {
+                moveInput = new Vector3(dir.x, dir.y, 0f).normalized;
+                climbStamina -= Time.deltaTime;
+                if (climbStamina < 0) climbStamina = 0;
+            }
+        }
+        else    //Si no puede trepar
+        {
+            float y = moveInput.y;
+            moveInput = new Vector3(dir.x, 0f, dir.y).normalized;
+            moveInput = transform.TransformDirection(moveInput);
+
+            if (mc.isRunning())
             {
                 moveInput *= runSpeed;
             }
@@ -202,17 +259,79 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         characterController.Move(moveInput * Time.deltaTime);
     }
 
+    public void handleJumpMobile()
+    {
+
+        if (characterController.isGrounded || canClimb) //Si está trepando o en el suelo
+        {
+            doubleJump = true;  //Se reactiva el doble salto
+
+            if (moveInput.y <= 0 && characterController.isGrounded)   //Solo cuando está en el suelo
+            {
+                moveInput.y = 0;
+            }
+
+
+            if (mc.IsJumping())    //Salto si suelo o pared
+            {
+
+                if (!canClimb)
+                {
+                    moveInput.y = jumpHeight;
+                }
+
+                else
+                {
+                    moveInput.y = jumpHeight;
+                    canClimb = false;   //Realiza el salto y desactiva la escalada
+                }
+
+            }
+
+        }
+        else
+        {
+            if (doubleJump && mc.IsJumping())
+            {
+                moveInput.y = jumpHeight * doubleJumpMult;
+                doubleJump = false;
+            }
+
+        }
+
+
+        moveInput.y += gravity * Time.deltaTime;
+        characterController.Move(moveInput * Time.deltaTime);
+    }
+
     public void handleCamera()
     {
 
-        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 15*PlayerPrefs.GetFloat("sensitivity");
+        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 15 * PlayerPrefs.GetFloat("sensitivity");
 
 
-        rotationY += Input.GetAxis("Mouse Y") * 15*PlayerPrefs.GetFloat("sensitivity");
+        rotationY += Input.GetAxis("Mouse Y") * 15 * PlayerPrefs.GetFloat("sensitivity");
         rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
 
-        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY*0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
+
+        cameraHolder.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);   //Se rota el cameraTarget para la vision superior e inferior
+        transform.localEulerAngles = new Vector3(0, rotationX, 0);   //El jugador rota para la vision lateral
+
+    }
+
+    public void handleCameraMobile()
+    {
+
+        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 15 * PlayerPrefs.GetFloat("sensitivity");
+
+
+        rotationY += Input.GetAxis("Mouse Y") * 15 * PlayerPrefs.GetFloat("sensitivity");
+        rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+
+
+        items[previousItemIndex].itemGameObject.transform.localEulerAngles = new Vector3(-rotationY * 0.7f, 0, 0);   //Se aplica tambien la rotacion al arma actual
 
         cameraHolder.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);   //Se rota el cameraTarget para la vision superior e inferior
         transform.localEulerAngles = new Vector3(0, rotationX, 0);   //El jugador rota para la vision lateral
@@ -232,7 +351,33 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 RPC_Shoot();
             }
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if (itemIndex == 0) //Si es la pistola de agua
+            {
+                id.RPC("RPC_End", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            }
+            else
+            {
+                RPC_End();
+            }
+        }
+    }
+
+    void handleShootMobile()
+    {
+        if (mc.StartShoot())
+        {
+            if (itemIndex == 0)
+            {
+                id.RPC("RPC_Shoot", RpcTarget.All);   //Lo lanza a todas las instancias de este jugador
+            }
+            else
+            {
+                RPC_Shoot();
+            }
+        }
+        else if (mc.EndShoot())   //Cuando levanta el boton de disparar
         {
             if (itemIndex == 0) //Si es la pistola de agua
             {
@@ -269,7 +414,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void handleLimits()
     {
-        if(transform.position.y < -20f)
+        if (transform.position.y < -20f)
         {
             Die(null);
         }
@@ -277,7 +422,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void handleWeaponChange()
     {
-        for(int i=0; i< items.Length; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
             {
@@ -285,9 +430,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             }
         }
 
-        if(Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
         {
-            if(itemIndex >= items.Length - 1)
+            if (itemIndex >= items.Length - 1)
             {
                 ChangeItem(0);
             }
@@ -295,18 +440,34 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             {
                 ChangeItem(itemIndex + 1);
             }
-            
+
         }
-        else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
         {
             if (itemIndex <= 0)
             {
-                ChangeItem(items.Length -1);
+                ChangeItem(items.Length - 1);
             }
             else
             {
-                ChangeItem(itemIndex -1);
+                ChangeItem(itemIndex - 1);
             }
+        }
+    }
+
+    void handleWeaponChangeMobile()
+    {
+        if (mc.IsSwitching())
+        {
+            if (itemIndex >= items.Length - 1)
+            {
+                ChangeItem(0);
+            }
+            else
+            {
+                ChangeItem(itemIndex + 1);
+            }
+
         }
     }
     void ChangeItem(int itemId)
@@ -316,12 +477,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         itemIndex = itemId;
         items[itemIndex].itemGameObject.SetActive(true);
 
-        if(itemIndex == 0)
+        if (itemIndex == 0)
         {
             ((WaterGun)items[itemIndex]).Stop();
         }
 
-        if(previousItemIndex != -1)
+        if (previousItemIndex != -1)
         {
             items[previousItemIndex].itemGameObject.SetActive(false);
         }
@@ -363,10 +524,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             enableClimb();
         }
-        else if(go.CompareTag("Bounce")) //Rebote
+        else if (go.CompareTag("Bounce")) //Rebote
         {
             moveInput.y = jumpHeight * bounceMultiplier;
-            characterController.Move(moveInput*Time.deltaTime);
+            characterController.Move(moveInput * Time.deltaTime);
         }
     }
 
