@@ -28,11 +28,16 @@ public class Lobby : MonoBehaviourPunCallbacks
     [SerializeField] public Button waterBallon;
     [SerializeField] public Button sponge;
     public Hashtable customGrenadePlayerProperties;
+
+    Hashtable deathmachTrue = new Hashtable() { { "Deathmatch", true } };
+    Hashtable deathmachFalse = new Hashtable() { { "Deathmatch", false } };
     public void Start()
     {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
 
         setGrenade(PlayerPrefs.GetInt("grenadeIndex", 0));
+
+        
 
     }
 
@@ -89,10 +94,10 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 1;
+        maxPlayersInRoom = 2;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 2))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -103,7 +108,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         //Connect();
         maxPlayersInRoom = 4;
         deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -113,7 +118,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         maxPlayersInRoom = 4;
         deathmatch = true;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachTrue, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -122,16 +127,16 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
-        Log.text += "\nNo existen salas a las que unirse, creando una nueva...";
+       Debug.Log("\nNo existen salas a las que unirse, creando una nueva...");
 
 
         if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } } }))
         {
-            Log.text += "\nSala creada con éxito";
+            Debug.Log("\nSala creada con éxito");
         }
         else
         {
-            Log.text += "\nHa ocurrido un error durante la creación de la sala";
+            Debug.Log("\nHa ocurrido un error durante la creación de la sala");
         }
     }
 
