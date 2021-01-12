@@ -129,15 +129,44 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinRandomFailed(returnCode, message);
        Debug.Log("\nNo existen salas a las que unirse, creando una nueva...");
 
-
-        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } } }))
+        if (deathmatch)
         {
-            Debug.Log("\nSala creada con éxito");
+            RoomOptions op = new RoomOptions();
+            op.MaxPlayers = maxPlayersInRoom;
+            op.IsOpen = true;
+            op.IsVisible = true;
+            op.CustomRoomProperties = deathmachTrue;
+            op.CustomRoomPropertiesForLobby = new string[] { "Deathmatch" };
+
+            if (PhotonNetwork.CreateRoom(null, op, null, null))
+            {
+                PhotonNetwork.CurrentRoom.SetCustomProperties(deathmachTrue);
+                Debug.Log("\nSala creada con éxito");
+            }
+            else
+            {
+                Debug.Log("\nHa ocurrido un error durante la creación de la sala");
+            }
         }
         else
         {
-            Debug.Log("\nHa ocurrido un error durante la creación de la sala");
+            RoomOptions op = new RoomOptions();
+            op.MaxPlayers = maxPlayersInRoom;
+            op.IsOpen = true;
+            op.IsVisible = true;
+            op.CustomRoomProperties = deathmachFalse;
+            op.CustomRoomPropertiesForLobby = new string[] { "Deathmatch" };
+
+            if (PhotonNetwork.CreateRoom(null, op, null, null))
+            {               
+                Debug.Log("\nSala creada con éxito");
+            }
+            else
+            {
+                Debug.Log("\nHa ocurrido un error durante la creación de la sala");
+            }
         }
+        
     }
 
     public override void OnJoinedRoom()
