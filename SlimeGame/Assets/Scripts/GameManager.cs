@@ -138,6 +138,26 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         int index = playerNicks.IndexOf(killer);    //Mas una muerte en el marcador
         playersScore[index]++;
+
+        orderScore();
+    }
+
+    private void orderScore()
+    {
+        for (int i = 0; i < playersScore.Count-1; i++)
+        {
+            if(playersScore[i] < playersScore[i + 1])
+            {
+                int score = playersScore[i];    //Guardar original
+                string name = playerNicks[i];
+
+                playersScore[i] = playersScore[i + 1];  //reemplazar siguiente por actual
+                playerNicks[i] = playerNicks[i + 1];
+
+                playersScore[i + 1] = score;    //recolocar
+                playerNicks[i + 1] = name;
+            }
+        }
     }
 
     void EndGame()
