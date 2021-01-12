@@ -11,11 +11,11 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Button ConnectBtn;
     public Button JoinRandomBtn;
     public Text Log;
-    
-    [SerializeField]public Button start;
+
+    [SerializeField] public Button start;
     bool deathmatch;
 
-    [SerializeField] public GameObject[] textList; 
+    [SerializeField] public GameObject[] textList;
     public byte maxPlayersInRoom = 4;
     public byte minPlayersInRoom = 2;
 
@@ -23,10 +23,11 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Text PlayerCounter;
     bool loadReady = true;
 
-    public void Start(){
+    public void Start()
+    {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
-        
-        
+
+
     }
 
     public void Connect()
@@ -44,21 +45,22 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
-    
-  
-    
+
+
+
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
-        
+
         JoinRandomBtn.interactable = true;
     }
 
     public void JoinRandom2Players()
     {
-          maxPlayersInRoom = 1;
-          deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},2))
+        maxPlayersInRoom = 2;
+        Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
+        deathmatch = false;
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 2))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -69,16 +71,17 @@ public class Lobby : MonoBehaviourPunCallbacks
         //Connect();
         maxPlayersInRoom = 4;
         deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},4))
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
     }
 
-    public void JoinRandomDeathmatch(){
+    public void JoinRandomDeathmatch()
+    {
         maxPlayersInRoom = 4;
         deathmatch = true;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},4))
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -89,8 +92,8 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinRandomFailed(returnCode, message);
         Log.text += "\nNo existen salas a las que unirse, creando una nueva...";
 
-      
-        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties= new  ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }}}))
+
+        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } } }))
         {
             Log.text += "\nSala creada con éxito";
         }
@@ -115,26 +118,50 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Text auxText;
         base.OnPlayerLeftRoom(otherPlayer);
-        for(int i = 0; i < textList.Length; i++){
+        for (int i = 0; i < textList.Length; i++)
+        {
             auxText = textList[i].GetComponent<Text>();
-            if(auxText.text.Equals(otherPlayer.NickName)){
-                if(PlayerPrefs.GetInt("language",1) == 1){
+            if (auxText.text.Equals(otherPlayer.NickName))
+            {
+                if (PlayerPrefs.GetInt("language", 1) == 1)
+                {
                     auxText.text = "Waiting for other player";
-                }else{
+                }
+                else
+                {
                     auxText.text = "Esperando a otro jugador";
                 }
                 start.gameObject.SetActive(false);
             }
         }
-        if(PhotonNetwork.IsMasterClient){
+        if (PhotonNetwork.IsMasterClient)
+        {
             PhotonNetwork.CurrentRoom.IsOpen = true;
         }
     }
 
-    public void startGame(){
-        if(PhotonNetwork.IsMasterClient){
+    public void startGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.LoadLevel("SampleScene");
+            int n = Random.Range(0, 3);
+            switch (n)
+            {
+                case 0:
+                    PhotonNetwork.LoadLevel("SampleScene");
+                    break;
+                case 1:
+                    PhotonNetwork.LoadLevel("Vestuario");
+                    break;
+                case 2:
+                    PhotonNetwork.LoadLevel("Piscina");
+                    break;
+                default:
+                    break;
+
+            }
+            
         }
     }
     public void FixedUpdate()
@@ -143,10 +170,11 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             playerCounter = PhotonNetwork.CurrentRoom.PlayerCount;
 
-            for(int i = 0; i < playerCounter;i++){
-                
-                
-                textList[i].GetComponent<Text>().text= PhotonNetwork.PlayerList[i].NickName;
+            for (int i = 0; i < playerCounter; i++)
+            {
+
+
+                textList[i].GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
             }
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient && !start.IsActive())
             {
