@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 
-public class ShowOptions : MonoBehaviour
+public class ShowOptions : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
 
@@ -41,6 +41,11 @@ public class ShowOptions : MonoBehaviour
     public void goBackToMenu()
     {
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
         SceneManager.LoadScene("MainMenu");
     }
 }
