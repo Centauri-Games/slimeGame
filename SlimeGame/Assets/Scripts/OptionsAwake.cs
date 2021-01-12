@@ -56,6 +56,21 @@ public class OptionsAwake : MonoBehaviour
 
     void Update()
     {
-        
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            volumeText.text = "Volumen";
+            sensitivityText.text = "Sensibilidad del ratón";
+            languageText.text = "Idioma";
+            backButtonText.text = "Atrás";
+            gameOverButtonText.text = "Salir de la partida";
+        }
+        else
+        {
+            volumeText.text = "Volume";
+            sensitivityText.text = "Mouse sensitivity";
+            languageText.text = "Language";
+            backButtonText.text = "Back";
+            gameOverButtonText.text = "Finish the game";
+        }
     }
 }

@@ -1775,7 +1775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -64.7, y: 45.3}
+  m_AnchoredPosition: {x: -64.69995, y: 45.30005}
   m_SizeDelta: {x: 79.06732, y: 69.8786}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &632291719
@@ -2590,7 +2590,7 @@ MonoBehaviour:
   button3: {fileID: 1635998347}
   button4: {fileID: 306213053}
   button5: {fileID: 342944319}
-  button6: {fileID: 1209761382}
+  button6: {fileID: 997512415}
   button7: {fileID: 632291717}
   ContactMenu: {fileID: 415133237}
 --- !u!4 &929440210
@@ -2620,7 +2620,7 @@ GameObject:
   - component: {fileID: 997512418}
   - component: {fileID: 997512417}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackNick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2688,7 +2688,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 997512418}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 929440209}
+        m_MethodName: goBackToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &997512418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2761,7 +2772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.182251, y: 0}
+  m_AnchoredPosition: {x: -1.1821289, y: 0}
   m_SizeDelta: {x: -331.1891, y: -352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045569491
@@ -3528,7 +3539,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "Atr\xE1s"
 --- !u!222 &1317980511
 CanvasRenderer:
   m_ObjectHideFlags: 0
