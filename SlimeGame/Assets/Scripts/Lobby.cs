@@ -131,8 +131,16 @@ public class Lobby : MonoBehaviourPunCallbacks
 
         if (deathmatch)
         {
-            if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = deathmachTrue }))
+            RoomOptions op = new RoomOptions();
+            op.MaxPlayers = maxPlayersInRoom;
+            op.IsOpen = true;
+            op.IsVisible = true;
+            op.CustomRoomProperties = deathmachTrue;
+            op.CustomRoomPropertiesForLobby = new string[] { "Deathmatch" };
+
+            if (PhotonNetwork.CreateRoom(null, op, null, null))
             {
+                PhotonNetwork.CurrentRoom.SetCustomProperties(deathmachTrue);
                 Debug.Log("\nSala creada con éxito");
             }
             else
@@ -142,8 +150,15 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
         else
         {
-            if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = deathmachFalse }))
-            {
+            RoomOptions op = new RoomOptions();
+            op.MaxPlayers = maxPlayersInRoom;
+            op.IsOpen = true;
+            op.IsVisible = true;
+            op.CustomRoomProperties = deathmachFalse;
+            op.CustomRoomPropertiesForLobby = new string[] { "Deathmatch" };
+
+            if (PhotonNetwork.CreateRoom(null, op, null, null))
+            {               
                 Debug.Log("\nSala creada con éxito");
             }
             else
