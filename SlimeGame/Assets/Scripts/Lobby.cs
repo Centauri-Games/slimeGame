@@ -12,7 +12,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Button JoinRandomBtn;
     public Text Log;
     
-
+    bool deathmatch;
 
 
     public byte maxPlayersInRoom = 4;
@@ -53,7 +53,8 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom2Players()
     {
           maxPlayersInRoom = 1;
-        if (!PhotonNetwork.JoinRandomRoom(null,2))
+          deathmatch = false;
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},2))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -63,7 +64,17 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         //Connect();
         maxPlayersInRoom = 4;
-        if (!PhotonNetwork.JoinRandomRoom(null,4))
+        deathmatch = false;
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},4))
+        {
+            Log.text += "\nHa ocurrido un error al unirse a la sala";
+        }
+    }
+
+    public void JoinRandomDeathmatch(){
+        maxPlayersInRoom = 4;
+        deathmatch = true;
+        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }},4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -74,7 +85,8 @@ public class Lobby : MonoBehaviourPunCallbacks
         base.OnJoinRandomFailed(returnCode, message);
         Log.text += "\nNo existen salas a las que unirse, creando una nueva...";
 
-        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom }))
+      
+        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties= new  ExitGames.Client.Photon.Hashtable(){{"Deathmatch",deathmatch }}}))
         {
             Log.text += "\nSala creada con éxito";
         }

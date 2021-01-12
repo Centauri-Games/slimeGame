@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button3;
     public GameObject button4;
     public GameObject button5;
-
+    bool ready;
     public GameObject ContactMenu;
 
     public void Connecttoserver()
@@ -24,6 +24,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = nickname.GetComponentInChildren<InputField>().text;
         Debug.Log(PhotonNetwork.NickName);
         nickname.SetActive(false);
+        ready = true;
 
         if (!PhotonNetwork.IsConnected)
         {
@@ -35,14 +36,21 @@ public class MenuController : MonoBehaviourPunCallbacks
             {
                 SceneManager.LoadScene("MainMenu");
             }
+        }else{
+            SceneManager.LoadScene("GameMenu");
         }
     }
     public override void OnConnectedToMaster(){
-        SceneManager.LoadScene("GameMenu");
+        if(ready){
+            SceneManager.LoadScene("GameMenu");
+
+        }
+        
         
     }
     void Start()
     {
+        ready = false;
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1);
     }
 
@@ -125,7 +133,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button4.SetActive(true);
         ContactMenu.SetActive(false);
     }
-
+    
     public void goToWebsite(int website){
         switch(website){
             case 0:
