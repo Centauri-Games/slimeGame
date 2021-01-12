@@ -409,7 +409,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         items[itemIndex].Use();
         if (itemIndex == 1)
         {
-            //plungerController.SetBool("Attacking", true);
+            plungerController.SetBool("Attacking", true);
         }
     }
 
@@ -419,7 +419,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         items[itemIndex].End();
         if (itemIndex == 1)
         {
-            //plungerController.SetBool("Attacking", false);
+            plungerController.SetBool("Attacking", false);
         }
     }
 
@@ -541,6 +541,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput * Time.deltaTime);
+        }
+        else if (go.CompareTag("Water")) //Agua
+        {
+            Die(null);
         }
     }
 

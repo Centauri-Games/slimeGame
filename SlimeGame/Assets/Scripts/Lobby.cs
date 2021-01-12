@@ -24,33 +24,28 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Text PlayerCounter;
     bool loadReady = true;
 
-<<<<<<< Updated upstream
+    [SerializeField] public Button duck;
+    [SerializeField] public Button waterBallon;
+    [SerializeField] public Button sponge;
+    public Hashtable customGrenadePlayerProperties;
+
+    Hashtable deathmachTrue = new Hashtable() { { "Deathmatch", true } };
+    Hashtable deathmachFalse = new Hashtable() { { "Deathmatch", false } };
     public void Start()
     {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
 
+        setGrenade(PlayerPrefs.GetInt("grenadeIndex", 0));
 
-=======
-   
-    [SerializeField] public Button duck;
-
-    [SerializeField] public Button waterBallon;
-
-    [SerializeField] public Button sponge;
-    public Hashtable customGrenadePlayerProperties ;
-    public void Start(){
-        //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
         
-        setGrenade(PlayerPrefs.GetInt("grenadeIndex",0));
-        
->>>>>>> Stashed changes
+
     }
 
     public void Connect()
     {
         if (!PhotonNetwork.IsConnected)
         {
-            if (PhotonNetwork.ConnectUsingSettings())
+            if (PhotonNetwork.ConnectToRegion("eu"))
             {
                 Log.text += "\nConectado al servidor";
             }
@@ -60,43 +55,36 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
         }
     }
-
-<<<<<<< Updated upstream
-
-
-
-=======
-    public void setGrenade(int grenadeIndex){
-        PlayerPrefs.SetInt("grenadeIndex",grenadeIndex);
+    public void setGrenade(int grenadeIndex)
+    {
+        PlayerPrefs.SetInt("grenadeIndex", grenadeIndex);
         customGrenadePlayerProperties = new Hashtable();
-        switch(grenadeIndex){
+        switch (grenadeIndex)
+        {
             case 0:
                 duck.interactable = false;
                 waterBallon.interactable = true;
                 sponge.interactable = true;
-                
-                customGrenadePlayerProperties.Add("grenadeIndex",0);
+
+                customGrenadePlayerProperties.Add("grenadeIndex", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
             case 1:
                 duck.interactable = true;
                 waterBallon.interactable = true;
                 sponge.interactable = false;
-                customGrenadePlayerProperties.Add("grenadeIndex",1);
+                customGrenadePlayerProperties.Add("grenadeIndex", 1);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
             case 2:
                 duck.interactable = true;
                 waterBallon.interactable = false;
                 sponge.interactable = true;
-                customGrenadePlayerProperties.Add("grenadeIndex",2);
+                customGrenadePlayerProperties.Add("grenadeIndex", 2);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
         }
     }
-  
-    
->>>>>>> Stashed changes
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
@@ -109,7 +97,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         maxPlayersInRoom = 2;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 2))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -120,7 +108,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         //Connect();
         maxPlayersInRoom = 4;
         deathmatch = false;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -130,7 +118,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         maxPlayersInRoom = 4;
         deathmatch = true;
-        if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 4))
+        if (!PhotonNetwork.JoinRandomRoom(deathmachTrue, 4))
         {
             Log.text += "\nHa ocurrido un error al unirse a la sala";
         }
@@ -139,17 +127,31 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
-        Log.text += "\nNo existen salas a las que unirse, creando una nueva...";
+       Debug.Log("\nNo existen salas a las que unirse, creando una nueva...");
 
-
-        if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } } }))
+        if (deathmatch)
         {
-            Log.text += "\nSala creada con éxito";
+            if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = deathmachTrue }))
+            {
+                Debug.Log("\nSala creada con éxito");
+            }
+            else
+            {
+                Debug.Log("\nHa ocurrido un error durante la creación de la sala");
+            }
         }
         else
         {
-            Log.text += "\nHa ocurrido un error durante la creación de la sala";
+            if (PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayersInRoom, CustomRoomProperties = deathmachFalse }))
+            {
+                Debug.Log("\nSala creada con éxito");
+            }
+            else
+            {
+                Debug.Log("\nHa ocurrido un error durante la creación de la sala");
+            }
         }
+        
     }
 
     public override void OnJoinedRoom()
@@ -210,7 +212,7 @@ public class Lobby : MonoBehaviourPunCallbacks
                     break;
 
             }
-            
+
         }
     }
     public void FixedUpdate()
@@ -225,15 +227,16 @@ public class Lobby : MonoBehaviourPunCallbacks
 
                 textList[i].GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
             }
+            Debug.Log("Player Count" + PhotonNetwork.CurrentRoom.PlayerCount);
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient && !start.IsActive())
             {
                 start.gameObject.SetActive(true);
-                // if (loadReady)
-                // {   
-                //     PhotonNetwork.CurrentRoom.IsOpen = false;
-                //     PhotonNetwork.LoadLevel("SampleScene");
-                //     loadReady = false;
-                // }
+                /*if (loadReady)
+                {   
+                     PhotonNetwork.CurrentRoom.IsOpen = false;
+                     PhotonNetwork.LoadLevel("SampleScene");
+                    loadReady = false;
+                }*/
             }
         }
 

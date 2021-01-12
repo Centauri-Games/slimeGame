@@ -37,13 +37,6 @@ public class PlayerAnimator : MonoBehaviour
         {
             slimeAnimatorController.SetBool("Grounded", true);
         }
-
-        slimeAnimatorController.SetBool("ChangeWeapon", false);
-
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f || Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
-        {
-            slimeAnimatorController.SetBool("ChangeWeapon", true);
-        }
     }
 
     public void OnCollisionEnter(Collision collision)

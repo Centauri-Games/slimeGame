@@ -51,12 +51,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 3391885422f2cdd41b8b4fd7dd280b91
+  - enabled: 1
+    path: Assets/Scenes/GameMenu.unity
+    guid: 37972416aab306a418ed44e72c32e722
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Vestuario.unity
+    guid: 2f075972e26448d4d9d099f9a335b6a8
+  - enabled: 1
+    path: Assets/Scenes/Piscina.unity
+    guid: 5a9bacbadca7a8543b596d1855420826
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab

@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Bounce
   - GameManager
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -2816,6 +2816,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: -3102500866733086865, guid: 5fb39a369cd86914babfb6e56c967cf4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Water
+      objectReference: {fileID: 0}
     - target: {fileID: -2860524842362524804, guid: 5fb39a369cd86914babfb6e56c967cf4,
         type: 3}
       propertyPath: m_TagString
