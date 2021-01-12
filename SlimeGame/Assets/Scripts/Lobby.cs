@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
@@ -23,11 +24,26 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Text PlayerCounter;
     bool loadReady = true;
 
+<<<<<<< Updated upstream
     public void Start()
     {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
 
 
+=======
+   
+    [SerializeField] public Button duck;
+
+    [SerializeField] public Button waterBallon;
+
+    [SerializeField] public Button sponge;
+    public Hashtable customGrenadePlayerProperties ;
+    public void Start(){
+        //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        
+        setGrenade(PlayerPrefs.GetInt("grenadeIndex",0));
+        
+>>>>>>> Stashed changes
     }
 
     public void Connect()
@@ -45,9 +61,42 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+<<<<<<< Updated upstream
 
 
 
+=======
+    public void setGrenade(int grenadeIndex){
+        PlayerPrefs.SetInt("grenadeIndex",grenadeIndex);
+        customGrenadePlayerProperties = new Hashtable();
+        switch(grenadeIndex){
+            case 0:
+                duck.interactable = false;
+                waterBallon.interactable = true;
+                sponge.interactable = true;
+                
+                customGrenadePlayerProperties.Add("grenadeIndex",0);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
+                break;
+            case 1:
+                duck.interactable = true;
+                waterBallon.interactable = true;
+                sponge.interactable = false;
+                customGrenadePlayerProperties.Add("grenadeIndex",1);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
+                break;
+            case 2:
+                duck.interactable = true;
+                waterBallon.interactable = false;
+                sponge.interactable = true;
+                customGrenadePlayerProperties.Add("grenadeIndex",2);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
+                break;
+        }
+    }
+  
+    
+>>>>>>> Stashed changes
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
