@@ -9,7 +9,7 @@ public class WaterLauncher : Gun
     [SerializeField] float throwForce = 40f;
     string[] grenades = new string[3];
 
-    int currentType = 1;
+    int currentType = 0;
 
     PhotonView id;
 
@@ -32,7 +32,7 @@ public class WaterLauncher : Gun
 
     void ThrowGrenade()
     {
-        GameObject grenade = PhotonNetwork.Instantiate(grenades[currentType], transform.position + new Vector3(0f, 0.5f, 0.5f), transform.rotation);
+        GameObject grenade = PhotonNetwork.Instantiate(grenades[currentType], transform.position + new Vector3(0f, 0.2f, 0.8f), transform.rotation);
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
         rb.AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
     }

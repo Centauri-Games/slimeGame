@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using System.IO;
 
 public class Plunger : Gun
 {
@@ -38,16 +40,16 @@ public class Plunger : Gun
         {
             used = true;
             //Play animation hitting
-            Debug.Log("Using gun " + itemInfo.itemName);
 
             //Raycast para detectar si está delante y cerca
             ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
             {
-                Debug.Log("Alguien");
+                PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Weapons", "FX", "HitEffect"), hit.point, transform.rotation);
                 if (hit.collider.gameObject.CompareTag("Player") && hit.collider.gameObject != currentPlayer)
                 {
+                    PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Weapons", "FX", "HitEffect"), hit.point, transform.rotation);
                     hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
                 }
             }

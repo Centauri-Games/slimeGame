@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     Rect staminaBar;
     Texture2D staminaTex;
 
+    Rect lifeBar;
+    Texture2D lifeTex;
+
     //Weapons
     [SerializeField] Item[] items;
     int itemIndex;
@@ -89,9 +92,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             isMobile = MobileChecker.isMobile();    //Detecta si está en móvil
 
-
             mc = GameObject.FindObjectOfType<MobileController>();
-            staminaBar = new Rect(Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
+
+            lifeBar = new Rect(Screen.width / 20, Screen.height * 2 / 30, Screen.width / 3, Screen.height / 50);
+            lifeTex = new Texture2D(1, 1);
+            lifeTex.SetPixel(0, 0, Color.red);
+            lifeTex.Apply();
+
+            staminaBar = new Rect(Screen.width / 20, Screen.height * 3 / 30, Screen.width / 3, Screen.height / 50);
             staminaTex = new Texture2D(1, 1);
             staminaTex.SetPixel(0, 0, Color.blue);
             staminaTex.Apply();
@@ -134,7 +142,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             handleCamera();
             handleWeaponChange();
             handleShoot();
-        }    
+        }
         handleLimits();
 
     }
@@ -564,6 +572,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             float barWidth = ratio * Screen.width / 3;
             staminaBar.width = barWidth;
             GUI.DrawTexture(staminaBar, staminaTex);
+
+            ratio = currentHealth / maxHealth;
+            barWidth = ratio * Screen.width / 3;
+            lifeBar.width = barWidth;
+            GUI.DrawTexture(lifeBar, lifeTex);
         }
     }
 
