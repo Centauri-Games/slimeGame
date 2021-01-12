@@ -24,26 +24,16 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Text PlayerCounter;
     bool loadReady = true;
 
-<<<<<<< Updated upstream
+    [SerializeField] public Button duck;
+    [SerializeField] public Button waterBallon;
+    [SerializeField] public Button sponge;
+    public Hashtable customGrenadePlayerProperties;
     public void Start()
     {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
 
+        setGrenade(PlayerPrefs.GetInt("grenadeIndex", 0));
 
-=======
-   
-    [SerializeField] public Button duck;
-
-    [SerializeField] public Button waterBallon;
-
-    [SerializeField] public Button sponge;
-    public Hashtable customGrenadePlayerProperties ;
-    public void Start(){
-        //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
-        
-        setGrenade(PlayerPrefs.GetInt("grenadeIndex",0));
-        
->>>>>>> Stashed changes
     }
 
     public void Connect()
@@ -60,43 +50,36 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
         }
     }
-
-<<<<<<< Updated upstream
-
-
-
-=======
-    public void setGrenade(int grenadeIndex){
-        PlayerPrefs.SetInt("grenadeIndex",grenadeIndex);
+    public void setGrenade(int grenadeIndex)
+    {
+        PlayerPrefs.SetInt("grenadeIndex", grenadeIndex);
         customGrenadePlayerProperties = new Hashtable();
-        switch(grenadeIndex){
+        switch (grenadeIndex)
+        {
             case 0:
                 duck.interactable = false;
                 waterBallon.interactable = true;
                 sponge.interactable = true;
-                
-                customGrenadePlayerProperties.Add("grenadeIndex",0);
+
+                customGrenadePlayerProperties.Add("grenadeIndex", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
             case 1:
                 duck.interactable = true;
                 waterBallon.interactable = true;
                 sponge.interactable = false;
-                customGrenadePlayerProperties.Add("grenadeIndex",1);
+                customGrenadePlayerProperties.Add("grenadeIndex", 1);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
             case 2:
                 duck.interactable = true;
                 waterBallon.interactable = false;
                 sponge.interactable = true;
-                customGrenadePlayerProperties.Add("grenadeIndex",2);
+                customGrenadePlayerProperties.Add("grenadeIndex", 2);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(customGrenadePlayerProperties);
                 break;
         }
     }
-  
-    
->>>>>>> Stashed changes
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
@@ -106,7 +89,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 2;
+        maxPlayersInRoom = 1;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable() { { "Deathmatch", deathmatch } }, 2))
@@ -210,7 +193,7 @@ public class Lobby : MonoBehaviourPunCallbacks
                     break;
 
             }
-            
+
         }
     }
     public void FixedUpdate()
@@ -228,12 +211,12 @@ public class Lobby : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient && !start.IsActive())
             {
                 start.gameObject.SetActive(true);
-                // if (loadReady)
-                // {   
-                //     PhotonNetwork.CurrentRoom.IsOpen = false;
-                //     PhotonNetwork.LoadLevel("SampleScene");
-                //     loadReady = false;
-                // }
+                if (loadReady)
+                {   
+                     PhotonNetwork.CurrentRoom.IsOpen = false;
+                     PhotonNetwork.LoadLevel("SampleScene");
+                    loadReady = false;
+                }
             }
         }
 
