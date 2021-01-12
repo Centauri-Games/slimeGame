@@ -5,7 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class GameMenu : MonoBehaviour
+public class GameMenu : MonoBehaviourPunCallbacks
 {
     public GameObject button1;
     public GameObject button2;
@@ -39,7 +39,12 @@ public class GameMenu : MonoBehaviour
 
     public void goBackToMenu()
     {
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
         SceneManager.LoadScene("MainMenu");
     }
 }

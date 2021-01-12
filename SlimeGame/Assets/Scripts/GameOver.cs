@@ -5,7 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class GameOver : MonoBehaviour
+public class GameOver : MonoBehaviourPunCallbacks
 {
     public Text text;
     public GameObject button;
@@ -32,7 +32,12 @@ public class GameOver : MonoBehaviour
 
     public void goBackToMenu()
     {
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
         SceneManager.LoadScene("MainMenu");
     }
 }
