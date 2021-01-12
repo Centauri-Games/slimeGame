@@ -12111,7 +12111,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 95bb3c0e82cdde64b963b30e509df8a1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95bb3c0e82cdde64b963b30e509df8a1, type: 3}
@@ -14064,7 +14064,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1286265687}
+  cameraJoystick: {fileID: 0}
   shootButton: {fileID: 870391627}
+  mobileHUD: {fileID: 0}
   startShoot: 0
   endShoot: 0
 --- !u!4 &1981454645
