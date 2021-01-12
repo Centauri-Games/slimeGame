@@ -5,14 +5,26 @@ using UnityEngine;
 public class MobileController : MonoBehaviour
 {
     [SerializeField] FloatingJoystick joystick;
-    bool isJumping = false;
-    bool isShooting = false;
-    bool isSwitching = false;
-    // Start is called before the first frame update
+    [SerializeField] LongClickButton shootButton;
 
-    public void Update()
+    bool isJumping = false;
+    
+    bool isSwitching = false;
+
+    public bool startShoot = false;
+    public bool endShoot = false;
+    bool isShooting = false;
+
+    public void Start()
     {
-        Debug.Log("Vector: " + joystick.Direction);
+        Debug.Log("Es móvil?" + MobileChecker.isMobile());
+
+        shootButton.mc = this;
+    }
+    public void LateUpdate()
+    {
+        isJumping = false;
+        isSwitching = false;
     }
 
 
@@ -25,13 +37,55 @@ public class MobileController : MonoBehaviour
     {
         return isJumping;
     }
-    public bool IsShooting()
+    
+    public bool StartShoot()
     {
-        return isShooting;
+        if (startShoot)
+        {
+            startShoot = false;
+            isShooting = true;
+            return true;
+        }
+        return false;
+    }
+
+    public bool EndShoot()
+    {
+        if (endShoot)
+        {
+            endShoot = false;
+            isShooting = false;
+            return true;
+        }
+        return false;
     }
 
     public bool IsSwitching()
     {
         return isSwitching;
+    }
+
+    public bool isRunning()
+    {
+        if (joystick.Horizontal > 0.6f || joystick.Vertical > 0.6f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void shoot()
+    {
+        isShooting = true;
+    }
+
+    public void jump()
+    {
+        isJumping = true;
+    }
+
+    public void switching()
+    {
+        isSwitching = true;
     }
 }
