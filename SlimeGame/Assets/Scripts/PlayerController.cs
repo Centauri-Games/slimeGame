@@ -533,6 +533,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         GameObject go = collision.gameObject;
 
+        Debug.Log("Objeto: " + go.name);
         if (go.CompareTag("Wall"))
         {
             enableClimb();
@@ -542,10 +543,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput * Time.deltaTime);
         }
-        else if (go.CompareTag("Water")) //Agua
-        {
-            Die(null);
-        }
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -554,6 +552,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.GetComponent<AmmoRecharge>() != null)
         {
             ((WaterGun)items[0]).Recharge();    //Si es un objeto de munición
+        }
+        else if (go.CompareTag("Water")) //Agua
+        {
+            Die(null);
         }
     }
 

@@ -94,7 +94,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 2;
+        maxPlayersInRoom = 1;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
@@ -212,6 +212,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             int n = Random.Range(0, 3);
+            n = 0;
             switch (n)
             {
                 case 0:
