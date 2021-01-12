@@ -14,7 +14,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     
     bool deathmatch;
 
-
+    [SerializeField] public GameObject[] textList; 
     public byte maxPlayersInRoom = 4;
     public byte minPlayersInRoom = 2;
 
@@ -23,9 +23,9 @@ public class Lobby : MonoBehaviourPunCallbacks
     bool loadReady = true;
 
     public void Start(){
-        Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
         
-        JoinRandomBtn.interactable = true;
+        
     }
 
     public void Connect()
@@ -43,6 +43,9 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    
+  
+    
     public override void OnConnectedToMaster()
     {
         Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
@@ -100,7 +103,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Log.text += "\nSe ha unido a la sala";
-        JoinRandomBtn.interactable = false;
+        //JoinRandomBtn.interactable = false;
 
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -113,6 +116,12 @@ public class Lobby : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom != null)
         {
             playerCounter = PhotonNetwork.CurrentRoom.PlayerCount;
+
+            for(int i = 0; i < playerCounter;i++){
+                
+                
+                textList[i].GetComponent<Text>().text= PhotonNetwork.PlayerList[i].NickName;
+            }
             if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom && PhotonNetwork.IsMasterClient)
             {
                 if (loadReady)
