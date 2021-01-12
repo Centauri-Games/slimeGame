@@ -24,6 +24,10 @@ public class MenuController : MonoBehaviourPunCallbacks
     public void Connecttoserver()
     {
         PhotonNetwork.NickName = nickname.GetComponentInChildren<InputField>().text;
+        if (PhotonNetwork.NickName.Equals(""))
+        {
+            PhotonNetwork.NickName = "Player" + Random.Range(0, 9999).ToString();
+        }
         Debug.Log(PhotonNetwork.NickName);
         nickname.SetActive(false);
         ready = true;
