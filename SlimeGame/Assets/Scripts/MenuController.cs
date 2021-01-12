@@ -16,6 +16,8 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button3;
     public GameObject button4;
     public GameObject button5;
+    public GameObject button6;
+    public GameObject button7;
     bool ready;
     public GameObject ContactMenu;
 
@@ -69,8 +71,10 @@ public class MenuController : MonoBehaviourPunCallbacks
             connecting.GetComponentInChildren<Text>().text = "Conectando a los servidores...";
             nickname.GetComponentInChildren<Text>().text = "Introduce tu nombre de jugador";
             button5.GetComponentInChildren<Text>().text = "Confirmar";
+            button6.GetComponentInChildren<Text>().text = "Atrás";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nombre de usuario";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nombre de usuario";
+            button7.GetComponentInChildren<Text>().text = "Contactar";
         }
         else
         {
@@ -81,8 +85,10 @@ public class MenuController : MonoBehaviourPunCallbacks
             connecting.GetComponentInChildren<Text>().text = "Connecting to servers...";
             nickname.GetComponentInChildren<Text>().text = "Write your nickname";
             button5.GetComponentInChildren<Text>().text = "Confirm";
+            button6.GetComponentInChildren<Text>().text = "Back";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
+            button7.GetComponentInChildren<Text>().text = "Contact";
         }
     }
     // Update is called once per frame
@@ -98,7 +104,17 @@ public class MenuController : MonoBehaviourPunCallbacks
         button2.SetActive(false);
         button3.SetActive(false);
         button4.SetActive(false);
+        button7.SetActive(false);
         nickname.SetActive(true);
+    }
+    public void hideNickname()
+    {
+        button1.SetActive(true);
+        button2.SetActive(true);
+        button3.SetActive(true);
+        button4.SetActive(true);
+        button7.SetActive(true);
+        nickname.SetActive(false);
     }
     public void goToMatchmakingScene(){
         SceneManager.LoadScene("GameMenu");
@@ -122,6 +138,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button2.SetActive(false);
         button3.SetActive(false);
         button4.SetActive(false);
+        button7.SetActive(false);
         ContactMenu.SetActive(true);
     }
 
@@ -131,6 +148,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button2.SetActive(true);
         button3.SetActive(true);
         button4.SetActive(true);
+        button7.SetActive(true);
         ContactMenu.SetActive(false);
     }
     
