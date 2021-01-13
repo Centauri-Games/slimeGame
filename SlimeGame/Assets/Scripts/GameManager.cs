@@ -148,6 +148,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             int index = playerNicks.IndexOf(otherPlayer.NickName);
             playerNicks.RemoveAt(index);
             playersScore.RemoveAt(index);
+
+            if(PhotonNetwork.CurrentRoom.PlayerCount <= 1)
+            {
+                EndGame();
+            }
         }
     }
 
@@ -304,6 +309,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void RPC_EndGame()
 
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Hashtable h = new Hashtable();
         for (int i = 0; i < playerNicks.Count; i++)
         {
