@@ -6,6 +6,8 @@ using Photon.Pun;
 public class WaterGun : Gun
 {
     [SerializeField] ParticleSystem waterJet;
+    [SerializeField] List<GameObject> parts;
+    [SerializeField] List<Material> materials;
     [SerializeField] float ammo;
     [SerializeField] float totalAmmo = 100f;
     bool isShooting = false;
@@ -32,6 +34,33 @@ public class WaterGun : Gun
     public void Start()
     {
         Stop();
+
+        int skin = (int)id.Owner.CustomProperties["waterGunSkin"];
+
+        switch (skin)
+        {
+            case 0:
+                //No hace nada, skin por defecto
+                break;
+            case 1: //Blue cammo
+                parts[0].GetComponent<Renderer>().material = materials[0];
+                parts[1].GetComponent<Renderer>().material = materials[1];
+                parts[2].GetComponent<Renderer>().material = materials[1];
+                parts[3].GetComponent<Renderer>().material = materials[1];
+                parts[4].GetComponent<Renderer>().material = materials[1];
+                parts[5].GetComponent<Renderer>().material = materials[0];
+                break;
+            case 2: //Red cammo
+                parts[0].GetComponent<Renderer>().material = materials[0];
+                parts[1].GetComponent<Renderer>().material = materials[2];
+                parts[2].GetComponent<Renderer>().material = materials[2];
+                parts[3].GetComponent<Renderer>().material = materials[2];
+                parts[4].GetComponent<Renderer>().material = materials[2];
+                parts[5].GetComponent<Renderer>().material = materials[0];
+                break;
+            default:
+                break;
+        }
     }
     public override void Use()
     {

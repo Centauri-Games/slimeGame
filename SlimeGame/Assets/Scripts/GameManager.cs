@@ -251,6 +251,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    //prueba
 
     [PunRPC]
     private void RPC_AddPlayer(PhotonMessageInfo info)
