@@ -110,6 +110,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button3.SetActive(false);
         button4.SetActive(false);
         button7.SetActive(false);
+        button8.SetActive(false);
         nickname.SetActive(true);
     }
     public void hideNickname()
@@ -119,6 +120,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button3.SetActive(true);
         button4.SetActive(true);
         button7.SetActive(true);
+        button8.SetActive(true);
         nickname.SetActive(false);
     }
     public void goToMatchmakingScene(){
@@ -144,6 +146,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button3.SetActive(false);
         button4.SetActive(false);
         button7.SetActive(false);
+        button8.SetActive(false);
         ContactMenu.SetActive(true);
     }
 
@@ -154,6 +157,7 @@ public class MenuController : MonoBehaviourPunCallbacks
         button3.SetActive(true);
         button4.SetActive(true);
         button7.SetActive(true);
+        button8.SetActive(true);
         ContactMenu.SetActive(false);
     }
     
