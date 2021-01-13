@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if (gameStarted)
+        if (0==1)
         {
             elapsedTime = PhotonNetwork.Time - startTime;   //Tiempo transcurrido
             remainTime = gameTimer - elapsedTime;
