@@ -72,7 +72,7 @@ public class Plunger : Gun
             //Raycast para detectar si está delante y cerca
             ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward * 1.2f);
             plungerController.SetBool("Attacking", true);
-
+           
             if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
             {
                 PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Weapons", "FX", "HitEffect"), hit.point, transform.rotation);
@@ -82,10 +82,16 @@ public class Plunger : Gun
                     hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
                 }
             }
+            HitSound();
         }
     }
 
     public override void End()
     { //plungerController.SetBool("Attacking", false); 
+    }
+
+    void HitSound()
+    {
+        GameManager.am.playSound(1,1f);
     }
 }
