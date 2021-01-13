@@ -21,6 +21,10 @@ public class Sponge : Gun
             Destroy(GetComponent<Rigidbody>());
         }
     }
+    void Start()
+    {
+        GameManager.am.playSound(5, 1f);
+    }
     public override void Use()
     {
 
@@ -71,7 +75,10 @@ public class Sponge : Gun
     [PunRPC]
     void RPC_Destroy()
     {
+        GameManager.am.playSound(3,1f);    //Sonido splash
+        GameManager.am.playSound(2, 0.2f);    //Sonido pompas
         Destroy(gameObject);
     }
     public override void End() { }
+
 }

@@ -558,6 +558,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput * Time.deltaTime);
+            GameManager.am.playSound(6,1f);
         }
         
     }
@@ -567,10 +568,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         GameObject go = other.gameObject;
         if (go.GetComponent<AmmoRecharge>() != null)
         {
+            GameManager.am.playSound(9, 2f);
             ((WaterGun)items[0]).Recharge();    //Si es un objeto de munición
         }
         else if (go.CompareTag("Water")) //Agua
         {
+            GameManager.am.playSound(3, 2f);
             Die(null);
         }
     }

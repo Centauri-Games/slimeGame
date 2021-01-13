@@ -6,7 +6,11 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] List<AudioClip> musica;
     [SerializeField] List<AudioClip> sfx;
-    static AudioSource audioSource;
+
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource audioSourceLoop;
+    [SerializeField] AudioSource audioSource;
+
 
     static AudioManager instance;
 
@@ -20,7 +24,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            audioSource = GetComponent<AudioSource>();
             DontDestroyOnLoad(this);
             audioSource.PlayOneShot(musica[3]);
         }
@@ -35,7 +38,22 @@ public class AudioManager : MonoBehaviour
 
     public void playMusic(int n)
     {
-        audioSource.Stop();
-        audioSource.PlayOneShot(musica[n]);
+        musicSource.Stop();
+        musicSource.PlayOneShot(musica[n]);
+    }
+
+    public void playSound(int n, float volume)
+    {
+        audioSource.PlayOneShot(sfx[n], volume);
+    }
+
+    public void playSoundLoop(int n, float volume)
+    {
+        audioSourceLoop.PlayOneShot(sfx[n], volume);
+    }
+
+    public void stopSoundLoop()
+    {
+        audioSourceLoop.Stop();
     }
 }

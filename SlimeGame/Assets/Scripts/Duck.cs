@@ -29,6 +29,7 @@ public class Duck : MonoBehaviourPunCallbacks
             Destroy(GetComponent<Rigidbody>());
         }
     }
+    void Start() { GameManager.am.playSound(5, 1f); }
     private void Update()
     {
         if (id.IsMine)
@@ -39,6 +40,7 @@ public class Duck : MonoBehaviourPunCallbacks
 
                 if (elapsedTime >= tickRate)
                 {
+                    id.RPC("RPC_DuckSound", RpcTarget.All);
 
                     PhotonNetwork.Instantiate(Path.Combine("SimpleFX", "Prefabs", "FX_BlueExplosion"), transform.position, transform.rotation);    //Al explotar activa la deteccion de daño y las particulas
                     elapsedTime = 0.0f;
@@ -68,12 +70,13 @@ public class Duck : MonoBehaviourPunCallbacks
 
     void Explode()
     {
-        
         if (id.IsMine)
         {
             //Show particles water
             PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Weapons", "FX", "AreaEffect"), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.rotation);    //Al explotar activa la deteccion de daño y las particulas
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+
+            id.RPC("RPC_AreaSound", RpcTarget.All);
 
             foreach (Collider c in colliders)
             {
@@ -119,5 +122,17 @@ public class Duck : MonoBehaviourPunCallbacks
     void RPC_Destroy()
     {
         Destroy(gameObject);
+    }
+
+    [PunRPC]
+    void RPC_DuckSound()
+    {
+        GameManager.am.playSound(7, 1f);
+    }
+
+    [PunRPC]
+    void RPC_AreaSound()
+    {
+        GameManager.am.playSound(0, 1f);
     }
 }
