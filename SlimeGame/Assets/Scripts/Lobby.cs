@@ -220,7 +220,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             int n = Random.Range(0, 3);
-            n = 0;
+            n = 2;
             switch (n)
             {
                 case 0:

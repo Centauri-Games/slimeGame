@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
 
-         stats = GameObject.Find("Stats");
-        
+        stats = GameObject.Find("Stats");
+
         n1 = GameObject.Find("nickname1").GetComponent<Text>();
         n2 = GameObject.Find("nickname2").GetComponent<Text>();
         n3 = GameObject.Find("nickname3").GetComponent<Text>();
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         s3 = GameObject.Find("score3").GetComponent<Text>();
         s4 = GameObject.Find("score4").GetComponent<Text>();
 
-
+        stats.SetActive(false);
         timer = GameObject.Find("Timer").GetComponent<Text>();
 
         if (PhotonNetwork.IsMasterClient)
@@ -85,8 +85,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerNicks = new List<string>();
         playersScore = new List<int>();
 
-        foreach (Player p in PhotonNetwork.PlayerList)   
-        {                                               
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
             if (!playerNicks.Contains(p.NickName))
             {
                 playerNicks.Add(p.NickName);
@@ -128,29 +128,45 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Update()
     {
 
-                if(Input.GetKeyDown(KeyCode.Tab)){
-            if(!stats.active){
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (!stats.active)
+            {
                 stats.SetActive(true);
             }
 
-            n1.text = "#1 : "+ playerNicks[0];
-            n2.text = "#2 : "+ playerNicks[1];
-            if(playerNicks.Count > 2){
-                n3.text = "#3 : "+ playerNicks[2];
-                n4.text = "#4 : "+ playerNicks[3];
+            n1.text = "#1 : " + playerNicks[0];
+            s1.text = "" + playersScore[0];
+            if (playerNicks.Count > 1)
+            {
+                n2.text = "#2 : " + playerNicks[1];
+                s2.text = "" + playersScore[1];
             }
-            
+            if (playerNicks.Count > 2)
+            {
+                n3.text = "#3 : " + playerNicks[2];
+                s3.text = "" + playersScore[2];
+                if (playerNicks.Count > 3)
+                {
+                    n4.text = "#4 : " + playerNicks[3];
+                    s4.text = "" + playersScore[3];
+                }
+            }
 
-            s1.text = "" +playersScore[0];
-            s2.text = "" +playersScore[1];
-            if(playersScore.Count > 2){
-                s3.text = "" +playersScore[2];
-                s4.text = "" +playersScore[3];
-            }
-            
+            /*
+            s1.text = "" + playersScore[0];
+            s2.text = "" + playersScore[1];
+            if (playersScore.Count > 2)
+            {
+                s3.text = "" + playersScore[2];
+                s4.text = "" + playersScore[3];
+            }*/
+
         }
-        if(Input.GetKeyUp(KeyCode.Tab)){
-            if(stats.active){
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            if (stats.active)
+            {
                 stats.SetActive(false);
             }
         }
@@ -201,9 +217,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void orderScore()
     {
-        for (int i = 0; i < playersScore.Count-1; i++)
+        for (int i = 0; i < playersScore.Count - 1; i++)
         {
-            if(playersScore[i] < playersScore[i + 1])
+            if (playersScore[i] < playersScore[i + 1])
             {
                 int score = playersScore[i];    //Guardar original
                 string name = playerNicks[i];
