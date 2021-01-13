@@ -22,7 +22,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     double remainTime;
 
     Text timer;
+    List<GameObject> textList;
 
+    Text n1;
+    Text n2;
+    Text n3;
+    Text n4;
+
+    Text s1;
+
+    Text s2;
+
+    Text s3;
+
+    Text s4;
+
+    GameObject stats;
     //Players
     static List<string> playerNicks;
     static List<int> playersScore;
@@ -43,6 +58,20 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+
+         stats = GameObject.Find("Stats");
+        
+        n1 = GameObject.Find("nickname1").GetComponent<Text>();
+        n2 = GameObject.Find("nickname2").GetComponent<Text>();
+        n3 = GameObject.Find("nickname3").GetComponent<Text>();
+        n4 = GameObject.Find("nickname4").GetComponent<Text>();
+
+        s1 = GameObject.Find("score1").GetComponent<Text>();
+        s2 = GameObject.Find("score2").GetComponent<Text>();
+        s3 = GameObject.Find("score3").GetComponent<Text>();
+        s4 = GameObject.Find("score4").GetComponent<Text>();
+
+
         timer = GameObject.Find("Timer").GetComponent<Text>();
 
         if (PhotonNetwork.IsMasterClient)
@@ -98,6 +127,33 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+
+                if(Input.GetKeyDown(KeyCode.Tab)){
+            if(!stats.active){
+                stats.SetActive(true);
+            }
+
+            n1.text = "#1 : "+ playerNicks[0];
+            n2.text = "#2 : "+ playerNicks[1];
+            if(playerNicks.Count > 2){
+                n3.text = "#3 : "+ playerNicks[2];
+                n4.text = "#4 : "+ playerNicks[3];
+            }
+            
+
+            s1.text = "" +playersScore[0];
+            s2.text = "" +playersScore[1];
+            if(playersScore.Count > 2){
+                s3.text = "" +playersScore[2];
+                s4.text = "" +playersScore[3];
+            }
+            
+        }
+        if(Input.GetKeyUp(KeyCode.Tab)){
+            if(stats.active){
+                stats.SetActive(false);
+            }
+        }
         if (gameStarted)
         {
             elapsedTime = PhotonNetwork.Time - startTime;   //Tiempo transcurrido
