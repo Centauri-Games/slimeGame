@@ -8,6 +8,7 @@ public class WaterLauncher : Gun
 {
     [SerializeField] float throwForce = 40f;
     [SerializeField] GameObject charger;
+    [SerializeField] GameObject upper;
     [SerializeField] List<Material> materials;
     string[] grenades = new string[3];
 
@@ -38,9 +39,11 @@ public class WaterLauncher : Gun
                 break;
             case 1:
                 r.material = materials[0];  //Blue cammo
+                upper.GetComponent<Renderer>().material = materials[0];  //Blue cammo
                 break;
             case 2:
                 r.material = materials[1]; //Red cammo
+                upper.GetComponent<Renderer>().material = materials[1];
                 break;
             default:
                 break;
