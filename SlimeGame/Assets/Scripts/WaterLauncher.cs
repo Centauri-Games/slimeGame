@@ -53,14 +53,19 @@ public class WaterLauncher : Gun
 
     public override void Use()
     {
-        Debug.Log("Lanzando granada");
-        ThrowGrenade();
+        if (WaterGun.ammo > 25)
+        {
+            Debug.Log("Lanzando granada");
+            ThrowGrenade();
+        }
 
     }
 
     void ThrowGrenade()
     {
-        GameObject grenade = PhotonNetwork.Instantiate(grenades[currentType], transform.position + new Vector3(0f, 0.2f, 0.8f), transform.rotation);
+        WaterGun.ammo -= 30f;
+        if (WaterGun.ammo <= 0) WaterGun.ammo = 0f;
+        GameObject grenade = PhotonNetwork.Instantiate(grenades[currentType], transform.position + transform.forward*1.2f + transform.up*1.2f +transform.right*0.5f, transform.rotation);
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
         rb.AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
     }

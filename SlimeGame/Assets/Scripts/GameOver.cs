@@ -9,6 +9,25 @@ public class GameOver : MonoBehaviourPunCallbacks
 {
     public Text text;
     public GameObject button;
+
+
+     List<string> nickList;
+
+    [SerializeField] GameObject n1;
+    [SerializeField] GameObject n2;
+    [SerializeField] GameObject n3;
+    [SerializeField] GameObject n4;
+    
+    [SerializeField] GameObject s1;
+    [SerializeField] GameObject s2;
+    [SerializeField] GameObject s3;
+    [SerializeField] GameObject s4;
+
+    int numPlayers;
+
+    List<int> scoreList;
+    string winner;
+    GameObject panelStats;
     // Start is called before the first frame update
     void Start()
     {

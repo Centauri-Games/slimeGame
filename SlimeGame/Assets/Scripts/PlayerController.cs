@@ -148,23 +148,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (!id.IsMine) return;
 
-        if (isMobile)
+        if (!ShowOptions.IsPaused())
         {
-            handleMoveMobile();
-            handleJumpMobile();
-            handleCameraMobile();
-            handleWeaponChangeMobile();
-            handleShootMobile();
+            if (isMobile)
+            {
+                handleMoveMobile();
+                handleJumpMobile();
+                handleCameraMobile();
+                handleWeaponChangeMobile();
+                handleShootMobile();
+            }
+            else
+            {
+                handleMove();
+                handleJump();
+                handleCamera();
+                handleWeaponChange();
+                handleShoot();
+            }
+            handleLimits();
         }
-        else
-        {
-            handleMove();
-            handleJump();
-            handleCamera();
-            handleWeaponChange();
-            handleShoot();
-        }
-        handleLimits();
 
     }
 

@@ -8,7 +8,8 @@ public class MobileController : MonoBehaviour
     [SerializeField] FixedJoystick cameraJoystick;
     [SerializeField] LongClickButton shootButton;
     [SerializeField] GameObject mobileHUD;
-
+    [SerializeField] GameObject pauseButton;
+    [SerializeField] GameObject statsButton;
     bool isJumping = false;
     
     bool isSwitching = false;
@@ -24,10 +25,14 @@ public class MobileController : MonoBehaviour
         if (MobileChecker.isMobile())
         {
             mobileHUD.SetActive(true);
+            pauseButton.SetActive(true);
+            statsButton.SetActive(true);
         }
         else
         {
             mobileHUD.SetActive(false);
+            pauseButton.SetActive(false);
+            statsButton.SetActive(false);
         }
 
         shootButton.mc = this;

@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     bool teamBattle = false;
     static List<int> playerTeams;
 
+    GameObject statsButton;
+    bool mobile = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -55,6 +58,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.AutomaticallySyncScene = true;
         }
+        mobile = MobileChecker.isMobile();
+
     }
 
     void Start()
@@ -64,6 +69,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             teamBattle = true;
         }
         stats = GameObject.Find("Stats");
+
+        if (mobile)
+        {
+            statsButton = GameObject.Find("StatButton");
+            statsButton.GetComponent<Button>().onClick.AddListener(showStats);
+        }
 
         n1 = GameObject.Find("nickname1").GetComponent<Text>();
         n2 = GameObject.Find("nickname2").GetComponent<Text>();
@@ -137,47 +148,19 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!mobile)
         {
-            if (!stats.active)
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                stats.SetActive(true);
-            }
+                showStats();
 
-            n1.text = "#1 : " + playerNicks[0];
-            s1.text = "" + playersScore[0];
-            if (playerNicks.Count > 1)
-            {
-                n2.text = "#2 : " + playerNicks[1];
-                s2.text = "" + playersScore[1];
             }
-            if (playerNicks.Count > 2)
+            if (Input.GetKeyUp(KeyCode.Tab))
             {
-                n3.text = "#3 : " + playerNicks[2];
-                s3.text = "" + playersScore[2];
-                if (playerNicks.Count > 3)
+                if (stats.active)
                 {
-                    n4.text = "#4 : " + playerNicks[3];
-                    s4.text = "" + playersScore[3];
+                    stats.SetActive(false);
                 }
-            }
-
-            /*
-            s1.text = "" + playersScore[0];
-            s2.text = "" + playersScore[1];
-            if (playersScore.Count > 2)
-            {
-                s3.text = "" + playersScore[2];
-                s4.text = "" + playersScore[3];
-            }*/
-
-        }
-        if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            if (stats.active)
-            {
-                stats.SetActive(false);
             }
         }
         if (gameStarted)
@@ -189,6 +172,41 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (remainTime <= 0 && PhotonNetwork.IsMasterClient)
             {
                 EndGame();
+            }
+        }
+    }
+
+    public void showStats()
+    {
+        if (mobile)
+        {
+            if (stats.active)
+            {
+                stats.SetActive(false);
+                return;
+            }
+
+        }
+        if (!stats.active)
+        {
+            stats.SetActive(true);
+        }
+
+        n1.text = "#1 : " + playerNicks[0];
+        s1.text = "" + playersScore[0];
+        if (playerNicks.Count > 1)
+        {
+            n2.text = "#2 : " + playerNicks[1];
+            s2.text = "" + playersScore[1];
+        }
+        if (playerNicks.Count > 2)
+        {
+            n3.text = "#3 : " + playerNicks[2];
+            s3.text = "" + playersScore[2];
+            if (playerNicks.Count > 3)
+            {
+                n4.text = "#4 : " + playerNicks[3];
+                s4.text = "" + playersScore[3];
             }
         }
     }
