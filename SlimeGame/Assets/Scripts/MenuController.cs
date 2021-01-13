@@ -15,8 +15,6 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button2;
     public GameObject button3;
     public GameObject button4;
-    public GameObject button5;
-    public GameObject button6;
     public GameObject button7;
     public GameObject button8;
     bool ready;
@@ -74,8 +72,6 @@ public class MenuController : MonoBehaviourPunCallbacks
             button3.GetComponentInChildren<Text>().text = "Tienda";
             connecting.GetComponentInChildren<Text>().text = "Conectando a los servidores...";
             nickname.GetComponentInChildren<Text>().text = "Introduce tu nombre de jugador";
-            button5.GetComponentInChildren<Text>().text = "Confirmar";
-            button6.GetComponentInChildren<Text>().text = "Atrás";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nombre de usuario";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nombre de usuario";
             button7.GetComponentInChildren<Text>().text = "Contactar";
@@ -88,8 +84,6 @@ public class MenuController : MonoBehaviourPunCallbacks
             button3.GetComponentInChildren<Text>().text = "Shop";
             connecting.GetComponentInChildren<Text>().text = "Connecting to servers...";
             nickname.GetComponentInChildren<Text>().text = "Write your nickname";
-            button5.GetComponentInChildren<Text>().text = "Confirm";
-            button6.GetComponentInChildren<Text>().text = "Back";
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
             button7.GetComponentInChildren<Text>().text = "Contact";
