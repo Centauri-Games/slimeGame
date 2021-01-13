@@ -136,7 +136,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 1;
+        maxPlayersInRoom = 4;
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
