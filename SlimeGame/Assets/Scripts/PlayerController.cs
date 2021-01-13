@@ -115,12 +115,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
             mc = GameObject.FindObjectOfType<MobileController>();
 
-            lifeBar = new Rect(Screen.width / 20, Screen.height * 2 / 30, Screen.width / 3, Screen.height / 50);
+            lifeBar = new Rect(Screen.width / 20 + 20, Screen.height * 2 / 30, Screen.width / 3, Screen.height / 50);
             lifeTex = new Texture2D(1, 1);
-            lifeTex.SetPixel(0, 0, Color.red);
+            lifeTex.SetPixel(0, 0, new Color(0f, 255f, 204f));
             lifeTex.Apply();
 
-            staminaBar = new Rect(Screen.width / 20, Screen.height * 3 / 30, Screen.width / 3, Screen.height / 50);
+            staminaBar = new Rect(Screen.width / 20 +20, Screen.height * 3 / 30, Screen.width / 3, Screen.height / 50);
             staminaTex = new Texture2D(1, 1);
             staminaTex.SetPixel(0, 0, Color.blue);
             staminaTex.Apply();

@@ -25,7 +25,7 @@ public class WaterGun : Gun
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de municion
         {
-            ammoBar = new Rect(Screen.width / 20, Screen.height * 4 / 30, Screen.width / 3, Screen.height / 50);
+            ammoBar = new Rect(Screen.width / 20 +20, Screen.height * 4 / 30, Screen.width / 3, Screen.height / 50);
             ammoTex = new Texture2D(1, 1);
             ammoTex.SetPixel(0, 0, Color.cyan);
             ammoTex.Apply();
