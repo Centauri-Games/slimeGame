@@ -49,11 +49,25 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.ConnectToRegion("eu"))
             {
-                Log.text += "\nConectado al servidor";
+                if (PlayerPrefs.GetInt("language") == 1)
+                {
+                    Log.text += "\nConectado al servidor";
+                }
+                else
+                {
+                    Log.text = "\nConnected to server";
+                }
             }
             else
             {
-                Log.text += "\nSe ha producido un error de conexión";
+                if (PlayerPrefs.GetInt("language") == 1)
+                {
+                    Log.text += "\nSe ha producido un error de conexión";
+                }
+                else
+                {
+                    Log.text += "\nA connection error has occured";
+                }
             }
         }
     }
@@ -89,7 +103,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        }
+        else
+        {
+            Log.text += "\nServer: " + PhotonNetwork.CloudRegion;
+        }
 
         JoinRandomBtn.interactable = true;
     }
@@ -101,7 +122,14 @@ public class Lobby : MonoBehaviourPunCallbacks
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
@@ -112,7 +140,14 @@ public class Lobby : MonoBehaviourPunCallbacks
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
@@ -122,7 +157,14 @@ public class Lobby : MonoBehaviourPunCallbacks
         deathmatch = true;
         if (!PhotonNetwork.JoinRandomRoom(deathmachTrue, 4))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
@@ -174,7 +216,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        Log.text += "\nSe ha unido a la sala";
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            Log.text += "\nSe ha unido a la sala";
+        }
+        else
+        {
+            Log.text += "\nYou have joined the room";
+        }
 
         //JoinRandomBtn.interactable = false;
         customSkinsProperties = new Hashtable();
@@ -197,13 +246,13 @@ public class Lobby : MonoBehaviourPunCallbacks
             auxText = textList[i].GetComponent<Text>();
             if (auxText.text.Equals(otherPlayer.NickName))
             {
-                if (PlayerPrefs.GetInt("language", 1) == 1)
+                if (PlayerPrefs.GetInt("language") == 1)
                 {
-                    auxText.text = "Waiting for other player";
+                    auxText.text = "Esperando a otro jugador...";
                 }
                 else
                 {
-                    auxText.text = "Esperando a otro jugador";
+                    auxText.text = "Waiting for other player...";
                 }
                 start.gameObject.SetActive(false);
             }
