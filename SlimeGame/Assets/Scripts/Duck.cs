@@ -98,7 +98,10 @@ public class Duck : MonoBehaviourPunCallbacks
     {
         if (!id.IsMine && targetPlayer == id.Owner)   //Si es el jugador que ha cambiado el arma y no es el local
         {
-            hasExploded = (bool)changedProps["explosionStatus"];
+            if (changedProps.ContainsKey("explosionStatus"))
+            {
+                hasExploded = (bool)changedProps["explosionStatus"];
+            }
         }
     }
 
