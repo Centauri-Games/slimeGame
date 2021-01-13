@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     double gameTimer = 180.0f;  //3 minutos
     double elapsedTime = 0.0f;
     double startTime;
-    double remainTime;
+    double remainTime = 180.0f;
 
     Text timer;
     List<GameObject> textList;
