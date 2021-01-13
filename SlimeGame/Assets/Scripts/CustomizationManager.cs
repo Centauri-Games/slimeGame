@@ -54,7 +54,7 @@ public class CustomizationManager : MonoBehaviour
          }
          actualWaterGun =  waterGunList[waterGunCursor]; 
            actualWaterGun.SetActive(true);
-         PlayerPrefs.GetInt("waterGunSkin",waterGunCursor);
+         PlayerPrefs.SetInt("waterGunSkin",waterGunCursor);
      }
 
     public void waterGrenadeCursorAdd(int valueToAdd){
@@ -67,7 +67,7 @@ public class CustomizationManager : MonoBehaviour
          }
           actualWaterGrenade = waterGrenadeList[waterGrenadeCursor];
             actualWaterGrenade.SetActive(true);
-          PlayerPrefs.GetInt("waterGrenadeSkin",waterGrenadeCursor);
+          PlayerPrefs.SetInt("waterGrenadeSkin",waterGrenadeCursor);
      }
 
      public void plungerCursorAdd(int valueToAdd){
