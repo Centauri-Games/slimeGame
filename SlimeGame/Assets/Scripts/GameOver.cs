@@ -20,7 +20,7 @@ public class GameOver : MonoBehaviourPunCallbacks
       [SerializeField] GameObject textoEarnedPoints;
     
 
-    int numPlayers;
+    int numPlayers = 1;
 
     List<int> scoreList;
     string winner;
@@ -28,13 +28,15 @@ public class GameOver : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        numPlayers = (int)PhotonNetwork.LocalPlayer.CustomProperties["numplayers"];
+        //numPlayers = (int)PhotonNetwork.LocalPlayer.CustomProperties["numplayers"];
 
         if(PhotonNetwork.LocalPlayer.NickName.Equals((string)PhotonNetwork.LocalPlayer.CustomProperties["winner"])){
             textoEarnedPoints.GetComponent<Text>().text = "+ 60";
+        }else{
+            textoEarnedPoints.GetComponent<Text>().text = "+ 10";
         }
 
-        textoEarnedPoints.GetComponent<Text>().text = "+ 10";
+        
         texto1.GetComponent<Text>().text = "#1 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score0"];
         if(numPlayers > 1 ){
         texto2.GetComponent<Text>().text = "#2 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score1"];
