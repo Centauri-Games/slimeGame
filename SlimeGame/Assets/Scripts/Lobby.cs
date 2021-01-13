@@ -117,7 +117,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 1;
+        maxPlayersInRoom = 2;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
@@ -136,7 +136,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 4;
+        maxPlayersInRoom = 1;
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
@@ -231,6 +231,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         customSkinsProperties.Add("waterGunSkin",PlayerPrefs.GetInt("waterGunSkin"));
         customSkinsProperties.Add("waterGrenadeSkin",PlayerPrefs.GetInt("waterGrenadeSkin"));
         customSkinsProperties.Add("plungerSkin",PlayerPrefs.GetInt("plungerSkin"));
+        customSkinsProperties.Add("teamIndex", -1);
         PhotonNetwork.LocalPlayer.SetCustomProperties(customSkinsProperties);
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -263,11 +264,63 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    public void setTeam()
+    {
+        int playersTeam1 = 0;
+        int playersTeam2 = 0;
+
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            int team = Random.Range(0, 2);
+
+            switch (team)
+            {
+                case 0: //Equipo 1
+                    if (playersTeam1 < 2)
+                    {
+                        //Añade al equipo 1
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 0;
+                        playersTeam1++;
+                    }
+                    else
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 1;
+                        playersTeam2++;
+                        //Añade al equipo 2
+                    }
+                    break;
+
+                case 1: //Equipo 2
+                    if (playersTeam2 < 2)
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 1;
+                        //Añade al equipo 2
+                        playersTeam2++;
+                    }
+                    else
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 0;
+                        //Añade al equipo 1
+                        playersTeam1++;
+                    }
+
+                    break;
+            }
+        }
+
+    }
+
     public void startGame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
+
+            if (!deathmatch && PhotonNetwork.CurrentRoom.MaxPlayers == 1)
+            {
+                setTeam();  //Organiza los equipos
+            }
+
             int n = Random.Range(0, 3);
             switch (n)
             {
