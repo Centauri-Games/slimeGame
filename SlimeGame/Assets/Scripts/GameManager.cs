@@ -168,30 +168,33 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (!mobile)
+        if (id.IsMine)
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (!mobile)
             {
-                showStats();
-
-            }
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                if (stats.active)
+                if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    stats.SetActive(false);
+                    showStats();
+
+                }
+                if (Input.GetKeyUp(KeyCode.Tab))
+                {
+                    if (stats.active)
+                    {
+                        stats.SetActive(false);
+                    }
                 }
             }
-        }
-        if (gameStarted)
-        {
-            elapsedTime = PhotonNetwork.Time - startTime;   //Tiempo transcurrido
-            remainTime = gameTimer - elapsedTime;
-
-
-            if (remainTime <= 0 && PhotonNetwork.IsMasterClient)
+            if (gameStarted)
             {
-                EndGame();
+                elapsedTime = PhotonNetwork.Time - startTime;   //Tiempo transcurrido
+                remainTime = gameTimer - elapsedTime;
+
+
+                if (remainTime <= 0 && PhotonNetwork.IsMasterClient)
+                {
+                    EndGame();
+                }
             }
         }
     }
@@ -251,7 +254,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void UpdateScore(Player killer)
     {
-        if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"])  //Si no son del mismo equipo, aumenta puntuación
+        if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"] && teamBattle)  //Si no son del mismo equipo, aumenta puntuación
             id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
     }
 
