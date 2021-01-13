@@ -13,6 +13,6 @@ public class MobileChecker : MonoBehaviour
     #if !UNITY_EDITOR && UNITY_WEBGL
             return IsMobile();
     #endif
-            return true;
+            return false;
     }
 }

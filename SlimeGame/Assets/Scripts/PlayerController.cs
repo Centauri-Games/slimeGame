@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     Vector3 moveInput = Vector3.zero;   //Vector de movimiento
 
     //Animaciones
-    [SerializeField] Animator slimeAnimatorController;
     [SerializeField] Animator plungerController;
 
     //Camara
@@ -431,20 +430,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     void RPC_Shoot()
     {
         items[itemIndex].Use();
-        if (itemIndex == 1)
+        /*if (itemIndex == 1)
         {
             plungerController.SetBool("Attacking", true);
-        }
+        }*/
     }
 
     [PunRPC]
     void RPC_End()
     {
         items[itemIndex].End();
-        if (itemIndex == 1)
+        /*if (itemIndex == 1)
         {
             plungerController.SetBool("Attacking", false);
-        }
+        }*/
     }
 
 
@@ -590,7 +589,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.CompareTag("Wall"))
         {
             disableClimb();
-            slimeAnimatorController.SetBool("WallPasted", false);
+            
         }
     }
 

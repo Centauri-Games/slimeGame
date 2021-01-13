@@ -390,6 +390,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 39a64a7b5f2c26b40a2337216e1a0de3, type: 2}
   - {fileID: 2100000, guid: deb9ab895d96613448699fab82fac349, type: 2}
+  plungerController: {fileID: 159334399749452961}
 --- !u!95 &4931643096914349866
 Animator:
   serializedVersion: 3
@@ -5258,7 +5259,6 @@ MonoBehaviour:
   gravity: -9.81
   doubleJump: 0
   bounceMultiplier: 3
-  slimeAnimatorController: {fileID: 4931643096914349866}
   plungerController: {fileID: 159334399749452961}
   sensitivityX: 15
   sensitivityY: 15

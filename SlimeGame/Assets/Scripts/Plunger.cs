@@ -18,6 +18,8 @@ public class Plunger : Gun
     float currentWait;
     float delay = 0.5f;
     bool used = false;
+
+    [SerializeField] Animator plungerController;
     void Start()
     {
         //attackAnim = plunger.GetComponent<Animator>();
@@ -25,7 +27,7 @@ public class Plunger : Gun
 
         id = itemGameObject.GetComponent<PhotonView>();
 
-        
+
         int skin = (int)id.Owner.CustomProperties["plungerSkin"];
 
         Renderer r = plunger.GetComponent<Renderer>();
@@ -54,6 +56,7 @@ public class Plunger : Gun
             currentWait += Time.deltaTime;
             if (currentWait >= delay)
             {
+                plungerController.SetBool("Attacking", false);
                 currentWait = 0.0f;
                 used = false;
             }
@@ -67,7 +70,8 @@ public class Plunger : Gun
             //Play animation hitting
 
             //Raycast para detectar si está delante y cerca
-            ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward);
+            ray = new Ray(currentPlayer.transform.position, currentPlayer.transform.forward * 1.2f);
+            plungerController.SetBool("Attacking", true);
 
             if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
             {
@@ -81,5 +85,7 @@ public class Plunger : Gun
         }
     }
 
-    public override void End() { }  //Vacío
+    public override void End()
+    { //plungerController.SetBool("Attacking", false); 
+    }
 }
