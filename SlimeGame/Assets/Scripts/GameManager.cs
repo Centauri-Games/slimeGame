@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     static List<string> playerNicks;
     static List<int> playersScore;
 
+    //Equipos
+    bool teamBattle = false;
+    static List<int> playerTeams;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -55,7 +59,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-
+        if (!((bool)PhotonNetwork.CurrentRoom.CustomProperties["Deathmatch"]) && PhotonNetwork.CurrentRoom.MaxPlayers == 1) //Si deathmatch es false y hay 4 jugadores -> Pelea de equipos
+        {
+            teamBattle = true;
+        }
         stats = GameObject.Find("Stats");
 
         n1 = GameObject.Find("nickname1").GetComponent<Text>();
@@ -88,6 +95,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 playerNicks.Add(p.NickName);
                 playersScore.Add(0);
+
+                if (teamBattle)
+                {
+                    playerTeams.Add((int)p.CustomProperties["teamIndex"]);
+                }
             }
         }
         id.RPC("RPC_AddPlayer", RpcTarget.All);
@@ -200,7 +212,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void UpdateScore(Player killer)
     {
-        id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
+        if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"])  //Si no son del mismo equipo, aumenta puntuación
+            id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
     }
 
     [PunRPC]
