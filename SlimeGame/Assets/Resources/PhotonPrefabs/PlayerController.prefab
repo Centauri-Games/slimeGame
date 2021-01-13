@@ -234,7 +234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &908180725723020387
 Transform:
   m_ObjectHideFlags: 0
@@ -335,9 +335,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 4661a9a6b06d26346ab038c577eade20, type: 2}
   itemGameObject: {fileID: 2692123955914610686}
-  plunger: {fileID: 0}
+  plunger: {fileID: 5608654689490095519}
   currentPlayer: {fileID: 7084120142613755137}
   attackRange: 1.5
+  materials:
+  - {fileID: 2100000, guid: 39a64a7b5f2c26b40a2337216e1a0de3, type: 2}
+  - {fileID: 2100000, guid: deb9ab895d96613448699fab82fac349, type: 2}
 --- !u!114 &1064124728326016262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6024,6 +6027,12 @@ GameObject:
 --- !u!4 &8082421444428108565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ec65ed90e089c1748b11e37fc20dff81,
+    type: 3}
+  m_PrefabInstance: {fileID: 8619957883596862718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5608654689490095519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5010870590387734175, guid: ec65ed90e089c1748b11e37fc20dff81,
     type: 3}
   m_PrefabInstance: {fileID: 8619957883596862718}
   m_PrefabAsset: {fileID: 0}

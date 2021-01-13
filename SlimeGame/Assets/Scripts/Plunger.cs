@@ -10,7 +10,10 @@ public class Plunger : Gun
     [SerializeField] GameObject plunger;
     [SerializeField] GameObject currentPlayer;
     [SerializeField] float attackRange = 1.5f;
+    [SerializeField] List<Material> materials;
     Ray ray;
+
+    PhotonView id;
 
     float currentWait;
     float delay = 0.5f;
@@ -18,8 +21,33 @@ public class Plunger : Gun
     void Start()
     {
         //attackAnim = plunger.GetComponent<Animator>();
-
         currentWait = 0.0f;
+
+        id = itemGameObject.GetComponent<PhotonView>();
+
+        
+        int skin = (int)id.Owner.CustomProperties["plungerSkin"];
+
+        Renderer r = plunger.GetComponent<Renderer>();
+        switch (skin)
+        {
+            case 0:
+                //No hace nada, skin por defecto
+                break;
+            case 1:
+                r.material = materials[0];
+                break;
+            case 2:
+                r.material = materials[1];
+                break;
+            default:
+                break;
+        }
+
+        /*
+        plunger.GetComponent<Renderer>().materials[1] = "";*/
+
+
     }
 
     void Update()

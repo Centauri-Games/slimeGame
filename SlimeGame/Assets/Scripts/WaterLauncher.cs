@@ -9,7 +9,7 @@ public class WaterLauncher : Gun
     [SerializeField] float throwForce = 40f;
     string[] grenades = new string[3];
 
-    int currentType = 0;
+    int currentType = 1;
 
     PhotonView id;
 
@@ -20,6 +20,11 @@ public class WaterLauncher : Gun
         grenades[1] = Path.Combine("Prefabs", "Weapons", "sponge Test");
         grenades[2] = Path.Combine("Prefabs", "Weapons", "Duck Test");
 
+    }
+
+    void Start()
+    {
+        currentType = (int)PhotonNetwork.LocalPlayer.CustomProperties["grenadeIndex"];
     }
     public override void End() { }
 
