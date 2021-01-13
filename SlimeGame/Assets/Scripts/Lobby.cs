@@ -322,6 +322,7 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
 
             int n = Random.Range(0, 3);
+            n = 0;
             switch (n)
             {
                 case 0:

@@ -8,7 +8,7 @@ public class WaterGun : Gun
     [SerializeField] ParticleSystem waterJet;
     [SerializeField] List<GameObject> parts;
     [SerializeField] List<Material> materials;
-    [SerializeField] float ammo;
+    [SerializeField] public static float ammo;
     [SerializeField] float totalAmmo = 100f;
     bool isShooting = false;
 
@@ -17,7 +17,7 @@ public class WaterGun : Gun
     //UI
     Rect ammoBar;
     Texture2D ammoTex;
-
+ 
     void Awake()
     {
         id = GetComponent<PhotonView>();
@@ -78,11 +78,15 @@ public class WaterGun : Gun
 
     private void FixedUpdate()
     {
-        if (isShooting)
+        if (ShowOptions.IsPaused() && isShooting)
         {
-            ammo -= 0.2f;   //La municion la actualizan todos
+            id.RPC("RPC_Stop", RpcTarget.All);
+        }
+        if (isShooting)
+        {     
             if (id.IsMine)
             {
+                ammo -= 0.2f;   //La municion la actualizan todos
                 if (ammo < 0)   //Solo el jugador que dispara indica al resto que paren de disparar
                 {
                     id.RPC("RPC_Stop", RpcTarget.All);
