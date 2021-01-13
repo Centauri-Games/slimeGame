@@ -71,7 +71,6 @@ public class MenuController : MonoBehaviourPunCallbacks
             button1.GetComponentInChildren<Text>().text = "Jugar";
             button2.GetComponentInChildren<Text>().text = "Personalización";
             button3.GetComponentInChildren<Text>().text = "Tienda";
-            button4.GetComponentInChildren<Text>().text = "Opciones";
             connecting.GetComponentInChildren<Text>().text = "Conectando a los servidores...";
             nickname.GetComponentInChildren<Text>().text = "Introduce tu nombre de jugador";
             button5.GetComponentInChildren<Text>().text = "Confirmar";
@@ -85,7 +84,6 @@ public class MenuController : MonoBehaviourPunCallbacks
             button1.GetComponentInChildren<Text>().text = "Play";
             button2.GetComponentInChildren<Text>().text = "Customization";
             button3.GetComponentInChildren<Text>().text = "Shop";
-            button4.GetComponentInChildren<Text>().text = "Options";
             connecting.GetComponentInChildren<Text>().text = "Connecting to servers...";
             nickname.GetComponentInChildren<Text>().text = "Write your nickname";
             button5.GetComponentInChildren<Text>().text = "Confirm";
