@@ -18,6 +18,7 @@ public class MenuController : MonoBehaviourPunCallbacks
     public GameObject button5;
     public GameObject button6;
     public GameObject button7;
+    public GameObject button8;
     bool ready;
     public GameObject ContactMenu;
 
@@ -78,6 +79,7 @@ public class MenuController : MonoBehaviourPunCallbacks
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nombre de usuario";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nombre de usuario";
             button7.GetComponentInChildren<Text>().text = "Contactar";
+            button8.GetComponentInChildren<Text>().text = "¿Cómo jugar?";
         }
         else
         {
@@ -91,6 +93,7 @@ public class MenuController : MonoBehaviourPunCallbacks
             nickname.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text = "Nickname";
             nickname.GetComponentInChildren<InputField>().placeholder.GetComponent<Text>().text = "Nickname";
             button7.GetComponentInChildren<Text>().text = "Contact";
+            button8.GetComponentInChildren<Text>().text = "How to play?";
         }
     }
     // Update is called once per frame
