@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ShopScene : MonoBehaviour
 {
-    public GameObject button;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,14 +15,14 @@ public class ShopScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("language") == 1)
+        /*if (PlayerPrefs.GetInt("language") == 1)
         {
-            button.GetComponentInChildren<Text>().text = "Atrás";
+            
         }
         else
         {
-            button.GetComponentInChildren<Text>().text = "Back";
-        }
+            
+        }*/
     }
 
 
