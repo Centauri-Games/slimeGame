@@ -6661,7 +6661,6 @@ MonoBehaviour:
   volumeText: {fileID: 1287853067}
   sensitivityText: {fileID: 2028658515}
   languageText: {fileID: 419491345}
-  backButtonText: {fileID: 302519499}
   gameOverButtonText: {fileID: 1870757257}
 --- !u!222 &666983578
 CanvasRenderer:
@@ -12183,7 +12182,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f8f8e245a3fd2dd47b0719b7c1a07225,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f8f8e245a3fd2dd47b0719b7c1a07225,
         type: 3}
