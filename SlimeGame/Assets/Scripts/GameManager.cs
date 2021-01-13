@@ -137,8 +137,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             id.RPC("RPC_AddPlayer", RpcTarget.All);
         }
-
-
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

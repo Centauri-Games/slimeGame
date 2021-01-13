@@ -134,13 +134,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (id.IsMine)
         {
             ChangeItem(0);  //Inicia con la pistola de agua
+            gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         }
         else    //Si no es el jugador local: destruye el rb y el manejador de cinemachine
         {
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
         }
-        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        Debug.Log("");
     }
 
     // Update is called once per frame
