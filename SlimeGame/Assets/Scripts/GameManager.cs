@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
         }
 
+        startTime = PhotonNetwork.Time;
         playerNicks = new List<string>();
         playersScore = new List<int>();
         playerTeams = new List<int>();
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (propertiesThatChanged.TryGetValue("startTime", out o))
             {
                 gameStarted = true;
-                startTime = (double)o;
+                startTime = PhotonNetwork.Time;
 
             }
         }
