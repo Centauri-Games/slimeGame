@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 659198211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77295d18d4ff8f64195013a43cd4b69b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8277c41ec06dbf8468d7efabef7bcf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sliderVolume: {fileID: 1330432726}
@@ -2192,7 +2192,6 @@ MonoBehaviour:
   volumeText: {fileID: 215638126}
   sensitivityText: {fileID: 1614836623}
   languageText: {fileID: 2061176698}
-  gameOverButtonText: {fileID: 0}
 --- !u!1 &742567148
 GameObject:
   m_ObjectHideFlags: 0
