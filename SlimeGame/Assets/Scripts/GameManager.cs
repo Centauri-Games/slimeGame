@@ -83,58 +83,60 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        if (!((bool)PhotonNetwork.CurrentRoom.CustomProperties["Deathmatch"]) && PhotonNetwork.CurrentRoom.MaxPlayers == 1) //Si deathmatch es false y hay 4 jugadores -> Pelea de equipos
+        if (id.IsMine)
         {
-            teamBattle = true;
-        }
-        stats = GameObject.Find("Stats");
-
-        if (mobile)
-        {
-            statsButton = GameObject.Find("StatButton");
-            statsButton.GetComponent<Button>().onClick.AddListener(showStats);
-        }
-
-        n1 = GameObject.Find("nickname1").GetComponent<Text>();
-        n2 = GameObject.Find("nickname2").GetComponent<Text>();
-        n3 = GameObject.Find("nickname3").GetComponent<Text>();
-        n4 = GameObject.Find("nickname4").GetComponent<Text>();
-
-        s1 = GameObject.Find("score1").GetComponent<Text>();
-        s2 = GameObject.Find("score2").GetComponent<Text>();
-        s3 = GameObject.Find("score3").GetComponent<Text>();
-        s4 = GameObject.Find("score4").GetComponent<Text>();
-
-        stats.SetActive(false);
-        timer = GameObject.Find("Timer").GetComponent<Text>();
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            startTime = PhotonNetwork.Time;
-            Hashtable hash = new Hashtable();
-            hash.Add("startTime", startTime);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
-        }
-
-        startTime = PhotonNetwork.Time;
-        playerNicks = new List<string>();
-        playersScore = new List<int>();
-        playerTeams = new List<int>();
-
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
-            if (!playerNicks.Contains(p.NickName))
+            if (!((bool)PhotonNetwork.CurrentRoom.CustomProperties["Deathmatch"]) && PhotonNetwork.CurrentRoom.MaxPlayers == 1) //Si deathmatch es false y hay 4 jugadores -> Pelea de equipos
             {
-                playerNicks.Add(p.NickName);
-                playersScore.Add(0);
+                teamBattle = true;
+            }
+            stats = GameObject.Find("Stats");
 
-                if (teamBattle)
+            if (mobile)
+            {
+                statsButton = GameObject.Find("StatButton");
+                statsButton.GetComponent<Button>().onClick.AddListener(showStats);
+            }
+
+            n1 = GameObject.Find("nickname1").GetComponent<Text>();
+            n2 = GameObject.Find("nickname2").GetComponent<Text>();
+            n3 = GameObject.Find("nickname3").GetComponent<Text>();
+            n4 = GameObject.Find("nickname4").GetComponent<Text>();
+
+            s1 = GameObject.Find("score1").GetComponent<Text>();
+            s2 = GameObject.Find("score2").GetComponent<Text>();
+            s3 = GameObject.Find("score3").GetComponent<Text>();
+            s4 = GameObject.Find("score4").GetComponent<Text>();
+
+            stats.SetActive(false);
+            timer = GameObject.Find("Timer").GetComponent<Text>();
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                startTime = PhotonNetwork.Time;
+                Hashtable hash = new Hashtable();
+                hash.Add("startTime", startTime);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+            }
+
+            playerNicks = new List<string>();
+            playersScore = new List<int>();
+            playerTeams = new List<int>();
+
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                if (!playerNicks.Contains(p.NickName))
                 {
-                    playerTeams.Add((int)p.CustomProperties["teamIndex"]);
+                    playerNicks.Add(p.NickName);
+                    playersScore.Add(0);
+
+                    if (teamBattle)
+                    {
+                        playerTeams.Add((int)p.CustomProperties["teamIndex"]);
+                    }
                 }
             }
+            id.RPC("RPC_AddPlayer", RpcTarget.All);
         }
-        id.RPC("RPC_AddPlayer", RpcTarget.All);
 
 
     }
@@ -158,7 +160,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (propertiesThatChanged.TryGetValue("startTime", out o))
             {
                 gameStarted = true;
-                startTime = PhotonNetwork.Time;
+                startTime = (double)o;
 
             }
         }
@@ -183,7 +185,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if (0==1)
+        if (gameStarted)
         {
             elapsedTime = PhotonNetwork.Time - startTime;   //Tiempo transcurrido
             remainTime = gameTimer - elapsedTime;
