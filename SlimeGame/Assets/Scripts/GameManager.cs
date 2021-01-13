@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     GameManager instance;
     public static bool gameStarted = false;
 
-
-    
     //Timer
     double gameTimer = 180.0f;  //3 minutos
     double elapsedTime = 0.0f;
@@ -48,7 +46,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     private void Awake()
     {
-       
         if (instance == null)
             instance = this;
 
@@ -67,7 +64,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             teamBattle = true;
         }
         stats = GameObject.Find("Stats");
-         DontDestroyOnLoad(stats.gameObject);
+
         n1 = GameObject.Find("nickname1").GetComponent<Text>();
         n2 = GameObject.Find("nickname2").GetComponent<Text>();
         n3 = GameObject.Find("nickname3").GetComponent<Text>();
@@ -254,17 +251,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     private void RPC_EndGame()
-    {   
-        Hashtable hash = new Hashtable();
-
-         for (int i = 0; i < playersScore.Count; i++)
-            {
-                hash.Add("finalScores" + i,playersScore[i]);
-                hash.Add("finalNicks" + i,playerNicks[i]);
-            }
-            hash.Add("numPlayers",PhotonNetwork.CurrentRoom.PlayerCount);
-        
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    {
         gameStarted = false;
         if (PhotonNetwork.IsMasterClient)
         {
