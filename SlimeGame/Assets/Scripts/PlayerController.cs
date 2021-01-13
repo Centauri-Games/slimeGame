@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             lifeTex.SetPixel(0, 0, new Color(0f, 255f, 204f));
             lifeTex.Apply();
 
-            staminaBar = new Rect(Screen.width / 20 +20, Screen.height * 3 / 30, Screen.width / 3, Screen.height / 50);
+            staminaBar = new Rect(Screen.width / 20 + 20, Screen.height * 3 / 30, Screen.width / 3, Screen.height / 50);
             staminaTex = new Texture2D(1, 1);
             staminaTex.SetPixel(0, 0, Color.blue);
             staminaTex.Apply();
@@ -148,26 +148,32 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (!id.IsMine) return;
 
-        if (!ShowOptions.IsPaused())
+
+        if (isMobile)
         {
-            if (isMobile)
+            if (!ShowOptions.IsPaused())
             {
                 handleMoveMobile();
-                handleJumpMobile();
                 handleCameraMobile();
                 handleWeaponChangeMobile();
                 handleShootMobile();
             }
-            else
+            handleJumpMobile();
+
+        }
+        else
+        {
+            if (!ShowOptions.IsPaused())
             {
                 handleMove();
-                handleJump();
                 handleCamera();
                 handleWeaponChange();
                 handleShoot();
             }
-            handleLimits();
+
+            handleJump();
         }
+        handleLimits();
 
     }
 
@@ -558,9 +564,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             moveInput.y = jumpHeight * bounceMultiplier;
             characterController.Move(moveInput * Time.deltaTime);
-            GameManager.am.playSound(6,1f);
+            GameManager.am.playSound(6, 1f);
         }
-        
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -585,7 +591,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (go.CompareTag("Wall"))
         {
             disableClimb();
-            
+
         }
     }
 
