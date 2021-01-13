@@ -20,12 +20,15 @@ public class AmmoManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        spawns = GetComponentsInChildren<Spawnpoint>();
-        ammoSpawned = new bool[spawns.Length];
         if (PhotonNetwork.IsMasterClient)
         {
-            for (int i = 0; i < spawns.Length; i++)
-                spawnAmmo(i);
+            spawns = GetComponentsInChildren<Spawnpoint>();
+            ammoSpawned = new bool[spawns.Length];
+            if (PhotonNetwork.IsMasterClient)
+            {
+                for (int i = 0; i < spawns.Length; i++)
+                    spawnAmmo(i);
+            }
         }
     }
 
@@ -41,7 +44,7 @@ public class AmmoManager : MonoBehaviourPunCallbacks
         }
     }
 
-    
+
 
     void restoreAmmo()
     {
