@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
-            audioSource.PlayOneShot(musica[3]);
+            musicSource.PlayOneShot(musica[3]);
         }
         
     }
