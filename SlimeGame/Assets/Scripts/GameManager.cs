@@ -141,11 +141,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        base.OnPlayerLeftRoom(otherPlayer);
+        if (id.IsMine)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
 
-        int index = playerNicks.IndexOf(otherPlayer.NickName);
-        playerNicks.RemoveAt(index);
-        playersScore.RemoveAt(index);
+            int index = playerNicks.IndexOf(otherPlayer.NickName);
+            playerNicks.RemoveAt(index);
+            playersScore.RemoveAt(index);
+        }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -254,8 +257,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void UpdateScore(Player killer)
     {
-        if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"] && teamBattle)  //Si no son del mismo equipo, aumenta puntuación
+        if (teamBattle)
+        {
+            if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"])  //Si no son del mismo equipo, aumenta puntuación
+                
+        }
+        else
+        {
             id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
+        }
     }
 
     [PunRPC]
