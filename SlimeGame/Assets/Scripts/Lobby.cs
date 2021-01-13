@@ -49,11 +49,25 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.ConnectToRegion("eu"))
             {
-                Log.text += "\nConectado al servidor";
+                if (PlayerPrefs.GetInt("language") == 1)
+                {
+                    Log.text += "\nConectado al servidor";
+                }
+                else
+                {
+                    Log.text = "\nConnected to server";
+                }
             }
             else
             {
-                Log.text += "\nSe ha producido un error de conexión";
+                if (PlayerPrefs.GetInt("language") == 1)
+                {
+                    Log.text += "\nSe ha producido un error de conexión";
+                }
+                else
+                {
+                    Log.text += "\nA connection error has occured";
+                }
             }
         }
     }
@@ -89,30 +103,51 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
+        }
+        else
+        {
+            Log.text += "\nServer: " + PhotonNetwork.CloudRegion;
+        }
 
         JoinRandomBtn.interactable = true;
     }
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 1;
+        maxPlayersInRoom = 2;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
     public void JoinRandom4Players()
     {
         //Connect();
-        maxPlayersInRoom = 4;
+        maxPlayersInRoom = 1;
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 4))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
@@ -122,7 +157,14 @@ public class Lobby : MonoBehaviourPunCallbacks
         deathmatch = true;
         if (!PhotonNetwork.JoinRandomRoom(deathmachTrue, 4))
         {
-            Log.text += "\nHa ocurrido un error al unirse a la sala";
+            if (PlayerPrefs.GetInt("language") == 1)
+            {
+                Log.text += "\nHa ocurrido un error al unirse a la sala";
+            }
+            else
+            {
+                Log.text += "\nAn error occured while entering the room";
+            }
         }
     }
 
@@ -174,7 +216,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        Log.text += "\nSe ha unido a la sala";
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            Log.text += "\nSe ha unido a la sala";
+        }
+        else
+        {
+            Log.text += "\nYou have joined the room";
+        }
 
         //JoinRandomBtn.interactable = false;
         customSkinsProperties = new Hashtable();
@@ -182,6 +231,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         customSkinsProperties.Add("waterGunSkin",PlayerPrefs.GetInt("waterGunSkin"));
         customSkinsProperties.Add("waterGrenadeSkin",PlayerPrefs.GetInt("waterGrenadeSkin"));
         customSkinsProperties.Add("plungerSkin",PlayerPrefs.GetInt("plungerSkin"));
+        customSkinsProperties.Add("teamIndex", -1);
         PhotonNetwork.LocalPlayer.SetCustomProperties(customSkinsProperties);
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -197,13 +247,13 @@ public class Lobby : MonoBehaviourPunCallbacks
             auxText = textList[i].GetComponent<Text>();
             if (auxText.text.Equals(otherPlayer.NickName))
             {
-                if (PlayerPrefs.GetInt("language", 1) == 1)
+                if (PlayerPrefs.GetInt("language") == 1)
                 {
-                    auxText.text = "Waiting for other player";
+                    auxText.text = "Esperando a otro jugador...";
                 }
                 else
                 {
-                    auxText.text = "Esperando a otro jugador";
+                    auxText.text = "Waiting for other player...";
                 }
                 start.gameObject.SetActive(false);
             }
@@ -214,11 +264,63 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    public void setTeam()
+    {
+        int playersTeam1 = 0;
+        int playersTeam2 = 0;
+
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            int team = Random.Range(0, 2);
+
+            switch (team)
+            {
+                case 0: //Equipo 1
+                    if (playersTeam1 < 2)
+                    {
+                        //Añade al equipo 1
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 0;
+                        playersTeam1++;
+                    }
+                    else
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 1;
+                        playersTeam2++;
+                        //Añade al equipo 2
+                    }
+                    break;
+
+                case 1: //Equipo 2
+                    if (playersTeam2 < 2)
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 1;
+                        //Añade al equipo 2
+                        playersTeam2++;
+                    }
+                    else
+                    {
+                        PhotonNetwork.PlayerList[i].CustomProperties["teamIndex"] = 0;
+                        //Añade al equipo 1
+                        playersTeam1++;
+                    }
+
+                    break;
+            }
+        }
+
+    }
+
     public void startGame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
+
+            if (!deathmatch && PhotonNetwork.CurrentRoom.MaxPlayers == 1)
+            {
+                setTeam();  //Organiza los equipos
+            }
+
             int n = Random.Range(0, 3);
             switch (n)
             {
