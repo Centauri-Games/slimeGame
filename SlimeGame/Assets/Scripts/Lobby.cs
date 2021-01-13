@@ -29,6 +29,8 @@ public class Lobby : MonoBehaviourPunCallbacks
     [SerializeField] public Button sponge;
     public Hashtable customGrenadePlayerProperties;
 
+    public Hashtable customSkinsProperties;
+
     Hashtable deathmachTrue = new Hashtable() { { "Deathmatch", true } };
     Hashtable deathmachFalse = new Hashtable() { { "Deathmatch", false } };
     public void Start()
@@ -94,7 +96,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRandom2Players()
     {
-        maxPlayersInRoom = 2;
+        maxPlayersInRoom = 1;
         Debug.Log("\nServidor: " + PhotonNetwork.CloudRegion);
         deathmatch = false;
         if (!PhotonNetwork.JoinRandomRoom(deathmachFalse, 2))
@@ -173,8 +175,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Log.text += "\nSe ha unido a la sala";
-        //JoinRandomBtn.interactable = false;
 
+        //JoinRandomBtn.interactable = false;
+        customSkinsProperties = new Hashtable();
+        customSkinsProperties.Add("slimeSkin",PlayerPrefs.GetInt("slimeSkin"));
+        customSkinsProperties.Add("waterGunSkin",PlayerPrefs.GetInt("waterGunSkin"));
+        customSkinsProperties.Add("waterGrenadeSkin",PlayerPrefs.GetInt("waterGrenadeSkin"));
+        customSkinsProperties.Add("plungerSkin",PlayerPrefs.GetInt("plungerSkin"));
+        PhotonNetwork.LocalPlayer.SetCustomProperties(customSkinsProperties);
         PhotonNetwork.AutomaticallySyncScene = true;
 
 
