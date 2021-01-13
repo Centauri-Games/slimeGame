@@ -535,7 +535,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (!id.IsMine && targetPlayer == id.Owner)   //Si es el jugador que ha cambiado el arma y no es el local
         {
-            ChangeItem((int)changedProps["itemIndex"]);
+            if (changedProps.ContainsKey("itemIndex"))
+            {
+                ChangeItem((int)changedProps["itemIndex"]);
+            }
         }
     }
 
