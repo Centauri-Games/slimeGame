@@ -11,10 +11,25 @@ public class GameMenu : MonoBehaviourPunCallbacks
     public GameObject button2;
     public GameObject button3;
     public GameObject button4;
+
+    public Text[] panelTexts;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PlayerPrefs.GetInt("language") == 1)
+        {
+            for (int i = 0; i < panelTexts.Length; i++)
+            {
+                panelTexts[i].text = "Esperando a otro jugador...";
+            }
+        }
+        else
+        {
+            for (int i = 0; i < panelTexts.Length; i++)
+            {
+                panelTexts[i].text = "Waiting for other player...";
+            }
+        }
     }
 
     // Update is called once per frame
@@ -26,14 +41,14 @@ public class GameMenu : MonoBehaviourPunCallbacks
             button1.GetComponentInChildren<Text>().text = "1 contra 1";
             button2.GetComponentInChildren<Text>().text = "2 contra 2";
             button3.GetComponentInChildren<Text>().text = "Todos contra todos";
-            button4.GetComponentInChildren<Text>().text = "Atrás";
+            button4.GetComponentInChildren<Text>().text = "Empezar";
         }
         else
         {
             button1.GetComponentInChildren<Text>().text = "1 VS. 1";
             button2.GetComponentInChildren<Text>().text = "2 VS. 2";
             button3.GetComponentInChildren<Text>().text = "All VS. All";
-            button4.GetComponentInChildren<Text>().text = "Back";
+            button4.GetComponentInChildren<Text>().text = "Start";
         }
     }
 
