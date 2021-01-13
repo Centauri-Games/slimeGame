@@ -44,9 +44,6 @@ public class Plunger : Gun
                 break;
         }
 
-        /*
-        plunger.GetComponent<Renderer>().materials[1] = "";*/
-
 
     }
 

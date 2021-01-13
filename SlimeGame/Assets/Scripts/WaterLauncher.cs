@@ -7,6 +7,8 @@ using System.IO;
 public class WaterLauncher : Gun
 {
     [SerializeField] float throwForce = 40f;
+    [SerializeField] GameObject charger;
+    [SerializeField] List<Material> materials;
     string[] grenades = new string[3];
 
     int currentType = 1;
@@ -25,6 +27,24 @@ public class WaterLauncher : Gun
     void Start()
     {
         currentType = (int)PhotonNetwork.LocalPlayer.CustomProperties["grenadeIndex"];
+
+        int skin = (int)id.Owner.CustomProperties["waterGrenadeSkin"];
+
+        Renderer r = charger.GetComponent<Renderer>();
+        switch (skin)
+        {
+            case 0:
+                //No hace nada, skin por defecto
+                break;
+            case 1:
+                r.material = materials[0];  //Blue cammo
+                break;
+            case 2:
+                r.material = materials[1]; //Red cammo
+                break;
+            default:
+                break;
+        }
     }
     public override void End() { }
 
