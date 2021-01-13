@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     static List<string> playerNicks;
     static List<int> playersScore;
 
+    string nick1;
+
+    
+
     //Equipos
     bool teamBattle = false;
     static List<int> playerTeams;
@@ -269,7 +273,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     private void RPC_EndGame()
+
     {
+        Hashtable h = new Hashtable();
+        for( int i = 0; i < playerNicks.Count; i++){
+            h.Add("score"+ i,""+playerNicks[i]+" : "+playersScore[i]);
+        }
+        h.Add("numplayers",playerNicks.Count);
+        h.Add("winner",playerNicks[0]);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         gameStarted = false;
         if (PhotonNetwork.IsMasterClient)
         {

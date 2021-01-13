@@ -13,15 +13,12 @@ public class GameOver : MonoBehaviourPunCallbacks
 
      List<string> nickList;
 
-    [SerializeField] GameObject n1;
-    [SerializeField] GameObject n2;
-    [SerializeField] GameObject n3;
-    [SerializeField] GameObject n4;
+    [SerializeField] GameObject texto1;
+    [SerializeField] GameObject texto2;
+    [SerializeField] GameObject texto3;
+    [SerializeField] GameObject texto4;
+      [SerializeField] GameObject textoEarnedPoints;
     
-    [SerializeField] GameObject s1;
-    [SerializeField] GameObject s2;
-    [SerializeField] GameObject s3;
-    [SerializeField] GameObject s4;
 
     int numPlayers;
 
@@ -31,7 +28,23 @@ public class GameOver : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+        numPlayers = (int)PhotonNetwork.LocalPlayer.CustomProperties["numplayers"];
+
+        if(PhotonNetwork.LocalPlayer.NickName.Equals((string)PhotonNetwork.LocalPlayer.CustomProperties["winner"])){
+            textoEarnedPoints.GetComponent<Text>().text = "+ 60";
+        }
+
+        textoEarnedPoints.GetComponent<Text>().text = "+ 10";
+        texto1.GetComponent<Text>().text = "#1 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score0"];
+        if(numPlayers > 1 ){
+        texto2.GetComponent<Text>().text = "#2 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score1"];
+        if(numPlayers > 2){
+             texto3.GetComponent<Text>().text = "#3 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score2"];
+             if( numPlayers > 3){
+                  texto2.GetComponent<Text>().text = "#4 "+(string)PhotonNetwork.LocalPlayer.CustomProperties["score3"];
+             }
+        }
+        }
     }
 
     // Update is called once per frame
