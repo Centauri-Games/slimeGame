@@ -65,7 +65,7 @@ public class OptionsAwake : MonoBehaviour
             volumeText.text = "Volume";
             sensitivityText.text = "Mouse sensitivity";
             languageText.text = "Language";
-            gameOverButtonText.text = "Finish the game";
+            gameOverButtonText.text = "Leave game";
         }
     }
 }
