@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     bool isMobile = false;
 
+    [SerializeField] GameObject slime;
+    [SerializeField] List<Material> materials;
+
     public void Awake()
     {
 
@@ -87,6 +90,24 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         characterController.detectCollisions = false;   //Ya lo detecta el collider propio
         ChangeItem(0);  //Activa la pistola de agua
+
+        int skin = (int)id.Owner.CustomProperties["slimeSkin"];
+
+        Renderer r = slime.GetComponent<Renderer>();
+        switch (skin)
+        {
+            case 0:
+                //No hace nada, skin por defecto
+                break;
+            case 1:
+                r.material = materials[0];
+                break;
+            case 2:
+                r.material = materials[1];
+                break;
+            default:
+                break;
+        }
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de stamina
         {
