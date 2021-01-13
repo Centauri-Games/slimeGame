@@ -148,6 +148,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             int index = playerNicks.IndexOf(otherPlayer.NickName);
             playerNicks.RemoveAt(index);
             playersScore.RemoveAt(index);
+
+            if(PhotonNetwork.CurrentRoom.PlayerCount <= 1)
+            {
+                EndGame();
+            }
         }
     }
 
