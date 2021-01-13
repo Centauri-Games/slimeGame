@@ -61,7 +61,7 @@ public class ShowOptions : MonoBehaviourPunCallbacks
 
     public void goBackToMenu()
     {
-        GameManager.am.playMusic(0);
+        GameManager.am.playMusic(3);
         PhotonNetwork.LeaveRoom();
     }
 

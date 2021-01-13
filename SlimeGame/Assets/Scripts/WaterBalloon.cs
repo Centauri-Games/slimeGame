@@ -27,6 +27,7 @@ public class WaterBalloon : Gun
     }
     private void Start()
     {
+        GameManager.am.playSound(5, 1f);
         countdown = delay;
     }
 
@@ -69,6 +70,7 @@ public class WaterBalloon : Gun
     [PunRPC]
     void RPC_Destroy()
     {
+        GameManager.am.playSound(4, 1f);
         Destroy(gameObject);
     }
 

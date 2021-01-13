@@ -17,7 +17,7 @@ public class WaterGun : Gun
     //UI
     Rect ammoBar;
     Texture2D ammoTex;
- 
+
     void Awake()
     {
         id = GetComponent<PhotonView>();
@@ -25,7 +25,7 @@ public class WaterGun : Gun
 
         if (id.IsMine)  //Para evitar multiples instancias de la barra de municion
         {
-            ammoBar = new Rect(Screen.width / 20 +20, Screen.height * 4 / 30, Screen.width / 3, Screen.height / 50);
+            ammoBar = new Rect(Screen.width / 20 + 20, Screen.height * 4 / 30, Screen.width / 3, Screen.height / 50);
             ammoTex = new Texture2D(1, 1);
             ammoTex.SetPixel(0, 0, Color.cyan);
             ammoTex.Apply();
@@ -71,6 +71,7 @@ public class WaterGun : Gun
     {
         if (ammo > 0)
         {
+            GameManager.am.playSoundLoop(8, 1f);
             waterJet.Play();
             isShooting = true;
         }
@@ -83,12 +84,13 @@ public class WaterGun : Gun
             id.RPC("RPC_Stop", RpcTarget.All);
         }
         if (isShooting)
-        {     
+        {
             if (id.IsMine)
             {
                 ammo -= 0.2f;   //La municion la actualizan todos
                 if (ammo < 0)   //Solo el jugador que dispara indica al resto que paren de disparar
                 {
+                    GameManager.am.stopSoundLoop();
                     id.RPC("RPC_Stop", RpcTarget.All);
                 }
             }
