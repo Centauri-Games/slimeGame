@@ -47,7 +47,7 @@ public class GameMenu : MonoBehaviourPunCallbacks
         {
             button1.GetComponentInChildren<Text>().text = "1 VS. 1";
             button2.GetComponentInChildren<Text>().text = "2 VS. 2";
-            button3.GetComponentInChildren<Text>().text = "All VS. All";
+            button3.GetComponentInChildren<Text>().text = "Free for all";
             button4.GetComponentInChildren<Text>().text = "Start";
         }
     }
