@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerNicks = new List<string>();
         playersScore = new List<int>();
+        playerTeams = new List<int>();
 
         foreach (Player p in PhotonNetwork.PlayerList)
         {
