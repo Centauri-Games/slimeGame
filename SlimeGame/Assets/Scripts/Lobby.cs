@@ -32,7 +32,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Hashtable customSkinsProperties;
 
     Hashtable deathmachTrue = new Hashtable() { { "Deathmatch", true } };
-    Hashtable deathmachFalse = new Hashtable() { { "Deathmatch", false } };
+    Hashtable deathmachFalse = new Hashtable() { { "Deathmatch", false }};
     public void Start()
     {
         //Log.text += "\nServidor: " + PhotonNetwork.CloudRegion;
@@ -322,6 +322,7 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
 
             int n = Random.Range(0, 3);
+            n = 2;
             switch (n)
             {
                 case 0:
