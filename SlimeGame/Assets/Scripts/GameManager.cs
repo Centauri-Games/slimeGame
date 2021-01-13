@@ -141,11 +141,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        base.OnPlayerLeftRoom(otherPlayer);
+        if (id.IsMine)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
 
-        int index = playerNicks.IndexOf(otherPlayer.NickName);
-        playerNicks.RemoveAt(index);
-        playersScore.RemoveAt(index);
+            int index = playerNicks.IndexOf(otherPlayer.NickName);
+            playerNicks.RemoveAt(index);
+            playersScore.RemoveAt(index);
+        }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -254,8 +257,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void UpdateScore(Player killer)
     {
-        if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"] && teamBattle)  //Si no son del mismo equipo, aumenta puntuación
+        if (teamBattle)
+        {
+            if ((int)killer.CustomProperties["teamIndex"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["teamIndex"])  //Si no son del mismo equipo, aumenta puntuación
+                id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
+        }
+        else
+        {
             id.RPC("RPC_UpdateScore", RpcTarget.All, killer.NickName);
+        }
     }
 
     [PunRPC]
@@ -295,11 +305,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     {
         Hashtable h = new Hashtable();
-        for( int i = 0; i < playerNicks.Count; i++){
-            h.Add("score"+ i,""+playerNicks[i]+" : "+playersScore[i]);
+        for (int i = 0; i < playerNicks.Count; i++)
+        {
+            h.Add("score" + i, "" + playerNicks[i] + " : " + playersScore[i]);
         }
-        h.Add("numplayers",playerNicks.Count);
-        h.Add("winner",playerNicks[0]);
+        h.Add("numplayers", playerNicks.Count);
+        h.Add("winner", playerNicks[0]);
         PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         gameStarted = false;
         if (PhotonNetwork.IsMasterClient)
