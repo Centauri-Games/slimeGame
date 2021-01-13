@@ -309,6 +309,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void RPC_EndGame()
 
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Hashtable h = new Hashtable();
         for (int i = 0; i < playerNicks.Count; i++)
         {
