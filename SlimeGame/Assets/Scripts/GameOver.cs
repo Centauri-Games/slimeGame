@@ -64,6 +64,7 @@ public class GameOver : MonoBehaviourPunCallbacks
 
     public void goBackToMenu()
     {
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().playMusic(3);
         PhotonNetwork.LeaveRoom();
     }
 

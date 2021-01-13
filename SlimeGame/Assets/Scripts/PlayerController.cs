@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] GameObject slime;
     [SerializeField] List<Material> materials;
 
+
     public void Awake()
     {
 
@@ -430,20 +431,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     void RPC_Shoot()
     {
         items[itemIndex].Use();
-        /*if (itemIndex == 1)
-        {
-            plungerController.SetBool("Attacking", true);
-        }*/
     }
 
     [PunRPC]
     void RPC_End()
     {
         items[itemIndex].End();
-        /*if (itemIndex == 1)
-        {
-            plungerController.SetBool("Attacking", false);
-        }*/
     }
 
 

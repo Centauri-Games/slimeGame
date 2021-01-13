@@ -7,6 +7,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using ExitGames.Client.Photon;
 using UnityEngine.UI;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     string nick1;
 
-    
+    public static AudioManager am;
 
     //Equipos
     bool teamBattle = false;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     private void Awake()
     {
+        am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         if (instance == null)
             instance = this;
 
@@ -63,6 +65,19 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.AutomaticallySyncScene = true;
         }
         mobile = MobileChecker.isMobile();
+
+        if (SceneManager.GetActiveScene().name.Equals("SampleScene"))
+        {
+            am.playMusic(0);
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("Vestuario"))
+        {
+            am.playMusic(1);
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("Piscina"))
+        {
+            am.playMusic(2);
+        }
 
     }
 
