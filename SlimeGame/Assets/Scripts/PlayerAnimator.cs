@@ -23,7 +23,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         slimeAnimatorController.SetBool("Moving", false);
 
-        if (Input.GetButton("Run"))
+        if (Input.GetButtonDown("Run"))
         {
             slimeAnimatorController.SetBool("Moving", true);
         }
