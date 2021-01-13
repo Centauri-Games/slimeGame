@@ -16,6 +16,7 @@ public class ShowOptions : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        isPaused = false;
         if (!mobile)
         {
             Cursor.visible = true;

@@ -243,7 +243,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f61b0bd9115a9d34da9bd39913a910bd, type: 2}
   - {fileID: 2100000, guid: 39a64a7b5f2c26b40a2337216e1a0de3, type: 2}
   - {fileID: 2100000, guid: deb9ab895d96613448699fab82fac349, type: 2}
-  ammo: 0
   totalAmmo: 100
 --- !u!114 &6356115370535474902
 MonoBehaviour:
